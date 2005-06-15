@@ -1,15 +1,43 @@
 package org.rcpml.ui.internal;
 
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
 import org.rcpml.core.IRenderer;
 import org.w3c.dom.Node;
 
-public class UIRenderer implements IRenderer {
+public class UIRenderer extends SWTRenderer implements IRenderer {
+	
+	private IRenderer parentRenderer;
+	
+	UIRenderer(IRenderer parent) {
+		this.parentRenderer = parent;
+	}
 
-	public Object renderNode(Node node, Object parent) {
-		String name = node.getLocalName();
-		if("view".equals(name))
-			return new MLViewPart(node, (IRenderer) parent);
-		return null;
+	public Object renderNode(Node node, Object target) {
+		switch(node.getNodeType()) {
+		
+		case Node.TEXT_NODE:
+			Label label = new Label((Composite)target, SWT.NONE);
+			label.setText(node.getNodeValue());
+			return label;
+			
+		case Node.ELEMENT_NODE:
+			String name = node.getLocalName();
+			if("view".equals(name))
+				return new MLViewPart(node, this);
+		}
+		
+		return super.renderNode(node, target);
 	}
 	
+	Control renderPartControl(Node node, Composite parent) {
+		for(Node n = node.getFirstChild();n != null;n = n.getNextSibling()) {
+			//Object control = renderNode(n, parent);
+			//if(control == null)
+				parentRenderer.renderNode(n, parent);			
+		}
+		return null;
+	}
 }

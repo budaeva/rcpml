@@ -1,2 +1,4 @@
-<ui:view xmlns:ui="http://rcpml.org/ui">
-</ui:view>
+<view xmlns="http://rcpml.org/ui">
+  hi there <button text="Super Cool Button!"/>
+  <button text="OK"/>   <button text="Cancel"/>
+</view>

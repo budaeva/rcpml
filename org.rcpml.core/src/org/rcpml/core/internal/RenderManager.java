@@ -5,9 +5,8 @@ import java.util.Map;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.IExecutableExtensionFactory;
 import org.eclipse.core.runtime.Platform;
-import org.rcpml.core.IRenderer;
+import org.rcpml.core.IRendererFactory;
 
 public class RenderManager {
 	
@@ -15,23 +14,23 @@ public class RenderManager {
 	private final static String XMLNS_ATTR = "namespaceURI";
 	private final static String CLASS_ATTR = "class";
 
-	private static Map renderers;
+	private static Map rendererFactories;
 	
 	private static void loadRenderers() {
-		renderers = new HashMap();
+		rendererFactories = new HashMap();
 		IConfigurationElement[] conf = Platform.getExtensionRegistry().getConfigurationElementsFor(RENDERER_EXT_POINT);
 		for(int i=0;i<conf.length;i++) {
 			String ns = conf[i].getAttribute(XMLNS_ATTR);
-			renderers.put(ns, conf[i]);
+			rendererFactories.put(ns, conf[i]);
 		}		
 	}
 	
-	static IRenderer getRenderer(String xmlns) {
-		if(renderers == null)
+	static IRendererFactory getRendererFactory(String xmlns) {
+		if(rendererFactories == null)
 			loadRenderers();
-		Object r = renderers.get(xmlns);
+		Object r = rendererFactories.get(xmlns);
 		if(r == null) return null;
-		if(!(r instanceof IRenderer)) {
+		if(!(r instanceof IRendererFactory)) {
 			try {
 				r = ((IConfigurationElement)r).createExecutableExtension(CLASS_ATTR);
 			} catch(CoreException e) {
@@ -39,8 +38,8 @@ public class RenderManager {
 				e.printStackTrace();
 				return null;
 			}
-			renderers.put(xmlns, r);
+			rendererFactories.put(xmlns, r);
 		}
-		return (IRenderer) r; 
+		return (IRendererFactory) r; 
 	}
 }

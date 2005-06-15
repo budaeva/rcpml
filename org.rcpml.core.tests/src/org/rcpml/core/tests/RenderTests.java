@@ -13,6 +13,6 @@ public class RenderTests extends TestCase {
 	public void test1() throws Exception {
 		Document doc = XML.loadDocument(
 				new InputStreamReader(Utils.openScript("/scripts/render.xml")), "/script/render.xml");
-		RCPML.renderNode(doc.getFirstChild());
+		RCPML.createRenderer().renderNode(doc, null);
 	}
 }

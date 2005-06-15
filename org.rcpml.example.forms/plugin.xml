@@ -8,7 +8,7 @@
             name="Sample Category"/>
       <view
             category="org.rcpml.example.forms"
-            class="org.rcpml.core.Extension:/views/sample.xml"
+            class="org.rcpml.core.RCPMLExtension:/views/sample.xml"
             icon="icons/sample.gif"
             id="org.rcpml.example.forms.views.SampleView"
             name="Sample View"/>

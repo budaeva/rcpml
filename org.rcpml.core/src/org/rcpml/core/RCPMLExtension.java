@@ -15,12 +15,16 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.osgi.framework.Bundle;
 import org.rcpml.core.internal.CorePlugin;
-import org.rcpml.core.internal.RootRenderer;
 import org.rcpml.core.xml.XML;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-public class Extension implements IExecutableExtension,
+/**
+ * RCPML Extension
+ *   
+ * @author andrey
+ */
+public class RCPMLExtension implements IExecutableExtension,
 		IExecutableExtensionFactory {
 
 	private IConfigurationElement config;
@@ -59,8 +63,7 @@ public class Extension implements IExecutableExtension,
 
 	public Object create() throws CoreException {
 		Document doc = loadDocument();
-		Object extension = new RootRenderer().renderNode(doc.getFirstChild(),
-				null);
+		Object extension = RCPML.createRenderer().renderNode(doc, null);
 		if (extension instanceof IExecutableExtension) {
 			IExecutableExtension ee = (IExecutableExtension) extension;
 			ee.setInitializationData(config, propertyName, script);
