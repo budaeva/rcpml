@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            id="org.rcpml.example.forms"
+            name="Sample Category"/>
+      <view
+            category="org.rcpml.example.forms"
+            class="org.rcpml.core.Extension:/views/sample.xml"
+            icon="icons/sample.gif"
+            id="org.rcpml.example.forms.views.SampleView"
+            name="Sample View"/>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension targetID="org.eclipse.ui.resourcePerspective">
+         <view
+               id="org.rcpml.example.forms.views.SampleView"
+               ratio="0.5"
+               relationship="right"
+               relative="org.eclipse.ui.views.TaskList"/>
+      </perspectiveExtension>
+   </extension>
+
+</plugin>

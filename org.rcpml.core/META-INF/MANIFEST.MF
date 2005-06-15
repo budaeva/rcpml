@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: RCPML Core Plug-in
+Bundle-SymbolicName: org.rcpml.core; singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: org.rcpml.core.internal.CorePlugin
+Bundle-Vendor: xored software
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.core.runtime,
+ org.apache.xerces
+Eclipse-AutoStart: true
+Export-Package: org.rcpml.core,
+ org.rcpml.core.xml
