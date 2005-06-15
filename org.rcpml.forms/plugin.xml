@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+   <extension
+         point="org.rcpml.core.renderer">
+      <renderer
+            class="org.rcpml.forms.internal.FormsRendererFactory"
+            namespaceURI="http://rcpml.org/forms"/>
+   </extension>
+
+</plugin>

@@ -1,10 +1,12 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Forms Plug-in
-Bundle-SymbolicName: org.rcpml.forms
+Bundle-SymbolicName: org.rcpml.forms; singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui.forms,
  org.rcpml.core,
  org.eclipse.ui,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ org.rcpml.swt
+Bundle-Vendor: xored software

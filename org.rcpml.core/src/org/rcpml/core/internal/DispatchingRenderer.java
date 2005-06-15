@@ -49,6 +49,8 @@ public class DispatchingRenderer implements IRenderer {
 				return null;
 			// use parent node renderer
 			return getRenderer(node.getParentNode()).renderNode(node, target);
+		case Node.COMMENT_NODE:
+			return null;
 		}
 		
 		return getRenderer(node).renderNode(node, target);

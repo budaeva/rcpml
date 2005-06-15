@@ -1,4 +1,7 @@
 <view xmlns="http://rcpml.org/ui">
-  hi there <button text="Super Cool Button!"/>
-  <button text="OK"/>   <button text="Cancel"/>
+<!--  hi there <button text="Super Cool Button!"/>
+  <button text="OK"/>   <button text="Cancel"/> -->
+  <form xmlns="http://rcpml.org/forms" text="Hello Eclipse Forms!">
+  	<hyperlink text="Click Here."/>
+  </form>
 </view>

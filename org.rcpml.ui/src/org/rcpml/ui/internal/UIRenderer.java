@@ -5,14 +5,13 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.rcpml.core.IRenderer;
+import org.rcpml.swt.SWTRenderer;
 import org.w3c.dom.Node;
 
-public class UIRenderer extends SWTRenderer implements IRenderer {
-	
-	private IRenderer parentRenderer;
+public class UIRenderer extends SWTRenderer implements IRenderer {	
 	
 	UIRenderer(IRenderer parent) {
-		this.parentRenderer = parent;
+		super(parent);
 	}
 
 	public Object renderNode(Node node, Object target) {
@@ -33,11 +32,7 @@ public class UIRenderer extends SWTRenderer implements IRenderer {
 	}
 	
 	Control renderPartControl(Node node, Composite parent) {
-		for(Node n = node.getFirstChild();n != null;n = n.getNextSibling()) {
-			//Object control = renderNode(n, parent);
-			//if(control == null)
-				parentRenderer.renderNode(n, parent);			
-		}
+		renderNodeChildren(node, parent);
 		return null;
 	}
 }
