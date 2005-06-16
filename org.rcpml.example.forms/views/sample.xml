@@ -1,4 +1,7 @@
-<view xmlns="http://rcpml.org/ui">
+<view xmlns="http://rcpml.org/ui" xmlns:core="http://rcpml.org/core">
+ <core:script>
+ 	alert("suck my dick!");
+ </core:script>
  hi there <button text="Super Cool Button!" ondblclick="alert('fuck off')"/>
   <button text="OK"/>   <button text="Cancel"/> 
   <!-- form xmlns="http://rcpml.org/forms" text="Hello Eclipse Forms!">

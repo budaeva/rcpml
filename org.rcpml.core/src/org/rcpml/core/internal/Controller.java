@@ -7,21 +7,23 @@ import java.util.Map;
 import org.rcpml.core.IController;
 import org.rcpml.core.IRenderer;
 import org.rcpml.core.IRendererFactory;
+import org.rcpml.core.IScriptingContext;
 import org.rcpml.core.RCPMLException;
+
 import org.w3c.dom.Node;
 
 /**
  * Dispatches rendering according to node namespace URI.
  * 
- * @author andrey
- *
+ * @author Andrey Platov
  */
 public class Controller implements IController {
 	
-	private Map renderers = new HashMap();
+	private final static String CORE_RENDERER_URI = "http://rcpml.org/core";
 	
-	private IRenderer getRenderer(Node node) {
-		String xmlns = node.getNamespaceURI();
+	private Map renderers = new HashMap();
+
+	private IRenderer getRenderer(String xmlns) {
 		IRenderer renderer = (IRenderer) renderers.get(xmlns);
 		if(renderer == null) {
 			IRendererFactory factory = RenderManager.getRendererFactory(xmlns);
@@ -35,6 +37,11 @@ public class Controller implements IController {
 		}
 		return renderer;
 	}
+	
+	private IScriptingContext getScriptingContext() {
+		CoreRenderer core = (CoreRenderer) getRenderer(CORE_RENDERER_URI);
+		return core.getScriptingContext();
+	}
 
 	public Object renderNode(Node node, Object target) {
 		switch(node.getNodeType()) {
@@ -44,16 +51,21 @@ public class Controller implements IController {
 			if(node.getNodeValue().trim().length() == 0) 
 				return null;
 			// use parent node renderer
-			return getRenderer(node.getParentNode()).renderNode(node, target);
+			Node parent = node.getParentNode();
+			return getRenderer(parent.getNamespaceURI()).renderNode(node, target);
 		case Node.COMMENT_NODE:
 			return null;
 		}
 		
-		return getRenderer(node).renderNode(node, target);
+		return getRenderer(node.getNamespaceURI()).renderNode(node, target);
+	}
+	
+	public void executeScript(String script) {
+		getScriptingContext().executeScript(script);
 	}
 
-	public void executeScript(String script) {
-		System.out.println(script);
+	public String getLanguageName() {
+		return getScriptingContext().getLanguageName();
 	}
 
 }
