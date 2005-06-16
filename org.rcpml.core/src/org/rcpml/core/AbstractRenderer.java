@@ -4,15 +4,19 @@ import org.w3c.dom.Node;
 
 public abstract class AbstractRenderer implements IRenderer {
 	
-	private IRenderer parentRenderer;
+	private IController controller;
 	
-	protected AbstractRenderer(IRenderer parent) {
-		parentRenderer = parent;
+	protected AbstractRenderer(IController controller) {
+		this.controller = controller;
+	}
+	
+	protected final IController getController() {
+		return controller;
 	}
 
 	protected final void renderNodeChildren(Node node, Object target) {
 		for(Node n = node.getFirstChild();n != null;n = n.getNextSibling()) {
-			parentRenderer.renderNode(n, target);			
+			controller.renderNode(n, target);			
 		}
 	}
 	

@@ -4,6 +4,7 @@ import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.rcpml.core.IController;
 import org.rcpml.core.IRenderer;
 import org.rcpml.core.IRendererFactory;
 import org.rcpml.core.RCPMLException;
@@ -15,7 +16,7 @@ import org.w3c.dom.Node;
  * @author andrey
  *
  */
-public class DispatchingRenderer implements IRenderer {
+public class Controller implements IController {
 	
 	private Map renderers = new HashMap();
 	
@@ -25,11 +26,6 @@ public class DispatchingRenderer implements IRenderer {
 		if(renderer == null) {
 			IRendererFactory factory = RenderManager.getRendererFactory(xmlns);
 			if (factory == null) {
-				// IStatus status = new Status(IStatus.ERROR, CorePlugin.PLUGIN_ID,
-				// CorePlugin.RENDERER_NOT_FOUND, MessageFormat.format(
-				// "Renderer not found for namespace {0}.",
-				// new Object[] { xmlns }), null);
-				// throw new CoreException(status);
 				throw new RCPMLException(MessageFormat.format(
 						"Renderer not found for namespace {0}.",
 						new Object[] { xmlns }));
@@ -54,6 +50,10 @@ public class DispatchingRenderer implements IRenderer {
 		}
 		
 		return getRenderer(node).renderNode(node, target);
+	}
+
+	public void executeScript(String script) {
+		System.out.println(script);
 	}
 
 }

@@ -1,11 +1,13 @@
 package org.rcpml.core;
 
-import org.rcpml.core.internal.DispatchingRenderer;
+import org.rcpml.core.internal.Controller;
+
+import org.w3c.dom.Document;
 
 public class RCPML {	
 	
-	public static IRenderer createRenderer() {
-		return new DispatchingRenderer();
+	public static Object renderDocument(Document document) {
+		return new Controller().renderNode(document, null);
 	}
 	
 }

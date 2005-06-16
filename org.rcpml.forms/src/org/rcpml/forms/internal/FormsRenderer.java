@@ -1,7 +1,5 @@
 package org.rcpml.forms.internal;
 
-import java.awt.GridLayout;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -9,9 +7,9 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.forms.FormColors;
 import org.eclipse.ui.forms.widgets.Form;
 import org.eclipse.ui.forms.widgets.FormToolkit;
-import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
+import org.rcpml.core.IController;
 import org.rcpml.core.IRenderer;
 import org.rcpml.swt.SWTRenderer;
 
@@ -21,8 +19,8 @@ public class FormsRenderer extends SWTRenderer implements IRenderer {
 
 	private FormToolkit toolkit;
 
-	FormsRenderer(IRenderer parent) {
-		super(parent);
+	FormsRenderer(IController controller) {
+		super(controller);
 	}
 
 	private FormToolkit getToolkit() {

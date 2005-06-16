@@ -63,7 +63,7 @@ public class RCPMLExtension implements IExecutableExtension,
 
 	public Object create() throws CoreException {
 		Document doc = loadDocument();
-		Object extension = RCPML.createRenderer().renderNode(doc, null);
+		Object extension = RCPML.renderDocument(doc);
 		if (extension instanceof IExecutableExtension) {
 			IExecutableExtension ee = (IExecutableExtension) extension;
 			ee.setInitializationData(config, propertyName, script);
