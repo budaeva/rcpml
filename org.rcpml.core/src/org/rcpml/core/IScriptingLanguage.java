@@ -2,5 +2,5 @@ package org.rcpml.core;
 
 public interface IScriptingLanguage {
 
-	IScriptingContext createContext();
+	IScriptingContext createContext(ClassLoader classLoader);
 }

@@ -9,7 +9,7 @@ import org.rcpml.core.RCPMLException;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-public class CoreRenderer extends AbstractRenderer {
+public class CoreRenderer extends AbstractRenderer implements IScriptingContext {
 	
 	private final static String TAG_SCRIPT = "script";
 
@@ -29,16 +29,26 @@ public class CoreRenderer extends AbstractRenderer {
 		if(language == null) {
 			throw new RCPMLException("unsupported language: " + langName);
 		}
-		context = language.createContext();		
+		Controller controller = (Controller) getController();
+		context = language.createContext(controller.getClassLoader());		
 	}
 	
-	IScriptingContext getScriptingContext() {
+	private void checkContext() {
 		if(context == null) {
 			createScriptingContext(DEFAULT_LANGAUGE);
 		}
-		return context;
 	}
-		
+			
+	public Object executeScript(String script) {
+		checkContext();
+		return context.executeScript(script);
+	}
+
+	public String getLanguageName() {
+		checkContext();
+		return context.getLanguageName();
+	}
+
 	public Object renderNode(Node node, Object target) {
 		String name = node.getLocalName();
 		if(TAG_SCRIPT.equals(name)) {

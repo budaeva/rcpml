@@ -22,6 +22,15 @@ public class Controller implements IController {
 	private final static String CORE_RENDERER_URI = "http://rcpml.org/core";
 	
 	private Map renderers = new HashMap();
+	private ClassLoader loader;
+	
+	public Controller(ClassLoader loader) {
+		this.loader = loader;
+	}
+	
+	ClassLoader getClassLoader() {
+		return loader;
+	}
 
 	private IRenderer getRenderer(String xmlns) {
 		IRenderer renderer = (IRenderer) renderers.get(xmlns);
@@ -39,8 +48,7 @@ public class Controller implements IController {
 	}
 	
 	private IScriptingContext getScriptingContext() {
-		CoreRenderer core = (CoreRenderer) getRenderer(CORE_RENDERER_URI);
-		return core.getScriptingContext();
+		return (IScriptingContext) getRenderer(CORE_RENDERER_URI);
 	}
 
 	public Object renderNode(Node node, Object target) {
@@ -60,8 +68,8 @@ public class Controller implements IController {
 		return getRenderer(node.getNamespaceURI()).renderNode(node, target);
 	}
 	
-	public void executeScript(String script) {
-		getScriptingContext().executeScript(script);
+	public Object executeScript(String script) {
+		return getScriptingContext().executeScript(script);
 	}
 
 	public String getLanguageName() {

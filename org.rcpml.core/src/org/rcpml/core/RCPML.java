@@ -7,7 +7,16 @@ import org.w3c.dom.Document;
 public class RCPML {	
 	
 	public static Object renderDocument(Document document) {
-		return new Controller().renderNode(document, null);
+		return renderDocument(document, null);
+	}
+
+	public static Object renderDocument(Document document, ClassLoader loader) {
+		try {
+			return new Controller(loader).renderNode(document, null);
+		} catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 }
