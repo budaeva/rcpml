@@ -30,7 +30,7 @@ public class CoreRenderer extends AbstractRenderer implements IScriptingContext 
 			throw new RCPMLException("unsupported language: " + langName);
 		}
 		Controller controller = (Controller) getController();
-		context = language.createContext(controller.getClassLoader());		
+		context = language.createContext(controller.getBundle());		
 	}
 	
 	private void checkContext() {

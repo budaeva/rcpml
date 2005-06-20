@@ -1,9 +1,18 @@
 <view xmlns="http://rcpml.org/ui" xmlns:core="http://rcpml.org/core">
- <core:script>
+
+<core:script>
  	2 + 3
- </core:script>
- hi there <button text="Super Cool Button!" ondblclick="alert('fuck off')"/>
-  <button text="OK"/>   <button text="Cancel"/> 
+function alert(message) { 
+	java.lang.System.out.println(42)
+	Packages.org.eclipse.jface.dialogs.MessageDialog.openInformation(null, 'title', message) 
+} 
+</core:script>
+
+ hi there 
+  <button text="Super Cool Button!" ondblclick="alert('fuck off')"/>
+  <button text="OK"/>   
+  <button text="Cancel"/> 
+  
   <!-- form xmlns="http://rcpml.org/forms" text="Hello Eclipse Forms!">
   	<hyperlink text="Click Here."/>
   </form -->

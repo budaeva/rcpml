@@ -32,7 +32,7 @@ public class RCPMLExtension implements IExecutableExtension,
 	private String propertyName;
 
 	private String script;
-
+	
 	private Document loadDocument() throws CoreException {
 		String bundleId = config.getDeclaringExtension().getNamespace();
 		Bundle bundle = Platform.getBundle(bundleId);
@@ -63,7 +63,9 @@ public class RCPMLExtension implements IExecutableExtension,
 
 	public Object create() throws CoreException {
 		Document doc = loadDocument();
-		Object extension = RCPML.renderDocument(doc, getClass().getClassLoader());
+		String bundleId = config.getDeclaringExtension().getNamespace();
+		Bundle bundle = Platform.getBundle(bundleId);
+		Object extension = RCPML.renderDocument(doc, bundle);
 		if (extension instanceof IExecutableExtension) {
 			IExecutableExtension ee = (IExecutableExtension) extension;
 			ee.setInitializationData(config, propertyName, script);

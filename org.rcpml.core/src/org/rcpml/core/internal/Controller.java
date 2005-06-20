@@ -4,12 +4,12 @@ import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.osgi.framework.Bundle;
 import org.rcpml.core.IController;
 import org.rcpml.core.IRenderer;
 import org.rcpml.core.IRendererFactory;
 import org.rcpml.core.IScriptingContext;
 import org.rcpml.core.RCPMLException;
-
 import org.w3c.dom.Node;
 
 /**
@@ -22,16 +22,16 @@ public class Controller implements IController {
 	private final static String CORE_RENDERER_URI = "http://rcpml.org/core";
 	
 	private Map renderers = new HashMap();
-	private ClassLoader loader;
+	private Bundle provider;
 	
-	public Controller(ClassLoader loader) {
-		this.loader = loader;
+	public Controller(Bundle provider) {
+		this.provider = provider;
 	}
 	
-	ClassLoader getClassLoader() {
-		return loader;
+	Bundle getBundle() {
+		return provider;
 	}
-
+	
 	private IRenderer getRenderer(String xmlns) {
 		IRenderer renderer = (IRenderer) renderers.get(xmlns);
 		if(renderer == null) {
