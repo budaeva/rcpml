@@ -4,13 +4,12 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
-
 import org.rcpml.core.IController;
 import org.rcpml.core.IRenderer;
-import org.rcpml.swt.SWTRenderer;
+import org.rcpml.jface.JFaceRenderer;
 import org.w3c.dom.Node;
 
-public class UIRenderer extends SWTRenderer implements IRenderer {	
+public class UIRenderer extends JFaceRenderer implements IRenderer {	
 	
 	UIRenderer(IController controller) {
 		super(controller);

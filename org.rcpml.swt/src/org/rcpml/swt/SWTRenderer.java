@@ -61,7 +61,7 @@ public class SWTRenderer extends AbstractRenderer implements IRenderer {
 	 * @param node
 	 * @return
 	 */
-	private static int getSWTStyle(Node node) {
+	protected static int getSWTStyle(Node node) {
 		return SWT.NONE;
 	}
 	

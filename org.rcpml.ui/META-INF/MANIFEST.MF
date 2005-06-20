@@ -7,4 +7,5 @@ Bundle-Localization: plugin
 Require-Bundle: org.rcpml.core,
  org.eclipse.ui,
  org.eclipse.core.runtime,
- org.rcpml.swt
+ org.rcpml.swt,
+ org.rcpml.jface
