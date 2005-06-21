@@ -21,6 +21,7 @@ import org.rcpml.core.IRenderer;
 import org.rcpml.core.RCPMLException;
 import org.rcpml.swt.SWTRenderer;
 import org.w3c.dom.Node;
+import org.w3c.dom.events.Event;
 
 public class FormsRenderer extends SWTRenderer implements IRenderer {
 
@@ -31,6 +32,11 @@ public class FormsRenderer extends SWTRenderer implements IRenderer {
 
 	FormsRenderer(IController controller) {
 		super(controller);
+	}
+	
+	void fireEvent(Node node, String eventName, Event event) {
+		getController().setEvent(event);
+		getController().executeScript(getAttribute(node, eventName));
 	}
 
 	FormToolkit getToolkit(Display display) {

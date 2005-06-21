@@ -11,6 +11,7 @@ import org.rcpml.core.IRendererFactory;
 import org.rcpml.core.IScriptingContext;
 import org.rcpml.core.RCPMLException;
 import org.w3c.dom.Node;
+import org.w3c.dom.events.Event;
 
 /**
  * Dispatches rendering according to node namespace URI.
@@ -74,6 +75,10 @@ public class Controller implements IController {
 
 	public String getLanguageName() {
 		return getScriptingContext().getLanguageName();
+	}
+
+	public void setEvent(Event event) {
+		getScriptingContext().setEvent(event);
 	}
 
 }

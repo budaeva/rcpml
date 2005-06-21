@@ -5,9 +5,9 @@ import org.rcpml.core.IController;
 import org.rcpml.core.IScriptingContext;
 import org.rcpml.core.IScriptingLanguage;
 import org.rcpml.core.RCPMLException;
-
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.events.Event;
 
 public class CoreRenderer extends AbstractRenderer implements IScriptingContext {
 	
@@ -65,6 +65,11 @@ public class CoreRenderer extends AbstractRenderer implements IScriptingContext 
 			context.executeScript(script);
 		}
 		return null;
+	}
+
+	public void setEvent(Event event) {
+		checkContext();
+		context.setEvent(event);
 	}
 
 }
