@@ -10,7 +10,6 @@ public class CSSOMRCPViewCSS extends CSSOMViewCSS {
 
 	public CSSOMRCPViewCSS(CSSEngine engine) {
 		super(engine);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

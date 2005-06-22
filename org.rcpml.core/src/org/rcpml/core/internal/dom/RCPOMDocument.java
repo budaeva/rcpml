@@ -1,7 +1,5 @@
 package org.rcpml.core.internal.dom;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.net.URL;
 import java.util.Locale;
 import java.util.MissingResourceException;
@@ -17,6 +15,7 @@ import org.apache.batik.dom.GenericEntityReference;
 import org.apache.batik.dom.GenericProcessingInstruction;
 import org.apache.batik.dom.GenericText;
 import org.apache.batik.dom.StyleSheetFactory;
+import org.apache.batik.dom.StyleSheetProcessingInstruction;
 import org.apache.batik.i18n.Localizable;
 import org.apache.batik.i18n.LocalizableSupport;
 import org.rcpml.core.internal.IRCPMLConstants;
@@ -139,7 +138,7 @@ public class RCPOMDocument extends AbstractStylableDocument implements
 	public ProcessingInstruction createProcessingInstruction(String target,
 			String data) throws DOMException {
 		if ("xml-stylesheet".equals(target)) {
-			return new RCPStyleSheetProcessingInstruction(data, this,
+			return new StyleSheetProcessingInstruction(data, this,
 					(StyleSheetFactory) getImplementation());
 		}
 		return new GenericProcessingInstruction(target, data, this);
@@ -244,16 +243,4 @@ public class RCPOMDocument extends AbstractStylableDocument implements
 		return n;
 	}
 
-	// Serialization //////////////////////////////////////////////////////
-
-	/**
-	 * Reads the object from the given stream.
-	 */
-	private void readObject(ObjectInputStream s) throws IOException,
-			ClassNotFoundException {
-		s.defaultReadObject();
-
-		localizableSupport = new LocalizableSupport(RESOURCES, getClass()
-				.getClassLoader());
-	}
 }
