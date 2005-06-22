@@ -187,7 +187,7 @@ public class RCPOMDocument extends AbstractStylableDocument implements
 	public boolean isId(Attr node) {
 		if (node.getNamespaceURI() != null)
 			return false;
-		return RCP_ID_ATTRIBUTE.equals(node.getNodeName());
+		return RCPML_ID_ATTRIBUTE.equals(node.getNodeName());
 	}
 
 	// AbstractDocument ///////////////////////////////////////////////

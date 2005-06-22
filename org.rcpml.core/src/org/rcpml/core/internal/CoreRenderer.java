@@ -15,7 +15,7 @@ public class CoreRenderer extends AbstractRenderer implements IScriptingContext 
 
 	private final static String ATTR_LANGUAGE = "language";
 	
-	private final static String DEFAULT_LANGAUGE = "javascript";
+	private final static String DEFAULT_LANGUAGE = "javascript";
 	
 	private IScriptingContext context;
 		
@@ -35,7 +35,7 @@ public class CoreRenderer extends AbstractRenderer implements IScriptingContext 
 	
 	private void checkContext() {
 		if(context == null) {
-			createScriptingContext(DEFAULT_LANGAUGE);
+			createScriptingContext(DEFAULT_LANGUAGE);
 		}
 	}
 			
@@ -54,7 +54,7 @@ public class CoreRenderer extends AbstractRenderer implements IScriptingContext 
 		if(TAG_SCRIPT.equals(name)) {
 			String langName = getAttribute(node, ATTR_LANGUAGE);
 			if(langName == null) 
-				langName = DEFAULT_LANGAUGE;
+				langName = DEFAULT_LANGUAGE;
 			if(context == null) {
 				createScriptingContext(langName);
 			} else {
