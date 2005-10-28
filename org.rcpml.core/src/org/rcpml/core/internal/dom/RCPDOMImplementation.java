@@ -27,6 +27,10 @@ import org.w3c.dom.stylesheets.StyleSheet;
 public class RCPDOMImplementation extends ExtensibleDOMImplementation implements
 		CSSStyleDeclarationFactory {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5824136402621437612L;
 	private final static RCPDOMImplementation IMPLEMENTATION = new RCPDOMImplementation();
 
 	public static DOMImplementation getDOMImplementation() {
@@ -73,6 +77,11 @@ public class RCPDOMImplementation extends ExtensibleDOMImplementation implements
 
 	public CSSStyleDeclaration createCSSStyleDeclaration() {
 		throw new InternalError("Not implemented");
+	}
+
+	public Object getFeature(String arg0, String arg1) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

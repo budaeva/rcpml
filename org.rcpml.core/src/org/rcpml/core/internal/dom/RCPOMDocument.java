@@ -22,6 +22,7 @@ import org.rcpml.core.internal.IRCPMLConstants;
 import org.w3c.dom.Attr;
 import org.w3c.dom.CDATASection;
 import org.w3c.dom.Comment;
+import org.w3c.dom.DOMConfiguration;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
@@ -32,9 +33,15 @@ import org.w3c.dom.EntityReference;
 import org.w3c.dom.Node;
 import org.w3c.dom.ProcessingInstruction;
 import org.w3c.dom.Text;
+import org.w3c.dom.UserDataHandler;
 
 public class RCPOMDocument extends AbstractStylableDocument implements
 		IRCPMLConstants {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8235129805908200359L;
 
 	/**
 	 * The url of the document.
@@ -241,6 +248,136 @@ public class RCPOMDocument extends AbstractStylableDocument implements
 				.getClassLoader());
 		sd.url = url;
 		return n;
+	}
+
+	public String getInputEncoding() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getXmlEncoding() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public boolean getXmlStandalone() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public void setXmlStandalone(boolean arg0) throws DOMException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public String getXmlVersion() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setXmlVersion(String arg0) throws DOMException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public boolean getStrictErrorChecking() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public void setStrictErrorChecking(boolean arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public String getDocumentURI() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setDocumentURI(String arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Node adoptNode(Node arg0) throws DOMException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public DOMConfiguration getDomConfig() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void normalizeDocument() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Node renameNode(Node arg0, String arg1, String arg2) throws DOMException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getBaseURI() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public short compareDocumentPosition(Node arg0) throws DOMException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public String getTextContent() throws DOMException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setTextContent(String arg0) throws DOMException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public boolean isSameNode(Node arg0) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public String lookupPrefix(String arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public boolean isDefaultNamespace(String arg0) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public String lookupNamespaceURI(String arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public boolean isEqualNode(Node arg0) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public Object getFeature(String arg0, String arg1) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Object setUserData(String arg0, Object arg1, UserDataHandler arg2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Object getUserData(String arg0) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
