@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<view xmlns="http://rcpml.org/forms">
+	<form>
+		<text>Hello, Eclipse Forms from RCPML </text>
+		<text>Hello 2, Eclipse Forms from RCPML </text>
+		<text>Hello 3, Eclipse Forms from RCPML </text>
+	</form>
+</view>

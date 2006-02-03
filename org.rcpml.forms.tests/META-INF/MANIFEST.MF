@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Tests Plug-in
+Bundle-SymbolicName: org.rcpml.forms.tests
+Bundle-Version: 1.0.0
+Bundle-Activator: org.rcpml.forms.tests.TestsPlugin
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.swt,
+ org.junit,
+ org.rcpml.core,
+ org.eclipse.ui
+Eclipse-AutoStart: true
