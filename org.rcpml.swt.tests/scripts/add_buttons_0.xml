@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<shell title="This is Test" xmlns="http://rcpml.org/swt" xmlns:core="http://rcpml.org/core">	
+	<core:script language="javascript">
+		java.lang.System.out.println("Buttons test:");
+		counter = 0;
+		removeCounter = 0;
+		function updateTitle( id ) {
+			java.lang.System.out.println( "updateTitle" );
+			e = document.getElementById( id )
+			if( e != null ) {
+				current = e.getAttribute( "title" )
+				e.setAttribute( "title", current + "@" )
+			}			
+		}
+		function addButton() {
+			java.lang.System.out.println( "add click" );			
+			root = document.getElementById( "buttons" )
+			button = document.createElementNS( "http://rcpml.org/swt", "button" );
+			button.setAttribute( "title", "This is added button:" + counter );
+			button.setAttribute( "id", "button" + counter );
+			button.setAttribute( "onclick", "updateTitle( 'button" + counter + "');" );
+			root.appendChild(button);
+			counter++;
+		}
+		function removeButton() {
+			java.lang.System.out.println( "remove click" );
+			root = document.getElementById( "buttons" )
+			button = document.getElementById( "button" + removeCounter )			
+			if( button != null ) {	
+				root.removeChild(button);
+				removeCounter++;
+			}
+		}
+	</core:script>
+	<composite style="layout:grid;layout-columns:2;">
+		<button title="addButton" onclick="addButton();"/>
+		<button title="removeButton" onclick="removeButton();"/>
+	</composite>
+	<composite id="buttons" style="layout:grid;layout-columns:5;">
+	</composite>
+</shell>
