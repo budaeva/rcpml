@@ -32,10 +32,10 @@
 			}
 		}
 	</core:script>
-	<composite style="layout:grid;layout-columns:2;">
+	<composite style="rcpml-layout:grid;rcpml-layout-columns:2;">
 		<button title="addButton" onclick="addButton();"/>
 		<button title="removeButton" onclick="removeButton();"/>
 	</composite>
-	<composite id="buttons" style="layout:grid;layout-columns:5;">
+	<composite id="buttons" style="rcpml-layout:grid;rcpml-layout-columns:5;">
 	</composite>
 </shell>
