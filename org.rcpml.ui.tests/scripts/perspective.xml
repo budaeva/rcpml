@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<perspective xmlns="http://rcpml.org/ui">
+	<view id="org.rcpml.example.forms.addremove"/>
+	<view id="org.rcpml.example.forms.sample5"/>
+</perspective>

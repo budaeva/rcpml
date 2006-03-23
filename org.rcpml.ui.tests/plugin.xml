@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+   <extension
+         id="app"
+         name="app"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run class="org.rcpml.core.RCPMLExtension">
+         	<parameter name="script" value="/scripts/application.xml"/>
+         </run>
+      </application>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="org.rcpml.core.RCPMLExtension:/scripts/perspective.xml"
+            id="org.rcpml.ui.tests.perspective"
+            name="org.rcpml.ui.tests.perspective"/>
+   </extension>
+
+</plugin>
