@@ -1,10 +1,13 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Swt Plug-in
-Bundle-SymbolicName: org.rcpml.swt
+Bundle-SymbolicName: org.rcpml.swt; singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Vendor: xored software
 Bundle-Localization: plugin
-Require-Bundle: org.eclipse.swt,
- org.rcpml.core
+Require-Bundle: org.rcpml.core,
+ org.rcpml.batik,
+ org.eclipse.swt,
+ org.eclipse.jface.databinding,
+ org.eclipse.jface
 Export-Package: org.rcpml.swt

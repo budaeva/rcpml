@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+   <extension
+         id="org.rcpml.swt"
+         name="SWT RCPML namespace"
+         point="org.rcpml.core.namespace">
+      <namespace xmlNS="http://rcpml.org/swt">
+         <tag
+               class="org.rcpml.swt.internal.tags.ButtonTagFactory"
+               name="button"/>
+         <tag
+               class="org.rcpml.swt.internal.tags.CheckTagFactory"
+               name="checkbox"/>
+         <tag
+               class="org.rcpml.swt.internal.tags.LabelTagFactory"
+               name="label"/>
+         <tag
+               class="org.rcpml.swt.internal.tags.ShellTagBuilder"
+               name="shell"/>
+         <tag
+               class="org.rcpml.swt.internal.tags.CompositeTagFactory"
+               name="composite"/>
+         <tag
+               class="org.rcpml.swt.internal.tags.TextTagFactory"
+               name="text"/>
+      </namespace>
+   </extension>
+
+</plugin>

@@ -2,10 +2,20 @@
 <?eclipse version="3.0"?>
 <plugin>
    <extension
-         point="org.rcpml.core.renderer">
-      <renderer
-            class="org.rcpml.ui.internal.UIRendererFactory"
-            namespaceURI="http://rcpml.org/ui"/>
+         id="org.rcpml.ui"
+         name="UI Namespace"
+         point="org.rcpml.core.namespace">
+      <namespace xmlNS="http://rcpml.org/ui">
+         <tag
+               class="org.rcpml.ui.internal.ViewTagFactory"
+               name="view"/>
+         <tag
+               class="org.rcpml.ui.internal.application.ApplicationTagFactory"
+               name="application"/>
+         <tag
+               class="org.rcpml.ui.internal.application.PerspectiveTagFactory"
+               name="perspective"/>
+      </namespace>
    </extension>
 
 </plugin>
