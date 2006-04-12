@@ -8,5 +8,6 @@ Require-Bundle: org.eclipse.ui.forms,
  org.rcpml.core,
  org.eclipse.ui,
  org.eclipse.core.runtime,
- org.rcpml.swt
+ org.rcpml.swt,
+ org.rcpml.batik
 Bundle-Vendor: xored software

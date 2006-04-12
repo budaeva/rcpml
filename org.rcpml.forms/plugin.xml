@@ -2,10 +2,36 @@
 <?eclipse version="3.0"?>
 <plugin>
    <extension
-         point="org.rcpml.core.renderer">
-      <renderer
-            class="org.rcpml.forms.internal.FormsRendererFactory"
-            namespaceURI="http://rcpml.org/forms"/>
+         point="org.rcpml.core.namespace">
+      <namespace xmlNS="http://rcpml.org/forms">
+         <tag
+               class="org.rcpml.forms.internal.tags.FormTagFactory"
+               name="form"/>
+         <tag
+               class="org.rcpml.forms.internal.tags.TextTagFactory"
+               name="text"/>
+         <tag
+               class="org.rcpml.forms.internal.tags.HyperLinkTagFactory"
+               name="hyperlink"/>
+         <tag
+               class="org.rcpml.forms.internal.tags.LabelTagFactory"
+               name="label"/>
+         <tag
+               class="org.rcpml.forms.internal.tags.CheckboxTagFactory"
+               name="checkbox"/>
+         <tag
+               class="org.rcpml.forms.internal.tags.SectionTagFactory"
+               name="section"/>
+         <tag
+               class="org.rcpml.forms.internal.tags.HyperLinkTagFactory"
+               name="link"/>
+         <tag
+               class="org.rcpml.forms.internal.tags.ExpandableTagFactory"
+               name="expandable"/>
+         <tag
+               class="org.rcpml.forms.internal.tags.ButtonTagFactory"
+               name="button"/>
+      </namespace>
    </extension>
 
 </plugin>
