@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.osgi.framework.Bundle;
-import org.rcpml.core.RCPML;
 import org.rcpml.core.RCPMLException;
 import org.rcpml.core.scripting.IScriptContextManager;
 import org.rcpml.core.scripting.IScriptingContext;

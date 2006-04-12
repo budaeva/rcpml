@@ -1,9 +1,6 @@
 package org.rcpml.core;
 
-import java.util.Map;
-
 import org.osgi.framework.Bundle;
-import org.rcpml.core.bridge.AbstractBridge;
 import org.rcpml.core.bridge.IBridge;
 import org.rcpml.core.bridge.IVisitor;
 import org.rcpml.core.scripting.IScriptContextManager;

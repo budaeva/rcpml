@@ -1,8 +1,5 @@
 package org.rcpml.core;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.osgi.framework.Bundle;
 import org.rcpml.core.internal.Controller;
 import org.w3c.dom.Document;

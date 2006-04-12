@@ -15,7 +15,8 @@ import org.w3c.dom.Node;
 
 public class RCPStyleSheetProcessingInstruction extends
 		StyleSheetProcessingInstruction implements CSSStyleSheetNode {
-
+	
+	private static final long serialVersionUID = 2355600426764441433L;
 	/**
 	 * The style-sheet.
 	 */

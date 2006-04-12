@@ -1,7 +1,5 @@
 package org.rcpml.core.bridge;
 
-import java.util.Map;
-
 import org.rcpml.core.IController;
 import org.rcpml.core.RCPMLException;
 import org.w3c.dom.Node;

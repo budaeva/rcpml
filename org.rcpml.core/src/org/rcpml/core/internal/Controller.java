@@ -142,7 +142,7 @@ public class Controller implements IController, IVisitor, EventListener,
 				}
 				//this.update(parent);
 			} else if (DOMNODE_REMOVED_FROM_DOCUMENT.equals(type)) {
-				Node parent = this.findExistParent(node);
+				//Node parent = this.findExistParent(node);
 				this.disposeNode(node);
 				//this.update(parent);
 			}

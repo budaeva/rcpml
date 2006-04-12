@@ -17,10 +17,10 @@ public class ScriptManager {
 
 	private final static String CLASS_ATTR = "class";
 
-	private static Map scriptingLanguages;
+	private static Map<String, Object> scriptingLanguages;
 
 	private static void loadLanguages() {
-		scriptingLanguages = new HashMap();
+		scriptingLanguages = new HashMap<String, Object>();
 		IConfigurationElement[] conf = Platform.getExtensionRegistry()
 				.getConfigurationElementsFor(SCRIPT_EXT_POINT);
 		for (int i = 0; i < conf.length; i++) {

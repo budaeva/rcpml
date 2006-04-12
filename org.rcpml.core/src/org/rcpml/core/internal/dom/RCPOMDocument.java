@@ -15,7 +15,6 @@ import org.apache.batik.dom.GenericEntityReference;
 import org.apache.batik.dom.GenericProcessingInstruction;
 import org.apache.batik.dom.GenericText;
 import org.apache.batik.dom.StyleSheetFactory;
-import org.apache.batik.dom.StyleSheetProcessingInstruction;
 import org.apache.batik.i18n.Localizable;
 import org.apache.batik.i18n.LocalizableSupport;
 import org.rcpml.core.internal.IRCPMLConstants;

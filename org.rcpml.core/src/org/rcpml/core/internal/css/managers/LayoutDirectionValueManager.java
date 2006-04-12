@@ -41,7 +41,7 @@ public class LayoutDirectionValueManager extends IdentifierManager {
 
 	@Override
 	public StringMap getIdentifiers() {
-		return this.values;
+		return values;
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class LayoutDirectionValueManager extends IdentifierManager {
 	}
 
 	public Value getDefaultValue() {
-		return this.NONE_VALUE;
+		return NONE_VALUE;
 	}
 
 }
