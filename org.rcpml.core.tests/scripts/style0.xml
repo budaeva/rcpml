@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<testcontainer xmlns="http://rcpml.org/tests" xmlns:core="http://rcpml.org/core">
+	<core:style type="text/css">
+		test {rcpml-colspan:7}
+	</core:style>
+	<test id="test0" style="rcpml-layout:grid;"/>
+	<test id="test1" style="rcpml-align:left;">
+		<test id="test0"/>
+		<test id="test1" style="rcpml-fill:both;"/>
+	</test>
+</testcontainer>

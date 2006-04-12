@@ -22,5 +22,10 @@ public class XML {
 		SAXDocumentFactory f = new SAXDocumentFactory(impl, parser);
 		return f.createDocument(documentURI, reader);
 	}
-
+	public static Document createDocument( String documentURI, String namespace, String qualifiedName ) throws IOException, SAXException  {
+		DOMImplementation impl = RCPDOMImplementation.getDOMImplementation();
+		Document document = impl.createDocument( namespace, qualifiedName, null );
+		document.setDocumentURI(documentURI);
+		return document;
+	}
 }

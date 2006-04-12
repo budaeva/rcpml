@@ -7,7 +7,13 @@ Bundle-Activator: org.rcpml.core.internal.CorePlugin
 Bundle-Vendor: xored software
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime,
- org.apache.xerces
+ org.rcpml.batik
 Eclipse-AutoStart: true
 Export-Package: org.rcpml.core,
+ org.rcpml.core.bridge,
+ org.rcpml.core.css,
+ org.rcpml.core.dom,
+ org.rcpml.core.internal;x-friends:="org.rcpml.core.tests",
+ org.rcpml.core.scripting,
+ org.rcpml.core.utils,
  org.rcpml.core.xml

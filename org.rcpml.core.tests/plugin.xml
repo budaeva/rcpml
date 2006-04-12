@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+   <extension
+         id="script"
+         name="Script Tag for Core namespace"
+         point="org.rcpml.core.namespace">
+      <namespace xmlNS="http://rcpml.org/ui2">
+         <tag
+               class="org.rcpml.core.tests.extension.FormTagBuilder"
+               name="form"/>
+         <tag
+               class="org.rcpml.core.tests.extension.ButtonTagBuilder"
+               name="button"/>
+         <tag
+               class="org.rcpml.core.tests.extension.LabelTagBuilder"
+               name="label"/>
+         <tag
+               class="org.rcpml.core.tests.extension.ShellTagBuilder"
+               name="shell"/>
+         <tag
+               class="org.rcpml.core.tests.extension.CheckTagBridge"
+               name="checkbox"/>
+      </namespace>
+      <namespace xmlNS="http://rcpml.org/tests">
+         <tag
+               class="org.rcpml.core.tests.extension.tests.TestContainerFactory"
+               name="testcontainer"/>
+         <tag
+               class="org.rcpml.core.tests.extension.tests.TestTagFactory"
+               name="test"/>
+      </namespace>
+   </extension>
+
+</plugin>

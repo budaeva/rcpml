@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<testcontainer xmlns="http://rcpml.org/tests" xmlns:core="http://rcpml.org/core">
+	<testmodel id="test_model_0">
+		<person>
+			<firstname>MyName FirstName</firstname>
+			<lastname>MyName0 lastName</lastname>
+		</person>
+		<person>
+			<firstname>MyName FirstName</firstname>
+			<lastname>MyName0 lastName</lastname>
+		</person>
+		<person>
+			<firstname>MyName FirstName</firstname>
+			<lastname>MyName0 lastName</lastname>
+		</person>
+		<person>
+			<firstname>MyName FirstName</firstname>
+			<lastname>MyName0 lastName</lastname>
+		</person>
+	</testmodel>
+	<testform>
+		<form>
+			<listitem xpath="model:/test_model_0/person/*">
+				<composite>
+					<label>First Name:</label><edit xpath="/firstname"></edit>
+					<label>Last Name:</label><edit xpath="/lastname"></edit>
+				</composite>
+			</listitem>
+		</form>
+	</testform>
+</testcontainer>

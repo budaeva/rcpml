@@ -7,10 +7,12 @@ import org.apache.batik.css.engine.CSSEngine;
 import org.apache.batik.css.engine.value.ShorthandManager;
 import org.apache.batik.css.engine.value.ValueManager;
 import org.apache.batik.css.parser.ExtendedParser;
+import org.apache.batik.dom.AbstractDocument;
 import org.apache.batik.dom.AbstractStylableDocument;
 import org.apache.batik.dom.ExtensibleDOMImplementation;
 import org.apache.batik.dom.GenericDocumentType;
 import org.apache.batik.dom.util.CSSStyleDeclarationFactory;
+import org.apache.batik.dom.util.DOMUtilities;
 import org.apache.batik.dom.util.HashTable;
 import org.rcpml.core.internal.css.RCPCSSEngine;
 import org.rcpml.core.internal.css.dom.CSSOMRCPViewCSS;
@@ -18,6 +20,7 @@ import org.w3c.dom.DOMException;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentType;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.css.CSSStyleDeclaration;
 import org.w3c.dom.css.CSSStyleSheet;
@@ -32,9 +35,16 @@ public class RCPDOMImplementation extends ExtensibleDOMImplementation implements
 	 */
 	private static final long serialVersionUID = -5824136402621437612L;
 	private final static RCPDOMImplementation IMPLEMENTATION = new RCPDOMImplementation();
+	private static final Object RCPML_CORE_NAMESPACE = "http://rcpml.org/core";
+	private static final Object RCPML_CORE_STYLE_ELEMENT_NAME = "style";
 
 	public static DOMImplementation getDOMImplementation() {
 		return IMPLEMENTATION;
+	}
+	private RCPDOMImplementation() {
+		super();
+		//registerFeature("CSS",            "2.0");
+        registerFeature("StyleSheets",    "2.0");
 	}
 
 	public CSSEngine createCSSEngine(AbstractStylableDocument doc,
@@ -65,6 +75,25 @@ public class RCPDOMImplementation extends ExtensibleDOMImplementation implements
 					qualifiedName));
 		return result;
 	}
+	
+    /**
+     * Implements the behavior of Document.createElementNS() for this
+     * DOM implementation.
+     */
+    public Element createElementNS(AbstractDocument document,
+                                   String           namespaceURI,
+                                   String           qualifiedName) {
+        
+    	if( RCPML_CORE_NAMESPACE.equals(namespaceURI)) {
+    		String name = DOMUtilities.getLocalName(qualifiedName);
+    		if( RCPML_CORE_STYLE_ELEMENT_NAME.equals( name ) ) {
+    			return new RCPOMStyleElement(namespaceURI, qualifiedName, document );
+    		}
+    	}
+        return new RCPOMElement( namespaceURI, qualifiedName, document );        
+
+        //return super.createElementNS(document, namespaceURI, qualifiedName);
+    }
 
 	/**
 	 * <b>DOM</b>: Implements {@link
@@ -77,11 +106,5 @@ public class RCPDOMImplementation extends ExtensibleDOMImplementation implements
 
 	public CSSStyleDeclaration createCSSStyleDeclaration() {
 		throw new InternalError("Not implemented");
-	}
-
-	public Object getFeature(String arg0, String arg1) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	}	
 }

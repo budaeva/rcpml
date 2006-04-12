@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.text.MessageFormat;
+import java.util.Map;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -31,7 +32,7 @@ public class RCPMLExtension implements IExecutableExtension,
 
 	private String propertyName;
 
-	private String script;
+	private String script;	
 	
 	private Document loadDocument() throws CoreException {
 		String bundleId = config.getDeclaringExtension().getNamespace();
@@ -77,7 +78,11 @@ public class RCPMLExtension implements IExecutableExtension,
 			String propertyName, Object data) throws CoreException {
 		this.config = config;
 		this.propertyName = propertyName;
-		script = (String) data;
+		if( data instanceof String ) {
+			script = (String) data;
+		}
+		else if( data instanceof Map ) {
+			script = (String)((Map)data).get("script");
+		}
 	}
-
 }

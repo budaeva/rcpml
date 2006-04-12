@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin>
-   <extension-point id="renderer" name="%rendererEP" schema="schema/renderer.exsd"/>
+   <extension-point id="namespace" name="RCPML Tag Namespace" schema="schema/namespace.exsd"/>
    <extension-point id="language" name="RCPML Scripting Language" schema="schema/language.exsd"/>
    <extension
-         point="org.rcpml.core.renderer">
-      <renderer
-            class="org.rcpml.core.internal.CoreRendererFactory"
-            namespaceURI="http://rcpml.org/core"/>
+         id="core"
+         name="Core namespace"
+         point="org.rcpml.core.namespace">
+      <namespace xmlNS="http://rcpml.org/core">
+         <tag
+               class="org.rcpml.core.scripting.internal.ScriptFactory"
+               name="script"/>
+         <tag
+               class="org.rcpml.core.internal.css.CSSStyleTagFactory"
+               name="style"/>
+      </namespace>
    </extension>
 
 </plugin>

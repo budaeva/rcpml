@@ -3,10 +3,5 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry sourcepath="C:/java/batik-1.6/xml-batik/sources" kind="lib" path="batik-dom.jar"/>
-	<classpathentry sourcepath="C:/java/batik-1.6/xml-batik/sources" kind="lib" path="batik-util.jar"/>
-	<classpathentry sourcepath="C:/java/batik-1.6/xml-batik/sources" kind="lib" path="batik-css.jar"/>
-	<classpathentry kind="lib" path="batik-ext.jar"/>
-	<classpathentry kind="lib" path="batik-xml.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

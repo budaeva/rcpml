@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<shell title="This is Test" xmlns="http://rcpml.org/ui2" xmlns:core="http://rcpml.org/core">
+	<core:script language="javascript">
+			java.lang.System.out.println("Scripting Cool");
+			a = 20;
+			java.lang.System.out.println( a );
+		</core:script>
+	<button title="Cool Button"/>
+	<checkbox title="Cool Checkbox"/>
+	<checkbox title="Cool Checkbox disabled" enabled="false"/>
+	<label>
+		This is Text
+	</label>
+	<core:script language="javascript">
+		java.lang.System.out.println("@out a");
+		java.lang.System.out.println( a );
+	</core:script>
+</shell>

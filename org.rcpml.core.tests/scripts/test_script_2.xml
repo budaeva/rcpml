@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<swt:shell title="This is Test" xmlns:swt="http://rcpml.org/swt" xmlns:ui="http://rcpml.org/ui" xmlns:core="http://rcpml.org/core">	
+	<core:script language="javascript">
+		java.lang.System.out.println("Buttons test:");
+		counter = 0;
+		removeCounter = 0;
+		function updateTitle( id ) {
+			java.lang.System.out.println( "updateTitle" );
+			e = document.getElementById( id )
+			if( e != null ) {
+				current = e.getAttribute( "title" )
+				e.setAttribute( "title", current + "@" )
+			}			
+		}
+		function addButton() {
+			java.lang.System.out.println( "add click" );			
+			root = document.getDocumentElement();
+			button = document.createElementNS( "http://rcpml.org/swt", "button" );
+			button.setAttribute( "title", "This is added button:" + counter );
+			button.setAttribute( "id", "button" + counter );
+			button.setAttribute( "onclick", "updateTitle( 'button" + counter + "');" );
+			root.appendChild(button);
+			counter++;
+		}
+		function removeButton() {
+			java.lang.System.out.println( "remove click" );
+			root = document.getDocumentElement();
+			button = document.getElementById( "button" + removeCounter )			
+			if( button != null ) {	
+				root.removeChild(button);
+				removeCounter++;
+			}
+		}
+	</core:script>
+	<swt:button title="addButton" onclick="addButton();"/>
+	<swt:button title="removeButton" onclick="removeButton();"/>
+</swt:shell>

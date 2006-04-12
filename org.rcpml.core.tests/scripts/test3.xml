@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<shell title="This is Test" xmlns="http://rcpml.org/ui2" xmlns:core="http://rcpml.org/core">
+	<core:script language="javascript">
+			java.lang.System.out.println("Scripting Cool");
+			a = 20;
+			java.lang.System.out.println( a );
+		</core:script>
+	<button title="Cool Button"/>
+	<checkbox title="Cool Checkbox"/>
+	<checkbox title="Cool Checkbox disabled" enabled="false"/>
+	<label>
+		This is Text
+	</label>
+	<core:script language="javascript">
+		java.lang.System.out.println("@out a");
+		java.lang.System.out.println( a );
+	</core:script>
+	<svg xmlns="http://www.w3.org/2000/svg" version="1.1" baseProfile="full" width="400" height="400" >
+		<g fill-opacity="0.7" stroke="black" stroke-width="0.1cm">
+			<circle cx="6cm" cy="2cm" r="100" fill="red" transform="translate(0,50)"/>
+			<circle cx="6cm" cy="2cm" r="100" fill="blue" transform="translate(70,150)"/>
+			<circle cx="6cm" cy="2cm" r="100" fill="green" transform="translate(-70,150)"/>
+		</g>
+	</svg>	
+</shell>

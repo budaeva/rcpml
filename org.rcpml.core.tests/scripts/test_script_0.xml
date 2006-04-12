@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<testcontainer xmlns="http://rcpml.org/tests" xmlns:core="http://rcpml.org/core">
+	<test id="id20" text="This is Test"/>
+	<core:script language="javascript">
+		java.lang.System.out.println("Document modification test:");
+		java.lang.System.out.println(document);
+		e = document.getElementById("id20")
+		if( e != null ) {
+			java.lang.System.out.println( e.getAttribute("text") );
+			test2 = document.createElementNS( "http://rcpml.org/tests", "test" );
+			test2.setAttribute("test", 20);
+			e.appendChild(test2);
+		}
+	</core:script>
+</testcontainer>
