@@ -4,6 +4,7 @@
 package org.rcpml.swt;
 
 import org.eclipse.jface.internal.databinding.provisional.DataBindingContext;
+import org.eclipse.jface.internal.databinding.provisional.description.Property;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
@@ -28,7 +29,7 @@ public class SWTTextBridge extends AbstractSWTBridge {
 		
 		//todo add specs test here.
 		DataBindingContext dbc = this.getBindingContext();
-		dbc.bind(this.fText, new ElementTextObservable(getNode()), null );
+		dbc.bind( new Property( this.fText, "text" ), new ElementTextObservable(getNode()), null );
 	}	
 
 	public Object getPresentation() {
