@@ -9,7 +9,7 @@
          point="org.rcpml.core.namespace">
       <namespace xmlNS="http://rcpml.org/core">
          <tag
-               class="org.rcpml.core.scripting.internal.ScriptFactory"
+               class="org.rcpml.core.internal.scripting.ScriptFactory"
                name="script"/>
          <tag
                class="org.rcpml.core.internal.css.CSSStyleTagFactory"
