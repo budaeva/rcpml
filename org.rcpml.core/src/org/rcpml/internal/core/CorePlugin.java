@@ -1,4 +1,4 @@
-package org.rcpml.core.internal;
+package org.rcpml.internal.core;
 
 import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.BundleContext;

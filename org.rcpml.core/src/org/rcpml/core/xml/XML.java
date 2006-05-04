@@ -11,20 +11,22 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 public class XML {
-	
-	public static Document loadDocument(Reader reader, String documentURI) throws IOException, SAXException {
-		/*StandardParserConfiguration config = new StandardParserConfiguration();
-		DOMParser builder = new DOMParser(config);
-		builder.parse(new InputSource(reader));
-		return builder.getDocument();*/
+
+	public static Document loadDocument(Reader reader, String documentURI)
+			throws IOException, SAXException {
+
 		DOMImplementation impl = RCPDOMImplementation.getDOMImplementation();
 		String parser = XMLResourceDescriptor.getXMLParserClassName();
 		SAXDocumentFactory f = new SAXDocumentFactory(impl, parser);
-		return f.createDocument(documentURI, reader);
+		Document doc = f.createDocument(documentURI, reader);
+		return doc;
 	}
-	public static Document createDocument( String documentURI, String namespace, String qualifiedName ) throws IOException, SAXException  {
+
+	public static Document createDocument(String documentURI, String namespace,
+			String qualifiedName) throws IOException, SAXException {
+		
 		DOMImplementation impl = RCPDOMImplementation.getDOMImplementation();
-		Document document = impl.createDocument( namespace, qualifiedName, null );
+		Document document = impl.createDocument(namespace, qualifiedName, null);
 		document.setDocumentURI(documentURI);
 		return document;
 	}

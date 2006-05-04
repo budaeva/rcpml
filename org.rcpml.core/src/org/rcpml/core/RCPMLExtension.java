@@ -15,8 +15,8 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.osgi.framework.Bundle;
-import org.rcpml.core.internal.CorePlugin;
 import org.rcpml.core.xml.XML;
+import org.rcpml.internal.core.CorePlugin;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 

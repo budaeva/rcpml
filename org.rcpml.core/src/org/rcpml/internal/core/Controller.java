@@ -1,4 +1,4 @@
-package org.rcpml.core.internal;
+package org.rcpml.internal.core;
 
 import java.util.HashMap;
 import java.util.Map;

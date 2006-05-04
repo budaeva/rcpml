@@ -1,7 +1,7 @@
 package org.rcpml.core;
 
 import org.osgi.framework.Bundle;
-import org.rcpml.core.internal.Controller;
+import org.rcpml.internal.core.Controller;
 import org.w3c.dom.Document;
 
 public class RCPML {

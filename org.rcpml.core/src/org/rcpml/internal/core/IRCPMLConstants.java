@@ -1,4 +1,4 @@
-package org.rcpml.core.internal;
+package org.rcpml.internal.core;
 
 public interface IRCPMLConstants {
 
