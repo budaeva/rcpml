@@ -10,9 +10,7 @@ import org.rcpml.core.IController;
 import org.w3c.dom.Node;
 
 public abstract class AbstractSWTButtonBridge extends AbstractSWTBridge {
-	private Button fButton;
-	
-	private String fOnClickAction;
+	private Button fButton;	
 	
 	public static final String TITLE_ATTR = "title";	
 	private static final String ENABLED_ATTR = "enabled";
@@ -47,16 +45,16 @@ public abstract class AbstractSWTButtonBridge extends AbstractSWTBridge {
 	}
 		
 	protected void initHandlers() {
-		Button button = this.getButton();			
-		this.fOnClickAction = this.getAttribute("onclick");
-		if( this.fOnClickAction.length() > 0 ) {
-			button.addSelectionListener( new SelectionAdapter() {
-				@Override
-				public void widgetSelected(SelectionEvent arg0) {
-					getController().getScriptManager().executeScript( fOnClickAction );
-				}					
-			});
-		}
+		Button button = this.getButton();							
+		button.addSelectionListener( new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				String onClickAction = getAttribute("onclick");
+				if( onClickAction.length() > 0 ) {
+					getController().getScriptManager().executeScript( onClickAction );
+				}
+			}					
+		});		
 		button.addDisposeListener( new DisposeListener() {
 			public void widgetDisposed(DisposeEvent e) {
 				disposeDataBinding();

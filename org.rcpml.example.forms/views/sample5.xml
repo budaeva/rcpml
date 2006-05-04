@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<ui:view xmlns="http://rcpml.org/forms" xmlns:ui="http://rcpml.org/ui" xmlns:core="http://rcpml.org/core">
+	<core:style type="text/css">
+		form#myform {rcpml-layout:column; rcpml-layout-columns:3}
+		form#myform > section > text { rcpml-fill:horizontal;rcpml-grab:horizontal; }
+	</core:style>
+	
+	<form id="myform" scroll="true" title="Form with wrapped sections.">
+		<section title="Link section:0" description="An example of a section with links">
+			<link>Hyperlink text 1</link>
+			<link>Hyperlink text 2</link>			
+		</section>
+		<section title="Link section:1" description="An example of a section with links">
+			<link>Hyperlink text 1</link>
+			<link>Hyperlink text 2</link>
+		</section>
+		<section title="Sample section:2" description="An example of a section with links">
+			<link>Hyperlink text 1</link>
+			<link>Hyperlink text 2</link>
+			<link>Hyperlink text 3</link>
+		</section>
+		<section title="Sample section:3" description="An example of a section with links">
+			<link>Hyperlink text 1</link>
+			<link>Hyperlink text 2</link>
+			<link>Hyperlink text 3</link>
+			<link>Hyperlink text 4</link>
+		</section>
+		<section title="Mixed Sample section:4" description="An example of a section with links">
+			<link>Hyperlink text 1</link>
+			<link>Hyperlink text 2</link>
+			<link>Hyperlink text 3</link>
+			<link>Hyperlink text 4</link>
+			<label> This is Label</label>
+			<text> This is Edit</text>	
+		</section>
+		<section title="Mixed Sample section:5" description="An example of a section with links">
+			<link>Hyperlink text 1</link>
+			<link>Hyperlink text 2</link>
+			<link>Hyperlink text 3</link>
+			<link>Hyperlink text 4</link>
+			<label>This is Label</label>
+			<text> This is Edit</text>	
+			<link>Hyperlink text 5</link>
+		</section>
+		<section title="Link section:6" description="An example of a section with links">			
+			<link>Hyperlink text 1</link>
+			<link>Hyperlink text 2</link>			
+		</section>
+		<section title="Link section:7" description="An example of a section with links">
+			<link>Hyperlink text 1</link>
+			<link>Hyperlink text 2</link>
+		</section>
+		<section title="Sample section:8" description="An example of a section with links">
+			<link>Hyperlink text 1</link>
+			<link>Hyperlink text 2</link>
+			<link>Hyperlink text 3</link>
+		</section>
+	</form>
+</ui:view>

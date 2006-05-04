@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<ui:view title="This is Test" xmlns="http://rcpml.org/forms" xmlns:ui="http://rcpml.org/ui" xmlns:core="http://rcpml.org/core">	
+	<form id="form" scroll="true" title="Add/Remove Button test">
+		<core:script language="javascript">
+			counter = 0;
+			removeCounter = 0;
+			function updateTitle( id ) {			
+				e = document.getElementById( id )
+				if( e != null ) {
+					current = e.getAttribute( "title" )
+					e.setAttribute( "title", current + "@" )
+				}			
+			}
+			function addButton() {
+				java.lang.System.out.println("add button:" + counter);
+				root = document.getElementById( "form" );
+				if( root != null ) {
+					button = document.createElementNS( "http://rcpml.org/forms", "button" );
+					button.setAttribute( "title", "This is added button:" + counter );
+					button.setAttribute( "id", "button" + counter );
+					button.setAttribute( "onclick", "updateTitle( 'button" + counter + "');" );
+					root.appendChild(button);
+					counter++;
+				}
+			}
+			function removeButton() {
+				root = document.getElementById( "form" );
+				button = document.getElementById( "button" + removeCounter )			
+				if( button != null ) {	
+					root.removeChild(button);
+					removeCounter++;
+				}
+			}
+		</core:script>
+		<button title="addButton" onclick="addButton();"/>
+		<button title="removeButton" onclick="removeButton();"/>
+	</form>
+</ui:view>

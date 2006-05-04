@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ui:view xmlns="http://rcpml.org/forms" xmlns:ui="http://rcpml.org/ui" xmlns:core="http://rcpml.org/core">
+
+	<core:style type="text/css">	
+		label {rcpml-wrap:true;}
+		form#myform {rcpml-layout:wrap;rcpml-layout-columns:2;}
+		form#myform > label.long {rcpml-colspan:2;}
+		form#myform > text {rcpml-fill:horizontal;rcpml-grab:horizontal;}
+		form#myform > checkbox { rcpml-colspan:2; }
+		form#myform > expandable { rcpml-colspan:2; rcpml-fill:horizontal;rcpml-grab:horizontal; }
+	</core:style>
+	
+	<form id="myform" title="This is RCPML Form" scroll="true">
+		<label class="long">This is an example of a form that is much longer and will need to wrap.</label>		
+		<label>Text field label:</label>
+		<text/>
+		<checkbox title="An example of a checkbox in a form"/>		
+		<expandable title="Expandable Composite title" type="tree">
+			<label>
+				We will now create a somewhat long text so that we can use it as content for the expandable composite. Expandable composite is used to hide or show the text using the toggle control.
+			</label>
+		</expandable>
+	</form>
+</ui:view>

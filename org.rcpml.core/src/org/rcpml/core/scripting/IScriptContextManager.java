@@ -6,6 +6,8 @@ public interface IScriptContextManager {
 	 */
 	IScriptingContext getContext( String language );	
 	
+	IScriptingContext getDefaultContext( );
+	
 	/**
 	 * script is script code string. it can start from "languagename:" then 
 	 * used selected language. Instead default language are used.

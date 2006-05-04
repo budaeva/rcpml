@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<ui:view xmlns="http://rcpml.org/forms" xmlns:ui="http://rcpml.org/ui">
+	<form title="This is RCPML Form"/>
+</ui:view>
+

@@ -26,7 +26,9 @@ public class ScriptContextManager implements IScriptContextManager {
 		this.fDocument = document;
 		this.fBundle = bundle;
 	}
-
+	public IScriptingContext getDefaultContext() throws RCPMLException {
+		return getContext(this.getDefaultLanguage()); 
+	}
 	public IScriptingContext getContext(String language) throws RCPMLException {
 		
 		if( language == null ) {

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ui:view xmlns="http://rcpml.org/forms" xmlns:ui="http://rcpml.org/ui" xmlns:core="http://rcpml.org/core">
+
+	<core:style type="text/css">
+		form#myform {rcpml-layout:wrap;rcpml-layout-columns:2;}
+		form#myform > label.long {rcpml-wrap:true;rcpml-colspan:2;}
+		form#myform > text {rcpml-fill:horizontal;rcpml-grab:horizontal;}
+		form#myform > checkbox { rcpml-colspan:2; }
+	</core:style>
+	
+	<form id="myform" title="This is RCPML Form">
+		<label class="long">This is an example of a form that is much longer and will need to wrap.</label>		
+		<label>Text field label:</label>
+		<text/>
+		<checkbox title="An example of a checkbox in a form"/>		
+	</form>
+</ui:view>

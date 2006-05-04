@@ -7,5 +7,6 @@ Bundle-Activator: org.rcpml.example.forms.FormsPlugin
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.rcpml.core
+ org.rcpml.core,
+ org.eclipse.ui.forms
 Eclipse-AutoStart: true

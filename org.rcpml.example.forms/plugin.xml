@@ -5,23 +5,55 @@
          point="org.eclipse.ui.views">
       <category
             id="org.rcpml.example.forms"
-            name="Sample Category"/>
+            name="RCPML Form Examples"/>
       <view
             category="org.rcpml.example.forms"
-            class="org.rcpml.core.RCPMLExtension:/views/sample.xml"
+            class="org.rcpml.core.RCPMLExtension:/views/sample0.xml"
             icon="icons/sample.gif"
-            id="org.rcpml.example.forms.views.SampleView"
-            name="Sample View"/>
-   </extension>
-   <extension
-         point="org.eclipse.ui.perspectiveExtensions">
-      <perspectiveExtension targetID="org.eclipse.ui.resourcePerspective">
-         <view
-               id="org.rcpml.example.forms.views.SampleView"
-               ratio="0.5"
-               relationship="right"
-               relative="org.eclipse.ui.views.TaskList"/>
-      </perspectiveExtension>
+            id="org.rcpml.example.forms.views.SampleView0"
+            name="RCPML Forms view 0"/>
+      <view
+            category="org.rcpml.example.forms"
+            class="org.rcpml.core.RCPMLExtension:/views/sample1.xml"
+            icon="icons/sample.gif"
+            id="org.rcpml.example.forms.views.SampleView1"
+            name="RCPML Forms view 1"/>
+      <view
+            category="org.rcpml.example.forms"
+            class="org.rcpml.core.RCPMLExtension:/views/sample2.xml"
+            icon="icons/sample.gif"
+            id="org.rcpml.example.forms.views.SampleView2"
+            name="RCPML Forms view 2"/>
+      <view
+            category="org.rcpml.example.forms"
+            class="org.rcpml.core.RCPMLExtension:/views/sample3.xml"
+            icon="icons/sample.gif"
+            id="org.rcpml.example.forms.views.SampleView3"
+            name="RCPML Forms view 3"/>
+      <view
+            category="org.rcpml.example.forms"
+            class="org.rcpml.core.RCPMLExtension:/views/sample4.xml"
+            icon="icons/sample.gif"
+            id="org.rcpml.example.forms.sample4"
+            name="RCPML Forms view 4"/>
+      <view
+            category="org.rcpml.example.forms"
+            class="org.rcpml.core.RCPMLExtension:/views/sample5.xml"
+            icon="icons/sample.gif"
+            id="org.rcpml.example.forms.sample5"
+            name="RCPML Forms view 5"/>
+      <view
+            category="org.rcpml.example.forms"
+            class="org.rcpml.core.RCPMLExtension:/views/addRemoveButtons.xml"
+            icon="icons/sample.gif"
+            id="org.rcpml.example.forms.addremove"
+            name="Button Add/Remove Test"/>
+      <view
+            category="org.rcpml.example.forms"
+            class="org.rcpml.core.RCPMLExtension:/views/sample6.xml"
+            icon="icons/sample.gif"
+            id="org.rcpml.example.forms.sample6"
+            name="RCPML Forms view 6"/>
    </extension>
 
 </plugin>
