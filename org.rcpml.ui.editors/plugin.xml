@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+   <extension
+         id="editors"
+         point="org.rcpml.core.namespace">
+      <namespace xmlNS="http://rcpml.org/ui/editors">
+         <tag
+               class="org.rcpml.ui.internal.editors.EditPartTagFactory"
+               name="editor"/>
+      </namespace>
+   </extension>
+
+</plugin>
