@@ -36,6 +36,9 @@ public class EditPartTagFactory extends AbstractBridgeFactory {
 			this.fComposite.setLayout(new FillLayout());
 			this.bridge.build();
 			fInitialized = true;
+			
+			this.bridge.getController().getScriptManager().getDefaultContext();			
+			this.bridge.executeInitScript( this );							
 		}
 
 		public boolean isInitialized() {
@@ -71,10 +74,7 @@ public class EditPartTagFactory extends AbstractBridgeFactory {
 		@Override
 		public void init(IEditorSite site, IEditorInput input) throws PartInitException {
 			setSite(site);
-			setInput(input);
-			this.bridge.getController().getScriptManager().getDefaultContext();
-															
-			this.bridge.executeInitScript( this );						
+			setInput(input);							
 		}
 
 		@Override
