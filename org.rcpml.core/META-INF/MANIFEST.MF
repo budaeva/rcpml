@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RCPML Core Plug-in
 Bundle-SymbolicName: org.rcpml.core; singleton:=true
 Bundle-Version: 1.0.0
-Bundle-Activator: org.rcpml.internal.core.CorePlugin
+Bundle-Activator: org.rcpml.core.internal.CorePlugin
 Bundle-Vendor: xored software
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime,
@@ -16,4 +16,4 @@ Export-Package: org.rcpml.core,
  org.rcpml.core.scripting,
  org.rcpml.core.utils,
  org.rcpml.core.xml,
- org.rcpml.internal.core;x-friends:="org.rcpml.core.tests"
+ org.rcpml.core.internal;x-friends:="org.rcpml.core.tests"

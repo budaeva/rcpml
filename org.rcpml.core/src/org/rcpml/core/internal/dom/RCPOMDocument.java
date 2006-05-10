@@ -17,7 +17,7 @@ import org.apache.batik.dom.GenericText;
 import org.apache.batik.dom.StyleSheetFactory;
 import org.apache.batik.i18n.Localizable;
 import org.apache.batik.i18n.LocalizableSupport;
-import org.rcpml.internal.core.IRCPMLConstants;
+import org.rcpml.core.internal.IRCPMLConstants;
 import org.w3c.dom.Attr;
 import org.w3c.dom.CDATASection;
 import org.w3c.dom.Comment;
