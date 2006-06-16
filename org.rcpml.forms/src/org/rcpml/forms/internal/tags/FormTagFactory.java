@@ -52,7 +52,10 @@ public class FormTagFactory extends AbstractBridgeFactory {
 			if( this.fSForm != null ) {
 				return this.fSForm.getBody();
 			}
-			return this.fForm.getBody();
+			if( this.fForm != null ) {
+				return this.fForm.getBody();
+			}
+			return null;
 		}
 
 		public void update() {

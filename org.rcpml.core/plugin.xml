@@ -3,6 +3,7 @@
 <plugin>
    <extension-point id="namespace" name="RCPML Tag Namespace" schema="schema/namespace.exsd"/>
    <extension-point id="language" name="RCPML Scripting Language" schema="schema/language.exsd"/>
+   <extension-point id="contentProvider" name="contentProvider" schema="schema/contentProvider.exsd"/>
    <extension
          id="core"
          name="Core namespace"

@@ -15,7 +15,9 @@ import org.rcpml.core.bridge.IBridge;
 import org.rcpml.core.bridge.IBridgeFactory;
 import org.w3c.dom.Node;
 
-public final class BridgeFactoryManager extends AbstractBridgeFactory {
+public final class BridgeFactoryManager extends AbstractBridgeFactory{
+
+	private static final String NAMESPACE = "namespace";
 
 	private final static String BRIDGEBUILDER_EXT_POINT = "org.rcpml.core.namespace";
 
@@ -27,41 +29,61 @@ public final class BridgeFactoryManager extends AbstractBridgeFactory {
 
 	private final static String NAME_ATTR = "name";
 
-	private List/*<IConfigurationElement>*/ fConfigurations = new ArrayList/*<IConfigurationElement>*/();
+	private List/* <IConfigurationElement> */fConfigurations = new ArrayList/* <IConfigurationElement> */();
 
-	private Map/*<String, IBridgeFactory>*/ fLoadedPlugins = new HashMap/*<String, IBridgeFactory>*/();	
+	private Map/* <String, IBridgeFactory> */fLoadedPlugins = new HashMap/*
+																			 * <String,
+																			 * IBridgeFactory>
+																			 */();
 
-	public BridgeFactoryManager() {
-		this.loadBuilders();
+	private Map/* < IBridgeFactory, IExtension > */factoryToExtension = new HashMap();
+
+	private static boolean VERBOSE = false;
+
+	public BridgeFactoryManager() {		
+		loadBuilders();
 	}
 
 	private void loadBuilders() {
+		if (!fConfigurations.isEmpty()) {
+			return;
+		}
+
 		IConfigurationElement[] confs = Platform.getExtensionRegistry()
 				.getConfigurationElementsFor(BRIDGEBUILDER_EXT_POINT);
+		parseExtensions(confs);
+	}
 
-		//for (IConfigurationElement configElement : confs) {
-		for( int ci = 0; ci < confs.length; ++ci ) {
-			IConfigurationElement configElement = confs[ci];
-			String ns = configElement.getAttribute(XMLNS_ATTR);
-			IConfigurationElement[] tagConfigs = configElement
-					.getChildren(TAG_CHILD_NAME);
+	private void parseExtensions(IConfigurationElement[] confs) {
+		synchronized (fConfigurations) {
+			// for (IConfigurationElement configElement : confs) {
+			for (int ci = 0; ci < confs.length; ++ci) {
+				IConfigurationElement configElement = confs[ci];
+				if (VERBOSE) {
+					String ns = configElement.getAttribute(XMLNS_ATTR);
+					IConfigurationElement[] tagConfigs = configElement
+							.getChildren(TAG_CHILD_NAME);
 
-			//for (IConfigurationElement config : tagConfigs) {
-			for( int ti = 0; ti < tagConfigs.length; ++ti ) {
-				IConfigurationElement config = tagConfigs[ti];
-				String tag = config.getAttribute(NAME_ATTR);
-				System.out
-						.println("rcpml: Found tag builder:" + ns + ":" + tag);
+					// for (IConfigurationElement config : tagConfigs) {
+					for (int ti = 0; ti < tagConfigs.length; ++ti) {
+						IConfigurationElement config = tagConfigs[ti];
+						String tag = config.getAttribute(NAME_ATTR);
+						System.out.println("rcpml: Found tag builder:" + ns
+								+ ":" + tag);
+					}
+				}
+				if (!fConfigurations.contains(configElement)) {
+					fConfigurations.add(configElement);
+				}
 			}
-			this.fConfigurations.add(configElement);
 		}
-	}	
+	}
 
 	private IBridgeFactory getBridgeBuilder(String namespace, String tagName) {
 
 		String nsTag = this.makeNSTag(namespace, tagName);
 		if (this.fLoadedPlugins.containsKey(nsTag)) {
-			return (IBridgeFactory)this.fLoadedPlugins.get(nsTag);
+			return (IBridgeFactory) this.fLoadedPlugins.get(nsTag);
 		}
 		return this.loadBuilder(namespace, tagName);
 	}
@@ -71,35 +93,42 @@ public final class BridgeFactoryManager extends AbstractBridgeFactory {
 	}
 
 	private IBridgeFactory loadBuilder(String namespace, String tagName) {
-		
-		//for (IConfigurationElement configElement : this.fConfigurations) {
-		Iterator i = this.fConfigurations.iterator();
-		while( i.hasNext()) {
-			IConfigurationElement configElement = (IConfigurationElement)i.next();
-			String xmlNS = configElement.getAttribute(XMLNS_ATTR);
-			if (xmlNS.equals(namespace)) {
-				IConfigurationElement[] tags = configElement
-						.getChildren(TAG_CHILD_NAME);
-				//for (IConfigurationElement config : tags) {
-				for( int ti = 0; ti < tags.length; ++ti ) {
-					IConfigurationElement config = tags[ti];
-					String tag = config.getAttribute(NAME_ATTR);
-					if (tag.equals(tagName)) {
-						try {
-							Object ee = config
-									.createExecutableExtension(CLASS_ATTR);
-							if (ee instanceof IBridgeFactory) {
-								IBridgeFactory builder = (IBridgeFactory) ee;
-								builder.setController(this.getController());
-								this.fLoadedPlugins.put(this.makeNSTag(xmlNS,
-										tag), builder);
-								return builder;
-							} else {
-								throw new RCPMLException(
-										"BridgeBuilder interface mismatch");
+
+		// for (IConfigurationElement configElement : this.fConfigurations) {
+		synchronized (fConfigurations) {
+			Iterator i = fConfigurations.iterator();
+			while (i.hasNext()) {
+				IConfigurationElement configElement = (IConfigurationElement) i
+						.next();
+				String xmlNS = configElement.getAttribute(XMLNS_ATTR);
+				if (xmlNS.equals(namespace)) {
+					IConfigurationElement[] tags = configElement
+							.getChildren(TAG_CHILD_NAME);
+					// for (IConfigurationElement config : tags) {
+					for (int ti = 0; ti < tags.length; ++ti) {
+						IConfigurationElement config = tags[ti];
+						String tag = config.getAttribute(NAME_ATTR);
+						if (tag.equals(tagName)) {
+							try {
+								Object ee = config
+										.createExecutableExtension(CLASS_ATTR);
+								if (ee instanceof IBridgeFactory) {
+									IBridgeFactory builder = (IBridgeFactory) ee;
+									builder.setController(this.getController());
+									this.fLoadedPlugins.put(this.makeNSTag(
+											xmlNS, tag), builder);
+
+									factoryToExtension.put(builder,
+											configElement
+													.getDeclaringExtension());
+									return builder;
+								} else {
+									throw new RCPMLException(
+											"BridgeBuilder interface mismatch");
+								}
+							} catch (CoreException coreEx) {
+								coreEx.printStackTrace();
 							}
-						} catch (CoreException coreEx) {
-							coreEx.printStackTrace();
 						}
 					}
 				}
@@ -107,7 +136,7 @@ public final class BridgeFactoryManager extends AbstractBridgeFactory {
 		}
 		throw new RCPMLException("ExtensionBridgeBuilder: unknown builder for:"
 				+ namespace + ":" + tagName);
-	}	
+	}
 
 	public IBridge createBridge(Node node) {
 		String namespace = node.getNamespaceURI();
@@ -119,9 +148,10 @@ public final class BridgeFactoryManager extends AbstractBridgeFactory {
 		IBridgeFactory bridgeBuilder = this
 				.getBridgeBuilder(namespace, tagName);
 		if (bridgeBuilder != null) {
-			IBridge bridge =  bridgeBuilder.createBridge(node);
-			if( bridge == null ) {
-				throw new RCPMLException("Created null bridge for" + namespace + ":" + tagName );
+			IBridge bridge = bridgeBuilder.createBridge(node);
+			if (bridge == null) {
+				throw new RCPMLException("Created null bridge for" + namespace
+						+ ":" + tagName);
 			}
 			return bridge;
 		}

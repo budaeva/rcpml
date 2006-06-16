@@ -3,7 +3,7 @@
 
 	<core:style type="text/css">
 		form#myform {rcpml-layout:grid;rcpml-layout-columns:2;}
-		form#myform > hyperlink {rcpml-colspan:2}
+		form#myform > hyperlink {rcpml-colspan:2;}
 		form#myform > text {rcpml-fill:horizontal;rcpml-grab:horizontal;}
 		form#myform > checkbox { rcpml-colspan:2; }
 	</core:style>

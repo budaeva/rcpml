@@ -5,8 +5,8 @@
 		form#myform > label {rcpml-wrap:true;}
 		form#myform > label.fill {rcpml-fill:horizontal;rcpml-grab:horizontal;}
 		form#myform > label.hfill {rcpml-fill:horizontal;}
-		form#myform > label.cspan {style="rcpml-colspan:2;"}
-		form#myform > label.rspan {style="rcpml-rowspan:2;"}
+		form#myform > label.cspan {rcpml-colspan:2;}
+		form#myform > label.rspan {rcpml-rowspan:2;}
 	</core:style>
 	
 	<form id="myform" title="This is RCPML Forms, Labels Test">

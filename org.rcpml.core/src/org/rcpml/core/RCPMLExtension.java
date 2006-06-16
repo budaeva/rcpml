@@ -8,6 +8,7 @@ import java.text.MessageFormat;
 import java.util.Map;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.core.runtime.IExecutableExtensionFactory;
@@ -35,7 +36,7 @@ public class RCPMLExtension implements IExecutableExtension,
 	private String script;	
 	
 	private Document loadDocument() throws CoreException {
-		String bundleId = config.getDeclaringExtension().getNamespace();
+		String bundleId = config.getDeclaringExtension().getNamespaceIdentifier();
 		Bundle bundle = Platform.getBundle(bundleId);
 		URL url = bundle.getEntry(script);
 		if (url == null) {
@@ -46,7 +47,7 @@ public class RCPMLExtension implements IExecutableExtension,
 			throw new CoreException(status);
 		}
 		try {
-			url = Platform.resolve(url);
+			url = FileLocator.resolve(url);
 			InputStream is = url.openConnection().getInputStream();
 			return XML.loadDocument(new InputStreamReader(is), script);
 		} catch (IOException ioe) {
@@ -64,7 +65,7 @@ public class RCPMLExtension implements IExecutableExtension,
 
 	public Object create() throws CoreException {
 		Document doc = loadDocument();
-		String bundleId = config.getDeclaringExtension().getNamespace();
+		String bundleId = config.getDeclaringExtension().getNamespaceIdentifier();
 		Bundle bundle = Platform.getBundle(bundleId);
 		Object extension = RCPML.renderDocument(doc, bundle);
 		if (extension instanceof IExecutableExtension) {
