@@ -2,6 +2,7 @@ package org.rcpml.core.internal;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -26,9 +27,9 @@ public final class BridgeFactoryManager extends AbstractBridgeFactory {
 
 	private final static String NAME_ATTR = "name";
 
-	private List<IConfigurationElement> fConfigurations = new ArrayList<IConfigurationElement>();
+	private List/*<IConfigurationElement>*/ fConfigurations = new ArrayList/*<IConfigurationElement>*/();
 
-	private Map<String, IBridgeFactory> fLoadedPlugins = new HashMap<String, IBridgeFactory>();	
+	private Map/*<String, IBridgeFactory>*/ fLoadedPlugins = new HashMap/*<String, IBridgeFactory>*/();	
 
 	public BridgeFactoryManager() {
 		this.loadBuilders();
@@ -38,13 +39,16 @@ public final class BridgeFactoryManager extends AbstractBridgeFactory {
 		IConfigurationElement[] confs = Platform.getExtensionRegistry()
 				.getConfigurationElementsFor(BRIDGEBUILDER_EXT_POINT);
 
-		for (IConfigurationElement configElement : confs) {
-
+		//for (IConfigurationElement configElement : confs) {
+		for( int ci = 0; ci < confs.length; ++ci ) {
+			IConfigurationElement configElement = confs[ci];
 			String ns = configElement.getAttribute(XMLNS_ATTR);
 			IConfigurationElement[] tagConfigs = configElement
 					.getChildren(TAG_CHILD_NAME);
 
-			for (IConfigurationElement config : tagConfigs) {
+			//for (IConfigurationElement config : tagConfigs) {
+			for( int ti = 0; ti < tagConfigs.length; ++ti ) {
+				IConfigurationElement config = tagConfigs[ti];
 				String tag = config.getAttribute(NAME_ATTR);
 				System.out
 						.println("rcpml: Found tag builder:" + ns + ":" + tag);
@@ -57,7 +61,7 @@ public final class BridgeFactoryManager extends AbstractBridgeFactory {
 
 		String nsTag = this.makeNSTag(namespace, tagName);
 		if (this.fLoadedPlugins.containsKey(nsTag)) {
-			return this.fLoadedPlugins.get(nsTag);
+			return (IBridgeFactory)this.fLoadedPlugins.get(nsTag);
 		}
 		return this.loadBuilder(namespace, tagName);
 	}
@@ -67,13 +71,18 @@ public final class BridgeFactoryManager extends AbstractBridgeFactory {
 	}
 
 	private IBridgeFactory loadBuilder(String namespace, String tagName) {
-		for (IConfigurationElement configElement : this.fConfigurations) {
-
+		
+		//for (IConfigurationElement configElement : this.fConfigurations) {
+		Iterator i = this.fConfigurations.iterator();
+		while( i.hasNext()) {
+			IConfigurationElement configElement = (IConfigurationElement)i.next();
 			String xmlNS = configElement.getAttribute(XMLNS_ATTR);
 			if (xmlNS.equals(namespace)) {
 				IConfigurationElement[] tags = configElement
 						.getChildren(TAG_CHILD_NAME);
-				for (IConfigurationElement config : tags) {
+				//for (IConfigurationElement config : tags) {
+				for( int ti = 0; ti < tags.length; ++ti ) {
+					IConfigurationElement config = tags[ti];
 					String tag = config.getAttribute(NAME_ATTR);
 					if (tag.equals(tagName)) {
 						try {

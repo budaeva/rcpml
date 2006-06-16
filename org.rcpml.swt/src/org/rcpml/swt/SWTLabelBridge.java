@@ -43,7 +43,6 @@ public class SWTLabelBridge extends AbstractSWTBridge {
 	protected Label constructLabel( Composite parent, int style ) {
 		return new Label(parent, style );
 	}
-	@Override
 	public void update() {		
 		this.fLabel.setLayoutData( constructLayout(fLabel.getParent() ));
 		this.fLabel.setText( DOMUtils.getChildrenAsText(this.getNode()));

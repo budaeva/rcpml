@@ -14,7 +14,7 @@ public class ScriptContextManager implements IScriptContextManager {
 	
 	public final static String DEFAULT_LANGUAGE = "javascript";	
 	
-	private Map<String, IScriptingContext> fScriptingContexts = new HashMap<String, IScriptingContext>();
+	private Map/*<String, IScriptingContext>*/ fScriptingContexts = new HashMap/*<String, IScriptingContext>*/();
 	
 	private String fDefaultLanguage = DEFAULT_LANGUAGE;
 	
@@ -37,7 +37,7 @@ public class ScriptContextManager implements IScriptContextManager {
 		
 		// already created context.
 		if( this.fScriptingContexts.containsKey(language) ) {
-			return this.fScriptingContexts.get(language);
+			return (IScriptingContext)this.fScriptingContexts.get(language);
 		}
 		
 		IScriptingLanguage scriptingLanguage = ScriptManager.getScriptingLanguage( language );

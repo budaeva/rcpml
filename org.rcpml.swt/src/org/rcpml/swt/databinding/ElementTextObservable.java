@@ -21,7 +21,6 @@ public class ElementTextObservable extends AbstractObservableValue implements Ev
 
 		et.addEventListener( "DOMSubtreeModified", this, true);		
 	}
-	@Override
 	protected Object doGetValue() {
 		return DOMUtils.getChildrenAsText(fNode);
 	}

@@ -27,12 +27,10 @@ public class LayoutValueManager extends IdentifierManager {
 		values.put(RCPCSSConstants.LAYOUT_COLUMN_VALUE, COLUMN_VALUE );
 	}
 
-	@Override
 	public StringMap getIdentifiers() {
 		return values;
 	}
 
-	@Override
 	public String getPropertyName() {
 		return RCPCSSConstants.CSS_LAYOUT_PROPERTY;
 	}

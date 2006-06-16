@@ -25,7 +25,6 @@ public class NumberValueManager extends AbstractValueManager implements
 		this.fInherited = inherited;
 	}
 
-	@Override
 	public String getPropertyName() {
 		return this.fPropertyName;
 	}

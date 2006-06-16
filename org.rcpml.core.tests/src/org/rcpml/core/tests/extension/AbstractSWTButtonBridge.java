@@ -36,7 +36,6 @@ public abstract class AbstractSWTButtonBridge extends AbstractBridge {
 	protected Button getButton() {
 		return this.fButton;
 	}
-	@Override
 	public void update() {
 		String title = this.getTitle();
 		if( title != null ) {
@@ -47,7 +46,6 @@ public abstract class AbstractSWTButtonBridge extends AbstractBridge {
 		
 		this.fButton.update();
 	}
-	@Override
 	public void dispose() {
 		if( this.fButton != null ) {
 			this.fButton.dispose();

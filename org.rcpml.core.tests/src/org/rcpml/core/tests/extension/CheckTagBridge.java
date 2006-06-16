@@ -19,17 +19,14 @@ public class CheckTagBridge extends AbstractBridgeFactory {
 			System.out.println("Derived Checkbox created");			
 		}
 
-		@Override
 		protected int getStyle() {
 			return SWT.CHECK;
 		}
 
-		@Override
 		protected String getTitle() {
 			return this.getAttribute(TITLE_ATTR);
 		}
 
-		@Override
 		protected boolean getEnabled() {
 			String enabled = this.getAttribute(ENABLED_ATTR);
 			if( enabled.equals("false") ) {
@@ -38,7 +35,6 @@ public class CheckTagBridge extends AbstractBridgeFactory {
 			return true;
 		}
 
-		@Override
 		protected void initHandlers() {
 			// TODO Auto-generated method stub
 			

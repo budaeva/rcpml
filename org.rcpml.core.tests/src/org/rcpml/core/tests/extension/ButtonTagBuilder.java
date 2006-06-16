@@ -19,26 +19,21 @@ public class ButtonTagBuilder extends AbstractBridgeFactory {
 		protected ButtonBridge(Node node, IController controller ) {
 			super( node, controller );
 		}
-		@Override
 		protected int getStyle() {
 			return SWT.PUSH;
 		}
 
-		@Override
 		protected String getTitle() {
 			return this.getAttribute(TITLE_ATTR);
 		}
-		@Override
 		protected boolean getEnabled() {			
 			return true;
 		}
-		@Override
 		protected void initHandlers() {
 			Button button = this.getButton();			
 			this.fOnClickAction = this.getAttribute("onclick");
 			if( this.fOnClickAction.length() > 0 ) {
 				button.addSelectionListener( new SelectionAdapter() {
-					@Override
 					public void widgetSelected(SelectionEvent arg0) {
 						getController().getScriptManager().executeScript( fOnClickAction );
 					}					

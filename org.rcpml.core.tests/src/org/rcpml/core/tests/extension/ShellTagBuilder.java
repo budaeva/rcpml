@@ -35,7 +35,6 @@ public class ShellTagBuilder extends AbstractBridgeFactory {
 		public Object getPresentation() {
 			return this.fShell;
 		}
-		@Override
 		public void update() {
 			this.fShell.layout();
 		}

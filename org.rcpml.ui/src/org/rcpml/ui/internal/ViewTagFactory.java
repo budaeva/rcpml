@@ -38,7 +38,6 @@ public class ViewTagFactory extends AbstractBridgeFactory {
 			return fInitialized;
 		}
 
-		@Override
 		public void setFocus() {
 			this.fComposite.setFocus();
 		}
@@ -47,7 +46,6 @@ public class ViewTagFactory extends AbstractBridgeFactory {
 			return this.fComposite;
 		}
 
-		@Override
 		public void dispose() {
 			bridge.disposeBridge();
 		}
@@ -69,14 +67,12 @@ public class ViewTagFactory extends AbstractBridgeFactory {
 			return this.fViewPart;
 		}
 
-		@Override
 		public void visit(IVisitor visitor) {
 			if (this.fViewPart.isInitialized()) {
 				this.visitAllChildrens(visitor);
 			}
 		}
 
-		@Override
 		public void update() {
 			Composite composite = this.fViewPart.getComposite();
 			if (composite != null) {

@@ -20,7 +20,6 @@ public class CompositeTagFactory extends AbstractBridgeFactory {
 			super(node, controller, true);
 		}
 
-		@Override
 		protected void construct(Composite parent) {			
 			this.fComposite = new Composite( parent, SWT.NULL );
 			RCPStylableElement stylable =  (RCPStylableElement)this.getNode();
@@ -34,7 +33,6 @@ public class CompositeTagFactory extends AbstractBridgeFactory {
 		}
 				
 
-		@Override
 		public void update() {					
 			this.fComposite.layout();
 		}

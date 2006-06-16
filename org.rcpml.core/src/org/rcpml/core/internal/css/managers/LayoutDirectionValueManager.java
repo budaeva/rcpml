@@ -39,12 +39,10 @@ public class LayoutDirectionValueManager extends IdentifierManager {
 		this.fPropertyName = property;
 	}
 
-	@Override
 	public StringMap getIdentifiers() {
 		return values;
 	}
 
-	@Override
 	public String getPropertyName() {
 		return this.fPropertyName;
 	}

@@ -22,7 +22,6 @@ public class SWTTextBridge extends AbstractSWTBridge {
 	protected Text createText( Composite parent ) {
 		return new Text(parent, SWT.BORDER);
 	}
-	@Override
 	protected void construct(Composite parent) {
 		this.fText = this.createText(parent);
 		update();
@@ -36,7 +35,6 @@ public class SWTTextBridge extends AbstractSWTBridge {
 		return this.fText;
 	}
 
-	@Override
 	public void update() {
 		this.fText.setLayoutData(this.constructLayout(this.fText.getParent()));
 	}

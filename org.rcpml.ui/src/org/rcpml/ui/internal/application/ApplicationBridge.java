@@ -72,7 +72,6 @@ public class ApplicationBridge extends AbstractBridge {
 	}
 
 	private class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
-		@Override
 		public String getInitialWindowPerspectiveId() {
 			return fPerspective;
 		}

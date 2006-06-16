@@ -44,7 +44,6 @@ public class ShellTagBuilder extends AbstractBridgeFactory {
 			this.construct(composite);
 		}
 
-		@Override
 		public void update() {
 			this.fShell.layout();
 			String title = this.getAttribute(TITLE_ATTR);

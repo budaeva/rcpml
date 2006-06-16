@@ -31,7 +31,6 @@ public class LayoutAlignValueManager extends IdentifierManager {
 		this.fDefaultValue = defaultValue;
 	}
 
-	@Override
 	public String getPropertyName() {
 		return this.fPropertyName;
 	}
@@ -44,7 +43,6 @@ public class LayoutAlignValueManager extends IdentifierManager {
 		return fDefaultValue;
 	}	
 
-	@Override
 	public StringMap getIdentifiers() {
 		return values;
 	}

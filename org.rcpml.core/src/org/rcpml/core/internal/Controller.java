@@ -45,7 +45,7 @@ public class Controller implements IController, IVisitor, EventListener,
 
 	private Document fDocument = null;
 
-	private Map<Node, IBridge> fNodeToBridgeMap = new HashMap<Node, IBridge>();
+	private Map/*<Node, IBridge>*/ fNodeToBridgeMap = new HashMap/*<Node, IBridge>*/();
 
 	private Bundle fBundle;
 
@@ -77,7 +77,7 @@ public class Controller implements IController, IVisitor, EventListener,
 
 	public IBridge getBridge(Node node) {
 		if (this.fNodeToBridgeMap.containsKey(node)) {
-			return this.fNodeToBridgeMap.get(node);
+			return (IBridge)this.fNodeToBridgeMap.get(node);
 		}
 		return null;
 	}

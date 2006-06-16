@@ -1,6 +1,7 @@
 package org.rcpml.ui.internal.application;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.ui.IPageLayout;
@@ -11,7 +12,7 @@ import org.w3c.dom.Node;
 
 public class PerspectiveBridge extends AbstractBridge {
 	private PerspectiveFactory fPerspectiveFactory;
-	private List< String > fShownViews = new ArrayList< String >();
+	private List/*< String >*/ fShownViews = new ArrayList/*< String >*/();
 	
 	protected PerspectiveBridge(Node node, IController controller) {
 		super(node, controller, false );
@@ -43,7 +44,10 @@ public class PerspectiveBridge extends AbstractBridge {
 			layout.setEditorAreaVisible(false);
 			layout.setFixed(false);
 			
-			for( String id: fShownViews ) {
+			//for( String id: fShownViews ) {
+			Iterator i = fShownViews.iterator();
+			while( i.hasNext() ) {
+				String id = (String)i.next();
 				layout.addStandaloneView( id, false, IPageLayout.LEFT, 0.25f, editorArea);
 			}
 		}		

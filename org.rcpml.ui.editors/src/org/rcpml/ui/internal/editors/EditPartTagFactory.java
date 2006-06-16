@@ -45,7 +45,6 @@ public class EditPartTagFactory extends AbstractBridgeFactory {
 			return fInitialized;
 		}
 
-		@Override
 		public void setFocus() {
 			this.fComposite.setFocus();
 		}
@@ -54,36 +53,30 @@ public class EditPartTagFactory extends AbstractBridgeFactory {
 			return this.fComposite;
 		}
 
-		@Override
 		public void dispose() {
 			bridge.disposeBridge();
 		}
 
-		@Override
 		public void doSave(IProgressMonitor monitor) {
 			// TODO Auto-generated method stub
 			
 		}
 
-		@Override
 		public void doSaveAs() {
 			// TODO Auto-generated method stub
 			
 		}
 
-		@Override
 		public void init(IEditorSite site, IEditorInput input) throws PartInitException {
 			setSite(site);
 			setInput(input);							
 		}
 
-		@Override
 		public boolean isDirty() {
 			// TODO Auto-generated method stub
 			return false;
 		}
 
-		@Override
 		public boolean isSaveAsAllowed() {
 			// TODO Auto-generated method stub
 			return false;
@@ -118,14 +111,12 @@ public class EditPartTagFactory extends AbstractBridgeFactory {
 			return this.fEditPart;
 		}
 
-		@Override
 		public void visit(IVisitor visitor) {
 			if (this.fEditPart.isInitialized()) {
 				this.visitAllChildrens(visitor);
 			}
 		}
 
-		@Override
 		public void update() {
 			Composite composite = this.fEditPart.getComposite();
 			if (composite != null) {

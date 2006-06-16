@@ -17,12 +17,10 @@ public class TestContainerBridge extends AbstractBridge implements IBridge {
 		return fContainer;
 	}
 
-	@Override
 	public void dispose() {
 		System.out.println("TestContainer:dispose");
 	}
 
-	@Override
 	public void update() {
 		System.out.println("TestContainer:update");
 	}
