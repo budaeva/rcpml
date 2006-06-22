@@ -31,6 +31,9 @@
          <tag
                class="org.rcpml.forms.internal.tags.ButtonTagFactory"
                name="button"/>
+         <tag
+               class="org.rcpml.forms.internal.tags.CompositeTagFactory"
+               name="composite"/>
       </namespace>
    </extension>
 

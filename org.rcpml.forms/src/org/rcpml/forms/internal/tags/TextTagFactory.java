@@ -24,7 +24,7 @@ public class TextTagFactory extends AbstractBridgeFactory {
 		}
 
 		protected Text createText( Composite parent ) {
-			return this.getFormToolkit().createText(parent, "", SWT.BORDER);
+			return this.getFormToolkit().createText(parent, "", getStyle() );			
 		}
 
 		public FormToolkit getFormToolkit() {

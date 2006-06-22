@@ -11,12 +11,13 @@ import org.rcpml.core.bridge.AbstractBridgeFactory;
 import org.rcpml.core.bridge.IBridge;
 import org.rcpml.core.dom.RCPStylableElement;
 import org.rcpml.swt.ICompositeHolder;
+import org.rcpml.swt.ICompositeParentConstructor;
 import org.rcpml.swt.SWTUtils;
 import org.w3c.dom.Node;
 
 public class ShellTagBuilder extends AbstractBridgeFactory {
 
-	private static class ShellBridge extends AbstractBridge {
+	private static class ShellBridge extends AbstractBridge implements ICompositeParentConstructor {
 		private static final String TITLE_ATTR = "title";
 
 		private Shell fShell;
@@ -67,6 +68,21 @@ public class ShellTagBuilder extends AbstractBridgeFactory {
 
 		public Object getPresentation() {
 			return this.fShell;
+		}
+
+		public Object createInstance(Composite parent) {
+			construct(parent);
+			this.getController().update();
+			return getPresentation();
+		}
+
+		public Object createInstance(Object[] args) {
+			if( args.length == 1 && args[0] instanceof Composite) {
+				construct((Composite)args[0]);
+				this.getController().update();
+				return getPresentation();
+			}
+			return null;
 		}
 	}
 

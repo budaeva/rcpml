@@ -11,7 +11,7 @@ import org.w3c.dom.Node;
 public abstract class AbstractEclipseFormsBridge extends AbstractSWTBridge
 		implements ITookitHolder {
 
-	private FormToolkit fFormToolkit;
+	protected FormToolkit fFormToolkit;
 
 	protected AbstractEclipseFormsBridge(Node node, IController controller,
 			boolean visitChilds) {

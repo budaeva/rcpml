@@ -9,6 +9,7 @@ import org.apache.batik.css.engine.CSSEngineUserAgent;
 import org.apache.batik.util.ParsedURL;
 import org.osgi.framework.Bundle;
 import org.rcpml.core.IController;
+import org.rcpml.core.IRCPMLConstructor;
 import org.rcpml.core.bridge.IBridge;
 import org.rcpml.core.bridge.IVisitor;
 import org.rcpml.core.internal.dom.RCPDOMImplementation;
@@ -52,12 +53,19 @@ public class Controller implements IController, IVisitor, EventListener,
 	private IScriptContextManager fScriptContextManager;
 
 	private IBridge fRootBridge;
+
+	private boolean fWithConstructor = false;
 	
-	public Controller(Document document, Bundle bundle) {
+	public Controller(Document document, Bundle bundle ) {
+		this(document, bundle, false);
+	}
+	
+	public Controller(Document document, Bundle bundle, boolean withConstructor ) {
 		this.fDocument = document;
 		this.fBundle = bundle;
 		this.fBridgeBuilder = new BridgeFactoryManager();
 		this.fBridgeBuilder.setController(this);
+		this.fWithConstructor  = withConstructor;
 
 		this.fScriptContextManager = new ScriptContextManager(this.fDocument,
 				this.fBundle);
@@ -68,7 +76,9 @@ public class Controller implements IController, IVisitor, EventListener,
 		this.setEventHandler();
 
 		this.visit(this.fDocument);
-		this.update();
+		if( !this.fWithConstructor ) {
+			this.update();
+		}
 	}
 
 	public Document getDocument() {
@@ -110,8 +120,17 @@ public class Controller implements IController, IVisitor, EventListener,
 		if (!(this.fNodeToBridgeMap.containsKey(node))) {
 			int type = node.getNodeType();
 			if (type == Node.ELEMENT_NODE) {
-				IBridge bridge = this.createBridge(node);
-				bridge.visit(this);
+				if( this.fRootBridge == null ) {
+					IBridge bridge = this.createBridge(node);
+					if( this.fWithConstructor == true ) {
+						return;
+					}
+					bridge.visit(this);
+				}
+				else {
+					IBridge bridge = this.createBridge(node);
+					bridge.visit(this);
+				}
 			} else if (type == Node.DOCUMENT_NODE) {
 				NodeList inner = node.getChildNodes();
 				if (inner.getLength() == 0) {
@@ -342,5 +361,16 @@ public class Controller implements IController, IVisitor, EventListener,
 		if( bridge.equals(this.fRootBridge)) {
 			this.disposeNode(bridge.getNode());
 		}		
+	}
+
+	public IRCPMLConstructor getRootBridge() {
+		if( fRootBridge != null && fRootBridge instanceof IRCPMLConstructor ) {
+			return (IRCPMLConstructor)fRootBridge;
+		}
+		return null;
+	}
+
+	public boolean isWithConstructor() {
+		return this.fWithConstructor;
 	}	
 }

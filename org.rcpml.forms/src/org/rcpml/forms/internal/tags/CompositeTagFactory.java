@@ -1,43 +1,32 @@
-package org.rcpml.swt.internal.tags;
+package org.rcpml.forms.internal.tags;
 
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.forms.FormColors;
+import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.rcpml.core.IController;
 import org.rcpml.core.RCPMLException;
 import org.rcpml.core.bridge.AbstractBridgeFactory;
 import org.rcpml.core.bridge.IBridge;
 import org.rcpml.core.dom.RCPStylableElement;
-import org.rcpml.swt.AbstractSWTBridge;
+import org.rcpml.forms.internal.AbstractEclipseFormsBridge;
+import org.rcpml.forms.internal.EclipseFormsUtil;
 import org.rcpml.swt.ICompositeParentConstructor;
-import org.rcpml.swt.SWTUtils;
 import org.w3c.dom.Node;
 
 public class CompositeTagFactory extends AbstractBridgeFactory {
-	private static class CompositeBridge extends AbstractSWTBridge implements ICompositeParentConstructor {
+	private static class CompositeBridge extends AbstractEclipseFormsBridge
+			implements ICompositeParentConstructor {
 		private Composite fComposite;
+
 		protected CompositeBridge(Node node, IController controller) {
 			super(node, controller, true);
 		}
 
-		protected void construct(Composite parent) {			
-			this.fComposite = new Composite( parent, SWT.NULL );
-			RCPStylableElement stylable =  (RCPStylableElement)this.getNode();
-			this.fComposite.setLayout(SWTUtils.constructLayout( stylable ));
-			
+		protected void construct(Composite parent) {
+			fComposite = getFormToolkit().createComposite(parent);
+			this.fComposite.setLayout(EclipseFormsUtil
+					.constructLayout((RCPStylableElement) this.getNode()));
 			this.fComposite.setLayoutData(this.constructLayout(parent));
-			
-			fComposite.addDisposeListener( new DisposeListener() {
-				public void widgetDisposed(DisposeEvent e) {
-					disposeDataBinding();
-				}			
-			});
-		}
-				
-
-		public void update() {					
-			this.fComposite.layout();
 		}
 
 		public Object getPresentation() {
@@ -45,6 +34,8 @@ public class CompositeTagFactory extends AbstractBridgeFactory {
 		}
 
 		public Object createInstance(Composite parent) {
+			fFormToolkit = new FormToolkit(new FormColors(parent.getDisplay()));
+
 			construct(parent);
 			this.getController().visit(getNode());
 			return getPresentation();
@@ -57,12 +48,12 @@ public class CompositeTagFactory extends AbstractBridgeFactory {
 			return null;
 		}
 	}
+
 	public CompositeTagFactory() {
-		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public IBridge createBridge(Node node) throws RCPMLException {
-		return new CompositeBridge( node, this.getController() );
+		return new CompositeBridge(node, this.getController());
 	}
-
 }

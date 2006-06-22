@@ -56,4 +56,7 @@ public interface IController extends IVisitor {
 	void bridgeDisposed(IBridge bridge);
 	
 	void update();
+
+	IRCPMLConstructor getRootBridge();
+	boolean isWithConstructor();
 }

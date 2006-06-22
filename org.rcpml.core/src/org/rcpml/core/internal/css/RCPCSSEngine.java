@@ -8,6 +8,7 @@ import org.apache.batik.css.engine.value.ShorthandManager;
 import org.apache.batik.css.engine.value.ValueManager;
 import org.apache.batik.css.parser.ExtendedParser;
 import org.rcpml.core.css.RCPCSSConstants;
+import org.rcpml.core.internal.css.managers.BorderValueManager;
 import org.rcpml.core.internal.css.managers.LayoutAlignValueManager;
 import org.rcpml.core.internal.css.managers.LayoutDirectionValueManager;
 import org.rcpml.core.internal.css.managers.LayoutValueManager;
@@ -37,7 +38,12 @@ public class RCPCSSEngine extends CSSEngine {
 					1, false),
 			new NumberValueManager(RCPCSSConstants.CSS_LAYOUT_ROWSPAN_PROPERTY,
 					1, false),
-			new TrueFalseValueManager( RCPCSSConstants.CSS_LAYOUT_WRAP_PROPERTY ) };
+			new TrueFalseValueManager(RCPCSSConstants.CSS_LAYOUT_WRAP_PROPERTY),
+			new BorderValueManager(),
+			new NumberValueManager(RCPCSSConstants.CSS_LAYOUT_WIDTH_PROPERTY,
+					-1, false),
+			new NumberValueManager(RCPCSSConstants.CSS_LAYOUT_HEIGHT_PROPERTY,
+					-1, false) };
 
 	private final static ShorthandManager[] RCP_SHORTHAND_MANAGERS = {};
 

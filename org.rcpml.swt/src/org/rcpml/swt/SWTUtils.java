@@ -2,6 +2,7 @@ package org.rcpml.swt;
 
 import org.apache.batik.css.engine.value.Value;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -24,9 +25,13 @@ public class SWTUtils {
 			GridLayout lo = new GridLayout();
 			lo.numColumns = columns;
 			layout = lo;
+		} else if (layoutString.equals(RCPCSSConstants.LAYOUT_FILL_VALUE)) {
+			FillLayout fl = new FillLayout();
+			layout = fl;
 		}
 		return layout;
 	}
+
 	public static int getGridAlignmentH(String align, int left, int center,
 			int right) {
 
@@ -68,13 +73,21 @@ public class SWTUtils {
 		Value rowspanValue = stylable
 				.getComputedValue(RCPCSSConstants.LAYOUT_ROWSPAN_INDEX);
 
+		Value widthValue = stylable
+				.getComputedValue(RCPCSSConstants.LAYOUT_WIDTH_INDEX);
+		Value heightValue = stylable
+				.getComputedValue(RCPCSSConstants.LAYOUT_HEIGHT_INDEX);
+
 		String align = alignValue.getStringValue();
 		String alignVertical = alignVerticalValue.getStringValue();
 		String fill = fillValue.getStringValue();
-		String grab = grabValue.getStringValue();
+		String grab = grabValue.getStringValue();		
 
 		int colspan = (int) colspanValue.getFloatValue();
 		int rowspan = (int) rowspanValue.getFloatValue();
+		
+		int width = (int)widthValue.getFloatValue();
+		int height = (int)heightValue.getFloatValue();
 
 		if (parent.getLayout() instanceof GridLayout) {
 			GridData gd = new GridData();
@@ -103,6 +116,18 @@ public class SWTUtils {
 			}
 			gd.horizontalSpan = colspan;
 			gd.verticalSpan = rowspan;
+			if( width != -1 ) {
+				gd.widthHint = width;
+			}
+			else {
+				gd.widthHint = SWT.DEFAULT;
+			}
+			if( height != -1 ) {
+				gd.heightHint = height;
+			}
+			else {
+				gd.heightHint = SWT.DEFAULT;
+			}
 			return gd;
 		}
 		return null;

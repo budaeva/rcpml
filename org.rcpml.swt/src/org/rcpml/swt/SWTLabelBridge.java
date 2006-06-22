@@ -30,6 +30,10 @@ public class SWTLabelBridge extends AbstractSWTBridge {
 		
 		if( wrapValue.getStringValue().equals(RCPCSSConstants.TRUE_VALUE)) {
 			style |= SWT.WRAP;
+		}		
+		String separator = getAttribute("separator");
+		if( separator != null && separator.equals("horizontal")) {
+			style |= SWT.SEPARATOR | SWT.HORIZONTAL; 
 		}
 		this.fLabel = constructLabel( parent, style );		
 		update();
@@ -45,6 +49,6 @@ public class SWTLabelBridge extends AbstractSWTBridge {
 	}
 	public void update() {		
 		this.fLabel.setLayoutData( constructLayout(fLabel.getParent() ));
-		this.fLabel.setText( DOMUtils.getChildrenAsText(this.getNode()));
+		this.fLabel.setText( DOMUtils.getChildrenAsText(this.getNode()));		
 	}		
 }

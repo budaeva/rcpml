@@ -1,6 +1,7 @@
 package org.rcpml.core.xml;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Reader;
 
 import org.apache.batik.dom.util.SAXDocumentFactory;
@@ -22,9 +23,19 @@ public class XML {
 		return doc;
 	}
 
+	public static Document loadDocument(InputStream stream, String documentURI)
+			throws IOException, SAXException {
+
+		DOMImplementation impl = RCPDOMImplementation.getDOMImplementation();
+		String parser = XMLResourceDescriptor.getXMLParserClassName();
+		SAXDocumentFactory f = new SAXDocumentFactory(impl, parser);
+		Document doc = f.createDocument(documentURI, stream);
+		return doc;
+	}
+
 	public static Document createDocument(String documentURI, String namespace,
 			String qualifiedName) throws IOException, SAXException {
-		
+
 		DOMImplementation impl = RCPDOMImplementation.getDOMImplementation();
 		Document document = impl.createDocument(namespace, qualifiedName, null);
 		document.setDocumentURI(documentURI);
