@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Tabbed Plug-in
+Bundle-SymbolicName: org.rcpml.ui.properties.tabbed;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: org.rcpml.ui.properties.tabbed.internal.Activator
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.rcpml.core,
+ org.rcpml.swt,
+ org.rcpml.forms,
+ org.eclipse.ui.views.properties.tabbed
+Eclipse-LazyStart: true
