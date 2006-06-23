@@ -77,6 +77,8 @@ public class ExpandableTagFactory extends AbstractBridgeFactory {
 		}
 
 		public void update() {
+			this.fExpandableComposite.setLayoutData(this
+					.constructLayout(this.fExpandableComposite.getParent()));
 			this.fComposite.layout();
 			this.fExpandableComposite.layout();
 		}
