@@ -17,7 +17,7 @@ import org.w3c.dom.Node;
 
 public class SWTTextBridge extends AbstractSWTBridge {
 	private static final String EDITABLE_ID = "editable";
-	private Text fText;
+	protected Text fText;
 	
 	public SWTTextBridge(Node node, IController controller) {
 		super(node, controller, false);

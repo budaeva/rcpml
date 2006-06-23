@@ -77,10 +77,10 @@ public abstract class AbstractSWTButtonBridge extends AbstractSWTBridge {
 		return this.fButton;
 	}
 	public void update() {
-		String title = this.getTitle();
-		if( title != null ) {
-			this.fButton.setText(title);
-		}
+//		String title = this.getTitle();
+//		if( title != null ) {
+//			this.fButton.setText(title);
+//		}
 		
 		this.fButton.setEnabled(this.getEnabled());
 		
