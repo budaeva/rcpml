@@ -27,10 +27,10 @@ public class SectionTagFactory extends AbstractBridgeFactory {
 			String description = this.getAttribute(DESCRIPTION_ATTR);
 			int style = Section.TWISTIE | Section.FOCUS_TITLE | Section.EXPANDED;
 			
-			if( title.length() > 0 ) {
+			if( title != null && title.length() > 0 ) {
 				style |= Section.TITLE_BAR;
 			}
-			if( description.length() > 0 ) {
+			if( description != null && description.length() > 0 ) {
 				style |= Section.DESCRIPTION;				
 			}
 			this.fSection = this.getFormToolkit().createSection( parent, style );			

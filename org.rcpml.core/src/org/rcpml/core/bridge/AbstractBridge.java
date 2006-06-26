@@ -31,7 +31,7 @@ public abstract class AbstractBridge implements IBridge {
 		return this.fController.getBundle();
 	}
 
-	protected IBridge getParent() {
+	public IBridge getParent() {
 		Node parent = this.fNode.getParentNode();
 		return this.fController.getBridge(parent);
 	}

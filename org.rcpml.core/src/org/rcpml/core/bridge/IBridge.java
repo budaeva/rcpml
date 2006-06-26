@@ -43,4 +43,6 @@ public interface IBridge {
 	 * Update should update presentation, from node.
 	 */
 	void update();
+	
+	public IBridge getParent();
 }
