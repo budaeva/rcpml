@@ -9,7 +9,7 @@
 				if( e != null ) {
 					current = e.getAttribute( "title" )
 					e.setAttribute( "title", current + "@" )
-				}			
+				}
 			}
 			function addButton() {
 				java.lang.System.out.println("add button:" + counter);
