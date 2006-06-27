@@ -29,7 +29,7 @@ public class SelectedBundleContentProvider implements IContentProvider {
 					CorePlugin.SCRIPT_NOT_FOUND, MessageFormat
 							.format("Script {0} not found in plug-in {1}.",
 									new Object[] { script,
-											this.fBundle.getBundleId() }), null);
+											this.fBundle.getSymbolicName() }), null);
 			throw new CoreException(status);
 		}
 		try {

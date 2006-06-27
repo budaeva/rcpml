@@ -25,7 +25,7 @@ public class FormsTest extends TestCase
 		Shell rootShell = new Shell();
 		rootShell.setLayout(new FillLayout());
 		
-		Object shell = RCPML.renderDocument( doc, TestsPlugin.getDefault().getBundle() );
+		Object shell = RCPML.renderDocument( doc );
 		if( shell instanceof ViewPart ) {
 			ViewPart vp = (ViewPart)shell;
 			vp.createPartControl(rootShell);
