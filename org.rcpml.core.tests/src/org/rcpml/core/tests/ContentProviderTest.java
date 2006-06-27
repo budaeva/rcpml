@@ -26,5 +26,8 @@ public class ContentProviderTest extends TestCase {
 		assertNotNull("test3.xml must exist", is0);
 		InputStream is1 = cpm.getStream("bundle://org.rcpml.example.forms?/views/sample7.xml");
 		assertNotNull("bundle://org.rcpml.example.forms?/views/sample7.xml must exist", is1);
+		
+		InputStream is2 = cpm.getStream("file:///temp/file.xml");		
+		assertNotNull("file:///temp/file.xml", is2);
 	}
 }
