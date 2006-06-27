@@ -17,5 +17,14 @@
                name="style"/>
       </namespace>
    </extension>
+   <extension
+         point="org.rcpml.core.contentProvider">
+      <provider
+            class="org.rcpml.core.internal.contentprovider.BundleContentProvider"
+            schema="bundle"/>
+      <provider
+            class="org.rcpml.core.internal.contentprovider.LocalAbsolutePathContentProvider"
+            schema="file"/>
+   </extension>
 
 </plugin>

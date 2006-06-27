@@ -48,7 +48,7 @@ public class Controller implements IController, IVisitor, EventListener,
 
 	private Map/*<Node, IBridge>*/ fNodeToBridgeMap = new HashMap/*<Node, IBridge>*/();
 
-	private Bundle fBundle;
+	//private Bundle fBundle;
 
 	private IScriptContextManager fScriptContextManager;
 
@@ -56,19 +56,18 @@ public class Controller implements IController, IVisitor, EventListener,
 
 	private boolean fWithConstructor = false;
 	
-	public Controller(Document document, Bundle bundle ) {
-		this(document, bundle, false);
+	public Controller(Document document ) {
+		this(document, false);
 	}
 	
-	public Controller(Document document, Bundle bundle, boolean withConstructor ) {
+	public Controller(Document document, boolean withConstructor ) {
 		this.fDocument = document;
-		this.fBundle = bundle;
+		//this.fBundle = bundle;
 		this.fBridgeBuilder = new BridgeFactoryManager();
 		this.fBridgeBuilder.setController(this);
 		this.fWithConstructor  = withConstructor;
 
-		this.fScriptContextManager = new ScriptContextManager(this.fDocument,
-				this.fBundle);
+		this.fScriptContextManager = new ScriptContextManager(this.fDocument );
 		
 		// Initialize css
 		this.initializeCSS(this.fDocument);
@@ -92,9 +91,9 @@ public class Controller implements IController, IVisitor, EventListener,
 		return null;
 	}
 
-	public Bundle getBundle() {
-		return this.fBundle;
-	}
+//	public Bundle getBundle() {
+//		return this.fBundle;
+//	}
 
 	public IBridge createBridge(Node node) {
 		IBridge bridge = this.fBridgeBuilder.createBridge(node);

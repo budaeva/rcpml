@@ -54,6 +54,12 @@
             icon="icons/sample.gif"
             id="org.rcpml.example.forms.sample6"
             name="RCPML Forms view 6"/>
+	 <view
+            category="org.rcpml.example.forms"
+            class="org.rcpml.core.RCPMLExtension:/views/sample7.xml"
+            icon="icons/sample.gif"
+            id="org.rcpml.example.forms.sample7"
+            name="RCPML Forms view 7"/>            
    </extension>
 
 </plugin>

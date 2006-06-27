@@ -22,7 +22,7 @@ public class AddButtonTest extends TestCase
 		
 		Shell rootShell = null;
 		
-		Object shell = RCPML.renderDocument( doc, TestsPlugin.getDefault().getBundle() );
+		Object shell = RCPML.renderDocument( doc );
 		if( shell instanceof Shell ){
 			rootShell = (Shell)shell;			
 			rootShell.pack();

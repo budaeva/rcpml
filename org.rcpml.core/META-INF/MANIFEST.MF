@@ -11,9 +11,12 @@ Require-Bundle: org.eclipse.core.runtime,
 Eclipse-AutoStart: true
 Export-Package: org.rcpml.core,
  org.rcpml.core.bridge,
+ org.rcpml.core.contentprovider,
  org.rcpml.core.css,
+ org.rcpml.core.datasource,
  org.rcpml.core.dom,
+ org.rcpml.core.internal;x-friends:="org.rcpml.core.tests",
+ org.rcpml.core.internal.contentprovider;x-friends:="org.rcpml.core.tests",
  org.rcpml.core.scripting,
  org.rcpml.core.utils,
- org.rcpml.core.xml,
- org.rcpml.core.internal;x-friends:="org.rcpml.core.tests"
+ org.rcpml.core.xml

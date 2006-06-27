@@ -27,10 +27,6 @@ public abstract class AbstractBridge implements IBridge {
 		DOMUtils.setAttribute(this.getNode(), attrName, value );
 	}
 
-	protected Bundle getBundle() {
-		return this.fController.getBundle();
-	}
-
 	public IBridge getParent() {
 		Node parent = this.fNode.getParentNode();
 		return this.fController.getBridge(parent);

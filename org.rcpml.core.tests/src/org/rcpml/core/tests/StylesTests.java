@@ -15,7 +15,7 @@ public class StylesTests extends TestCase {
 		
 		Document doc = XML.loadDocument( new InputStreamReader(Utils.openScript("/scripts/style0.xml", TestsPlugin.getDefault().getBundle())), "/scripts/style0.xml");
 				
-		Object shell = RCPML.renderDocument( doc, TestsPlugin.getDefault().getBundle() );
+		Object shell = RCPML.renderDocument( doc );
 		
 	}
 }

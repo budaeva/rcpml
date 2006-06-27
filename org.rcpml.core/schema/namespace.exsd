@@ -17,7 +17,7 @@ if tags are * then all tags are declared.
    <element name="extension">
       <complexType>
          <sequence>
-            <element ref="namespace"/>
+            <element ref="namespace" minOccurs="0" maxOccurs="unbounded"/>
          </sequence>
          <attribute name="point" type="string" use="required">
             <annotation>
@@ -54,7 +54,7 @@ if tags are * then all tags are declared.
       </annotation>
       <complexType>
          <sequence>
-            <element ref="tag"/>
+            <element ref="tag" minOccurs="0" maxOccurs="unbounded"/>
          </sequence>
          <attribute name="xmlNS" type="string" use="required">
             <annotation>
@@ -81,7 +81,7 @@ if tags are * then all tags are declared.
                   
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java"/>
+                  <meta.attribute kind="java" basedOn="org.rcpml.core.bridge.IBridgeFactory"/>
                </appInfo>
             </annotation>
          </attribute>

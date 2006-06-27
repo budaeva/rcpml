@@ -17,13 +17,15 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.osgi.framework.Bundle;
 import org.rcpml.core.internal.CorePlugin;
+import org.rcpml.core.internal.contentprovider.ContentProviderManager;
+import org.rcpml.core.internal.contentprovider.SelectedBundleContentProvider;
 import org.rcpml.core.xml.XML;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 /**
  * RCPML Extension
- *   
+ * 
  * @author andrey
  */
 public class RCPMLExtension implements IExecutableExtension,
@@ -33,27 +35,28 @@ public class RCPMLExtension implements IExecutableExtension,
 
 	private String propertyName;
 
-	private String script;	
-	
+	private String script;
+
 	private Document loadDocument() throws CoreException {
-		String bundleId = config.getDeclaringExtension().getNamespaceIdentifier();
+		String bundleId = config.getDeclaringExtension()
+				.getNamespaceIdentifier();
 		Bundle bundle = Platform.getBundle(bundleId);
-		URL url = bundle.getEntry(script);
-		if (url == null) {
-			IStatus status = new Status(IStatus.ERROR, CorePlugin.PLUGIN_ID,
-					CorePlugin.SCRIPT_NOT_FOUND, MessageFormat.format(
-							"Script {0} not found in plug-in {1}.",
-							new Object[] {script, bundleId}), null);
-			throw new CoreException(status);
-		}
+		ContentProviderManager cpm = new ContentProviderManager();
+		cpm.setDefaultProvider(new SelectedBundleContentProvider(bundle));
 		try {
-			url = FileLocator.resolve(url);
-			InputStream is = url.openConnection().getInputStream();
+			InputStream is = cpm.getStream(script);
+			if (is == null) {
+				IStatus status = new Status(IStatus.ERROR,
+						CorePlugin.PLUGIN_ID, CorePlugin.IOEXCEPTION_ERROR,
+						"unknown io exception", null);
+				throw new CoreException(status);
+			}
 			return XML.loadDocument(new InputStreamReader(is), script);
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
+
+		} catch (IOException ioex) {
+			ioex.printStackTrace();
 			IStatus status = new Status(IStatus.ERROR, CorePlugin.PLUGIN_ID,
-					CorePlugin.IOEXCEPTION_ERROR, "io exception", ioe);
+					CorePlugin.IOEXCEPTION_ERROR, "io exception", ioex);
 			throw new CoreException(status);
 		} catch (SAXException saxe) {
 			saxe.printStackTrace();
@@ -65,9 +68,7 @@ public class RCPMLExtension implements IExecutableExtension,
 
 	public Object create() throws CoreException {
 		Document doc = loadDocument();
-		String bundleId = config.getDeclaringExtension().getNamespaceIdentifier();
-		Bundle bundle = Platform.getBundle(bundleId);
-		Object extension = RCPML.renderDocument(doc, bundle);
+		Object extension = RCPML.renderDocument(doc);
 		if (extension instanceof IExecutableExtension) {
 			IExecutableExtension ee = (IExecutableExtension) extension;
 			ee.setInitializationData(config, propertyName, script);
@@ -79,11 +80,10 @@ public class RCPMLExtension implements IExecutableExtension,
 			String propertyName, Object data) throws CoreException {
 		this.config = config;
 		this.propertyName = propertyName;
-		if( data instanceof String ) {
+		if (data instanceof String) {
 			script = (String) data;
-		}
-		else if( data instanceof Map ) {
-			script = (String)((Map)data).get("script");
+		} else if (data instanceof Map) {
+			script = (String) ((Map) data).get("script");
 		}
 	}
 }

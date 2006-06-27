@@ -20,11 +20,8 @@ public class ScriptContextManager implements IScriptContextManager {
 	
 	private Document fDocument;
 	
-	private Bundle fBundle;
-	
-	public ScriptContextManager( Document document, Bundle bundle ) {
-		this.fDocument = document;
-		this.fBundle = bundle;
+	public ScriptContextManager( Document document) {
+		this.fDocument = document;	
 	}
 	public IScriptingContext getDefaultContext() throws RCPMLException {
 		return getContext(this.getDefaultLanguage()); 
@@ -44,7 +41,7 @@ public class ScriptContextManager implements IScriptContextManager {
 		//if (language == null) {
 //			throw new RCPMLException("unsupported language: " + language );
 	//	}
-		IScriptingContext context = scriptingLanguage.createContext( this.fBundle );
+		IScriptingContext context = scriptingLanguage.createContext( );
 		
 		this.bindDefaultObjects( context );
 		

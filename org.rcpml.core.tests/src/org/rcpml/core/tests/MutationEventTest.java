@@ -60,7 +60,7 @@ public class MutationEventTest extends TestCase implements EventListener {
 	public void test03() throws Exception {
 		System.out.println("03");
 		Document doc = XML.loadDocument(new InputStreamReader(Utils.openScript("/scripts/test_script_0.xml", TestsPlugin.getDefault().getBundle())), "/scripts/test_script_0.xml");
-		Object presetation = RCPML.renderDocument( doc, TestsPlugin.getDefault().getBundle() );
+		Object presetation = RCPML.renderDocument( doc );
 		System.out.println("cool");
 	}
 

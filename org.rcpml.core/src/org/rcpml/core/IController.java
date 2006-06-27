@@ -21,7 +21,7 @@ public interface IController extends IVisitor {
 	/**
 	 * Return associated plugin boundle.
 	 */
-	Bundle getBundle();
+	//Bundle getBundle();
 	
 	/**
 	 * Return document.	

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<ui:view xmlns="http://rcpml.org/forms" xmlns:ui="http://rcpml.org/ui" xmlns:core="http://rcpml.org/core">
+	<form title="This is RCPML Form">
+		<label id="scripted"/>
+	</form>
+	<core:script language="javascript">
+		e = document.getElementById( "scripted" );
+		e.setTextContent( "Home dir for user:" + java.lang.System.getProperty("user.home"));
+	</core:script>
+</ui:view>
+
