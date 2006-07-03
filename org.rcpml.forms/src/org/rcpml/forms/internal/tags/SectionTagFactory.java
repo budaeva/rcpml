@@ -4,6 +4,7 @@ import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.forms.widgets.Section;
 import org.rcpml.core.IController;
 import org.rcpml.core.RCPMLException;
@@ -46,6 +47,17 @@ public class SectionTagFactory extends AbstractBridgeFactory {
 					disposeDataBinding();
 				}			
 			});
+		}
+		
+
+		public void update() {			
+			if( this.fSection != null ) {
+				Control client = this.fSection.getClient();
+				if( client != null && client instanceof Composite ) {
+					((Composite)client).layout();
+				}
+				this.fSection.layout();				
+			}
 		}
 
 		public Object getPresentation() {
