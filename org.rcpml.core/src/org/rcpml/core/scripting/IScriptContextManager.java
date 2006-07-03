@@ -23,4 +23,9 @@ public interface IScriptContextManager {
 	 * Return default language. 
 	 */
 	String getDefaultLanguage();
+
+	/**
+	 * Used to determine required scripting context from script.
+	 */
+	IScriptingContext getContextFrom(String script);
 }

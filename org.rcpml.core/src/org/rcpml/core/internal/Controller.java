@@ -7,7 +7,6 @@ import org.apache.batik.css.engine.CSSContext;
 import org.apache.batik.css.engine.CSSEngine;
 import org.apache.batik.css.engine.CSSEngineUserAgent;
 import org.apache.batik.util.ParsedURL;
-import org.osgi.framework.Bundle;
 import org.rcpml.core.IController;
 import org.rcpml.core.IRCPMLConstructor;
 import org.rcpml.core.bridge.IBridge;
@@ -171,6 +170,7 @@ public class Controller implements IController, IVisitor, EventListener,
 			if( DOMSUBTREE_MODIFIED.equals(type) ) {
 				Node parent = this.findExistParent(node);
 				this.update(parent);
+				//update();
 			}
 		}			
 	}	

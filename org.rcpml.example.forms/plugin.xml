@@ -60,6 +60,12 @@
             icon="icons/sample.gif"
             id="org.rcpml.example.forms.sample7"
             name="RCPML Forms view 7"/>            
+	<view
+            category="org.rcpml.example.forms"
+            class="org.rcpml.core.RCPMLExtension:/views/sample8.xml"
+            icon="icons/sample.gif"
+            id="org.rcpml.example.forms.sample8"
+            name="RCPML Forms view 8( Section add button )"/>
    </extension>
 
 </plugin>

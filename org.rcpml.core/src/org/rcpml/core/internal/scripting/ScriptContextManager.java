@@ -1,9 +1,9 @@
 package org.rcpml.core.internal.scripting;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
-import org.osgi.framework.Bundle;
 import org.rcpml.core.RCPMLException;
 import org.rcpml.core.scripting.IScriptContextManager;
 import org.rcpml.core.scripting.IScriptingContext;
@@ -54,8 +54,7 @@ public class ScriptContextManager implements IScriptContextManager {
 	}
 
 	public Object executeScript(String script) {
-		//TODO: Possible add other language scripting.
-		IScriptingContext context = this.getContext( DEFAULT_LANGUAGE );
+		IScriptingContext context = this.getContextFrom( script );
 		return context.executeScript(script);
 	}
 
@@ -66,5 +65,14 @@ public class ScriptContextManager implements IScriptContextManager {
 	public String getDefaultLanguage() {
 		return this.fDefaultLanguage;
 	}
-
+	public IScriptingContext getContextFrom(String script) {
+		Iterator i = this.fScriptingContexts.keySet().iterator();
+		while( i.hasNext() ) {
+			String language = (String)i.next();
+			if( script.startsWith(language + ":")) {
+				return getContext(language);
+			}
+		}
+		return getDefaultContext();
+	}
 }

@@ -47,6 +47,11 @@ public class CompositeTagFactory extends AbstractBridgeFactory {
 			}
 			return null;
 		}
+		public void update() {	
+			if( this.fComposite != null ) {
+				this.fComposite.layout();				
+			}
+		}
 	}
 
 	public CompositeTagFactory() {

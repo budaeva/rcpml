@@ -7,6 +7,8 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.rcpml.core.IController;
+import org.rcpml.core.scripting.IScriptContextManager;
+import org.rcpml.core.scripting.IScriptingContext;
 import org.w3c.dom.Node;
 
 public abstract class AbstractSWTButtonBridge extends AbstractSWTBridge {
@@ -50,7 +52,12 @@ public abstract class AbstractSWTButtonBridge extends AbstractSWTBridge {
 			public void widgetSelected(SelectionEvent arg0) {
 				String onClickAction = getAttribute("onclick");
 				if( onClickAction.length() > 0 ) {
-					getController().getScriptManager().executeScript( onClickAction );
+					IScriptContextManager manager = getController().getScriptManager();
+					IScriptingContext context = manager.getContextFrom( onClickAction );
+					if( context != null ) {
+						context.bindObject("node", getNode() );
+						context.executeScript( onClickAction );
+					}
 				}
 			}					
 		});		
