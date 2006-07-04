@@ -1,10 +1,12 @@
 package org.rcpml.forms.internal;
 
 import org.apache.batik.css.engine.value.Value;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Layout;
 import org.eclipse.ui.forms.FormColors;
 import org.eclipse.ui.forms.widgets.ColumnLayout;
+import org.eclipse.ui.forms.widgets.ColumnLayoutData;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
@@ -16,12 +18,11 @@ import org.rcpml.swt.ICompositeHolder;
 import org.rcpml.swt.SWTUtils;
 
 public class EclipseFormsUtil {
-	public static FormToolkit constructFormToolkit(IBridge parentBridge ) {
+	public static FormToolkit constructFormToolkit(IBridge parentBridge) {
 		FormToolkit formToolkit = null;
 		if (parentBridge != null) {
 			if (parentBridge instanceof ITookitHolder) {
-				formToolkit = ((ITookitHolder) parentBridge)
-						.getFormToolkit();
+				formToolkit = ((ITookitHolder) parentBridge).getFormToolkit();
 			}
 			Object presentation = parentBridge.getPresentation();
 			if (presentation != null) {
@@ -33,9 +34,9 @@ public class EclipseFormsUtil {
 							.getComposite();
 				}
 				if (composite != null) {
-					if ( formToolkit == null) {
-						formToolkit = new FormToolkit(new FormColors(
-								composite.getDisplay()));
+					if (formToolkit == null) {
+						formToolkit = new FormToolkit(new FormColors(composite
+								.getDisplay()));
 					}
 					if (formToolkit == null) {
 						throw new RCPMLException(
@@ -50,7 +51,9 @@ public class EclipseFormsUtil {
 		}
 		return formToolkit;
 	}
-	public static Object constructWrapLayout(RCPStylableElement stylable, Object layout) {
+
+	public static Object constructFormsLayoutData(RCPStylableElement stylable,
+			Object layout) {
 		Value alignValue = stylable
 				.getComputedValue(RCPCSSConstants.LAYOUT_ALIGN_INDEX);
 		Value alignVerticalValue = stylable
@@ -72,7 +75,15 @@ public class EclipseFormsUtil {
 
 		int colspan = (int) colspanValue.getFloatValue();
 		int rowspan = (int) rowspanValue.getFloatValue();
-		
+
+		Value widthValue = stylable
+				.getComputedValue(RCPCSSConstants.LAYOUT_WIDTH_INDEX);
+		Value heightValue = stylable
+				.getComputedValue(RCPCSSConstants.LAYOUT_HEIGHT_INDEX);
+
+		int width = (int) widthValue.getFloatValue();
+		int height = (int) heightValue.getFloatValue();
+
 		Object layoutData = null;
 
 		if (layout instanceof TableWrapLayout) {
@@ -80,8 +91,9 @@ public class EclipseFormsUtil {
 
 			twd.align = SWTUtils.getGridAlignmentH(align, TableWrapData.LEFT,
 					TableWrapData.CENTER, TableWrapData.RIGHT);
-			twd.valign = SWTUtils.getGridAlignmentV(alignVertical, TableWrapData.TOP,
-					TableWrapData.CENTER, TableWrapData.BOTTOM);
+			twd.valign = SWTUtils.getGridAlignmentV(alignVertical,
+					TableWrapData.TOP, TableWrapData.CENTER,
+					TableWrapData.BOTTOM);
 
 			if (fill.equals(RCPCSSConstants.LAYOUT_HORIZONTAL_VALUE)
 					|| fill.equals(RCPCSSConstants.LAYOUT_BOTH_VALUE)) {
@@ -103,29 +115,42 @@ public class EclipseFormsUtil {
 
 			twd.colspan = colspan;
 			twd.rowspan = rowspan;
-			layoutData = twd;			
+			layoutData = twd;
+		} 
+		else if (layout instanceof ColumnLayout) {
+			ColumnLayoutData cld = new ColumnLayoutData();
+			if (width != -1) {
+				cld.widthHint = width;
+			}
+			if( height != -1 ) {
+				cld.heightHint = height;
+			}
+			cld.horizontalAlignment = SWTUtils.getAlignValue(align, ColumnLayoutData.LEFT, ColumnLayoutData.LEFT, ColumnLayoutData.CENTER, ColumnLayoutData.RIGHT, ColumnLayoutData.FILL);			
+			layoutData = cld;
 		}
 		return layoutData;
 	}
-	public static Layout constructLayout(RCPStylableElement stylable ) {
+
+	public static Layout constructLayout(RCPStylableElement stylable) {
 		Layout layout = null;
-		Value layoutValue = stylable.getComputedValue( RCPCSSConstants.LAYOUT_INDEX );
-		Value columnsValue = stylable.getComputedValue( RCPCSSConstants.LAYOUT_COLUMNS_INDEX );
-		
+		Value layoutValue = stylable
+				.getComputedValue(RCPCSSConstants.LAYOUT_INDEX);
+		Value columnsValue = stylable
+				.getComputedValue(RCPCSSConstants.LAYOUT_COLUMNS_INDEX);
+
 		String layoutString = layoutValue.getStringValue();
-		int columns = (int)columnsValue.getFloatValue();
-						
-		if( layoutString.equals( RCPCSSConstants.LAYOUT_COLUMN_VALUE )) {
+		int columns = (int) columnsValue.getFloatValue();
+
+		if (layoutString.equals(RCPCSSConstants.LAYOUT_COLUMN_VALUE)) {
 			ColumnLayout cl = new ColumnLayout();
 			cl.maxNumColumns = columns;
 			layout = cl;
-		}
-		else if( layoutString.equals( RCPCSSConstants.LAYOUT_WRAP_VALUE )) {
+		} else if (layoutString.equals(RCPCSSConstants.LAYOUT_WRAP_VALUE)) {
 			TableWrapLayout twl = new TableWrapLayout();
-			twl.numColumns = columns;				
+			twl.numColumns = columns;
 			layout = twl;
 		}
-		if( layout == null ) {
+		if (layout == null) {
 			return SWTUtils.constructLayout(stylable);
 		}
 		return layout;

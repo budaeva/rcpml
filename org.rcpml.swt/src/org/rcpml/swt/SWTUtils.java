@@ -35,16 +35,16 @@ public class SWTUtils {
 	public static int getGridAlignmentH(String align, int left, int center,
 			int right) {
 
-		return getAlignValue(align, left, left, center, right);
+		return getAlignValue(align, left, left, center, right, SWT.FILL);
 	}
 
 	public static int getGridAlignmentV(String align, int left, int center,
 			int right) {
-		return getAlignValue(align, center, left, center, right);
+		return getAlignValue(align, center, left, center, right, SWT.FILL);
 	}
 
 	public static int getAlignValue(String align, int alignValue, int left,
-			int center, int right) {
+			int center, int right, int fill) {
 		if (align.equals(RCPCSSConstants.LAYOUT_ALIGN_LEFT_VALUE)) {
 			alignValue = left;
 		}
@@ -54,8 +54,11 @@ public class SWTUtils {
 		if (align.equals(RCPCSSConstants.LAYOUT_ALIGN_RIGHT_VALUE)) {
 			alignValue = right;
 		}
+		if (align.equals(RCPCSSConstants.LAYOUT_ALIGN_FILL_VALUE)) {
+			alignValue = fill;
+		}
 		return alignValue;
-	}
+	}	
 
 	public static Object constructLayoutData(RCPStylableElement stylable,
 			Composite parent) {

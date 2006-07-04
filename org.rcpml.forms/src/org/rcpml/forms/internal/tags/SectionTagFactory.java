@@ -2,6 +2,7 @@ package org.rcpml.forms.internal.tags;
 
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.forms.widgets.Section;
@@ -43,13 +44,14 @@ public class SectionTagFactory extends AbstractBridgeFactory {
 			this.fSection = this.getFormToolkit().createSection(parent, style);
 			this.fSection.setText(title);
 			this.fSection.setDescription(description);
+			this.fSection.setLayout( new GridLayout() );
 			this.fComposite = this.getFormToolkit().createComposite(
 					this.fSection);
 			this.fComposite.setLayout(EclipseFormsUtil
 					.constructLayout((RCPStylableElement) this.getNode()));
 			// this.fComposite.setLayoutData(this.constructLayout(parent));
 			this.fSection.setClient(this.fComposite);
-			this.fSection.setLayoutData(this.constructLayout(parent));
+			this.fSection.setLayoutData(this.constructLayoutData(parent));
 
 			fSection.addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {

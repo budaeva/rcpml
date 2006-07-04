@@ -26,7 +26,7 @@ public class CompositeTagFactory extends AbstractBridgeFactory {
 			fComposite = getFormToolkit().createComposite(parent);
 			this.fComposite.setLayout(EclipseFormsUtil
 					.constructLayout((RCPStylableElement) this.getNode()));
-			this.fComposite.setLayoutData(this.constructLayout(parent));
+			this.fComposite.setLayoutData(this.constructLayoutData(parent));
 		}
 
 		public Object getPresentation() {

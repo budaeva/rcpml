@@ -32,7 +32,7 @@ public class LabelTagFactory extends AbstractBridgeFactory {
 			}
 			return this.fFormToolkit;
 		}
-		protected Object constructLayout(Composite parent) {
+		protected Object constructLayoutData(Composite parent) {
 			return AbstractEclipseFormsBridge.constructFormsLayuotData(parent, getNode());
 		}
 		

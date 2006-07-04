@@ -31,7 +31,7 @@ public class HyperLinkTagFactory extends AbstractBridgeFactory {
 			//GridData gd = new GridData();
 			//gd.horizontalSpan = 2;
 			//this.fHyperLink.setLayoutData( gd );
-			this.fHyperLink.setLayoutData( this.constructLayout(parent ) );
+			this.fHyperLink.setLayoutData( this.constructLayoutData(parent ) );
 			
 			fHyperLink.addHyperlinkListener(new HyperlinkAdapter() {
 				public void linkActivated(HyperlinkEvent e) {

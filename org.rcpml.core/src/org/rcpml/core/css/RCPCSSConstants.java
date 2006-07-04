@@ -56,6 +56,8 @@ public interface RCPCSSConstants {
 	String LAYOUT_ALIGN_CENTER_VALUE = "center";
 
 	String LAYOUT_ALIGN_RIGHT_VALUE = "right";
+	
+	String LAYOUT_ALIGN_FILL_VALUE = "fill";
 
 	String LAYOUT_HORIZONTAL_VALUE = "horizontal";
 
@@ -78,6 +80,7 @@ public interface RCPCSSConstants {
 	String LAYOUT_BORDER_NONE_VALUE = "none";
 
 	int LAYOUT_WH_DEFAULT_VALUE = -1;
+	
 
 	// Value Indexes
 	/**

@@ -52,7 +52,7 @@ public class ExpandableTagFactory extends AbstractBridgeFactory {
 			}
 
 			this.fExpandableComposite.setLayoutData(this
-					.constructLayout(parent));
+					.constructLayoutData(parent));
 
 			this.fExpandableComposite.addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
@@ -78,7 +78,7 @@ public class ExpandableTagFactory extends AbstractBridgeFactory {
 
 		public void update() {
 			this.fExpandableComposite.setLayoutData(this
-					.constructLayout(this.fExpandableComposite.getParent()));
+					.constructLayoutData(this.fExpandableComposite.getParent()));
 			this.fComposite.layout();
 			this.fExpandableComposite.layout();
 		}

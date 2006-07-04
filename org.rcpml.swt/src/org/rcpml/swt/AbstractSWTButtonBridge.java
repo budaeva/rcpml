@@ -39,7 +39,7 @@ public abstract class AbstractSWTButtonBridge extends AbstractSWTBridge {
 		String title = this.getTitle();
 		this.fButton = this.createButton( parent, title, style );
 		
-		this.fButton.setLayoutData( this.constructLayout(parent) );
+		this.fButton.setLayoutData( this.constructLayoutData(parent) );
 		
 		update();
 		

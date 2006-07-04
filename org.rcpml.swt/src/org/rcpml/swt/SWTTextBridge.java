@@ -55,7 +55,7 @@ public class SWTTextBridge extends AbstractSWTBridge {
 	}
 
 	public void update() {
-		this.fText.setLayoutData(this.constructLayout(this.fText.getParent()));
+		this.fText.setLayoutData(this.constructLayoutData(this.fText.getParent()));
 		
 		String editable = "true";
 		editable = getAttribute(EDITABLE_ID);

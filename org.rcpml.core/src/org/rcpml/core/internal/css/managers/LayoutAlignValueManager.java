@@ -13,6 +13,7 @@ public class LayoutAlignValueManager extends IdentifierManager {
 	public final static Value LEFT_VALUE = new StringValue(CSSPrimitiveValue.CSS_IDENT, 	RCPCSSConstants.LAYOUT_ALIGN_LEFT_VALUE );
 	public final static Value CENTER_VALUE = new StringValue(CSSPrimitiveValue.CSS_IDENT, 	RCPCSSConstants.LAYOUT_ALIGN_CENTER_VALUE );
 	public final static Value RIGHT_VALUE = new StringValue(CSSPrimitiveValue.CSS_IDENT, 	RCPCSSConstants.LAYOUT_ALIGN_RIGHT_VALUE );
+	public final static Value FILL_VALUE = new StringValue(CSSPrimitiveValue.CSS_IDENT, 	RCPCSSConstants.LAYOUT_ALIGN_FILL_VALUE );
 	
 	private Value fDefaultValue;
 	
@@ -24,6 +25,7 @@ public class LayoutAlignValueManager extends IdentifierManager {
 		values.put(RCPCSSConstants.LAYOUT_ALIGN_LEFT_VALUE, LEFT_VALUE );		
 		values.put(RCPCSSConstants.LAYOUT_ALIGN_CENTER_VALUE, CENTER_VALUE );
 		values.put(RCPCSSConstants.LAYOUT_ALIGN_RIGHT_VALUE, RIGHT_VALUE );
+		values.put(RCPCSSConstants.LAYOUT_ALIGN_FILL_VALUE, FILL_VALUE );
 	}
 	
 	public LayoutAlignValueManager(String property, Value defaultValue ) {

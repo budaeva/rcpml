@@ -26,7 +26,7 @@ public class CompositeTagFactory extends AbstractBridgeFactory {
 			RCPStylableElement stylable =  (RCPStylableElement)this.getNode();
 			this.fComposite.setLayout(SWTUtils.constructLayout( stylable ));
 			
-			this.fComposite.setLayoutData(this.constructLayout(parent));
+			this.fComposite.setLayoutData(this.constructLayoutData(parent));
 			
 			fComposite.addDisposeListener( new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {

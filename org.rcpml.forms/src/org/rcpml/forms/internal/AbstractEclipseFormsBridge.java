@@ -27,7 +27,7 @@ public abstract class AbstractEclipseFormsBridge extends AbstractSWTBridge
 		return this.fFormToolkit;
 	}
 	
-	protected Object constructLayout( Composite parent ) {
+	protected Object constructLayoutData( Composite parent ) {
 		return constructFormsLayuotData(parent, this.getNode());
 	}
 	
@@ -36,9 +36,9 @@ public abstract class AbstractEclipseFormsBridge extends AbstractSWTBridge
 		RCPStylableElement stylable = (RCPStylableElement)node;
 		Object layout =  parent.getLayout();
 		
-		Object layoutData = EclipseFormsUtil.constructWrapLayout(stylable, layout);
+		Object layoutData = EclipseFormsUtil.constructFormsLayoutData(stylable, layout);
 		if( layoutData == null ) {
-			return AbstractSWTBridge.constructLayoutData(parent, node);
+			return AbstractSWTBridge.constructSWTLayoutData(parent, node);
 		}
 		return layoutData;
 	}	

@@ -43,11 +43,11 @@ public abstract class AbstractSWTBridge extends AbstractBridge {
 
 	protected abstract void construct(Composite parent);
 	
-	protected Object constructLayout( Composite parent ) {
-		return constructLayoutData(parent, this.getNode());
+	protected Object constructLayoutData( Composite parent ) {
+		return constructSWTLayoutData(parent, this.getNode());
 	}
 
-	public static Object constructLayoutData(Composite parent, Node node ) {
+	public static Object constructSWTLayoutData(Composite parent, Node node ) {
 		RCPStylableElement stylable = (RCPStylableElement) node;		
 		return SWTUtils.constructLayoutData(stylable, parent );
 	}	

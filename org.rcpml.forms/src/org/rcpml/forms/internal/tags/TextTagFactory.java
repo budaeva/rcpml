@@ -35,7 +35,7 @@ public class TextTagFactory extends AbstractBridgeFactory {
 			}
 			return this.fFormToolkit;
 		}
-		protected Object constructLayout(Composite parent ) {
+		protected Object constructLayoutData(Composite parent ) {
 			return AbstractEclipseFormsBridge.constructFormsLayuotData(parent, this.getNode() );
 		}
 	}
