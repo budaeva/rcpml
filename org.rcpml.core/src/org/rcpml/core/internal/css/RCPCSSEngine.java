@@ -43,7 +43,25 @@ public class RCPCSSEngine extends CSSEngine {
 			new NumberValueManager(RCPCSSConstants.CSS_LAYOUT_WIDTH_PROPERTY,
 					-1, false),
 			new NumberValueManager(RCPCSSConstants.CSS_LAYOUT_HEIGHT_PROPERTY,
-					-1, false) };
+					-1, false),
+			new NumberValueManager(
+					RCPCSSConstants.CSS_LAYOUT_MARGIN_WIDTH_PROPERTY, 5, false),
+			new NumberValueManager(
+					RCPCSSConstants.CSS_LAYOUT_MARGIN_HEIGHT_PROPERTY, 5, false),
+			new NumberValueManager(
+					RCPCSSConstants.CSS_LAYOUT_MARGIN_LEFT_PROPERTY, 0, false),
+			new NumberValueManager(
+					RCPCSSConstants.CSS_LAYOUT_MARGIN_TOP_PROPERTY, 0, false),
+			new NumberValueManager(
+					RCPCSSConstants.CSS_LAYOUT_MARGIN_RIGHT_PROPERTY, 0, false),
+			new NumberValueManager(
+					RCPCSSConstants.CSS_LAYOUT_MARGIN_BUTTOM_PROPERTY, 0, false),
+			new NumberValueManager(
+					RCPCSSConstants.CSS_LAYOUT_SPACING_HORIZONTAL_PROPERTY, 5,
+					false),
+			new NumberValueManager(
+					RCPCSSConstants.CSS_LAYOUT_SPACING_VERTICAL_PROPERTY, 5,
+					false) };
 
 	private final static ShorthandManager[] RCP_SHORTHAND_MANAGERS = {};
 

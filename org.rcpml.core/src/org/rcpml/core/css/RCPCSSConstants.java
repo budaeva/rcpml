@@ -37,6 +37,22 @@ public interface RCPCSSConstants {
 
 	String CSS_LAYOUT_HEIGHT_PROPERTY = "rcpml-layout-height";
 
+	String CSS_LAYOUT_MARGIN_WIDTH_PROPERTY = "rcpml-layout-margin-width";
+
+	String CSS_LAYOUT_MARGIN_HEIGHT_PROPERTY = "rcpml-layout-margin-height";
+
+	String CSS_LAYOUT_MARGIN_LEFT_PROPERTY = "rcpml-layout-margin-left";
+
+	String CSS_LAYOUT_MARGIN_RIGHT_PROPERTY = "rcpml-layout-margin-right";
+
+	String CSS_LAYOUT_MARGIN_TOP_PROPERTY = "rcpml-layout-margin-top";
+
+	String CSS_LAYOUT_MARGIN_BUTTOM_PROPERTY = "rcpml-layout-margin-buttom";
+
+	String CSS_LAYOUT_SPACING_HORIZONTAL_PROPERTY = "rcpml-layout-spacing-horizontal";
+
+	String CSS_LAYOUT_SPACING_VERTICAL_PROPERTY = "rcpml-layout-spacing-vertical";
+
 	// The CSS property values
 
 	String NONE_VALUE = "none";
@@ -56,7 +72,7 @@ public interface RCPCSSConstants {
 	String LAYOUT_ALIGN_CENTER_VALUE = "center";
 
 	String LAYOUT_ALIGN_RIGHT_VALUE = "right";
-	
+
 	String LAYOUT_ALIGN_FILL_VALUE = "fill";
 
 	String LAYOUT_HORIZONTAL_VALUE = "horizontal";
@@ -80,7 +96,6 @@ public interface RCPCSSConstants {
 	String LAYOUT_BORDER_NONE_VALUE = "none";
 
 	int LAYOUT_WH_DEFAULT_VALUE = -1;
-	
 
 	// Value Indexes
 	/**
@@ -109,4 +124,16 @@ public interface RCPCSSConstants {
 	public final static int LAYOUT_WIDTH_INDEX = 10;
 
 	public final static int LAYOUT_HEIGHT_INDEX = 11;
+
+	public final static int LAYOUT_MARGIN_WIDTH = 12;
+
+	public final static int LAYOUT_MARGIN_HEIGHT = 13;
+
+	public final static int LAYOUT_MARGIN_LEFT = 14;
+
+	public final static int LAYOUT_MARGIN_TOP = 15;
+
+	public final static int LAYOUT_MARGIN_RIGHT = 16;
+
+	public final static int LAYOUT_MARGIN_BUTTOM = 17;
 }

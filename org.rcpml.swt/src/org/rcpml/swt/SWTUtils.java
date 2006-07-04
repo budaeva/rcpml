@@ -21,9 +21,37 @@ public class SWTUtils {
 		String layoutString = layoutValue.getStringValue();
 		int columns = (int) columnsValue.getFloatValue();
 
+		Value marginWidthValue = stylable
+				.getComputedValue(RCPCSSConstants.LAYOUT_MARGIN_WIDTH);
+		Value marginHeightValue = stylable
+				.getComputedValue(RCPCSSConstants.LAYOUT_MARGIN_HEIGHT);
+
+		Value marginLeftValue = stylable
+				.getComputedValue(RCPCSSConstants.LAYOUT_MARGIN_LEFT);
+		Value marginRightValue = stylable
+				.getComputedValue(RCPCSSConstants.LAYOUT_MARGIN_RIGHT);
+		Value marginTopValue = stylable
+				.getComputedValue(RCPCSSConstants.LAYOUT_MARGIN_TOP);
+		Value marginButtomValue = stylable
+				.getComputedValue(RCPCSSConstants.LAYOUT_MARGIN_BUTTOM);
+
+		int marginWidth = (int) marginWidthValue.getFloatValue();
+		int marginHeight = (int) marginHeightValue.getFloatValue();
+		
+		int marginLeft = (int) marginLeftValue.getFloatValue();
+		int marginRight = (int) marginRightValue.getFloatValue();
+		int marginTop = (int) marginTopValue.getFloatValue();
+		int marginButtom = (int) marginButtomValue.getFloatValue();
+
 		if (layoutString.equals(RCPCSSConstants.LAYOUT_GRID_VALUE)) {
 			GridLayout lo = new GridLayout();
 			lo.numColumns = columns;
+			lo.marginWidth = marginWidth;
+			lo.marginHeight = marginHeight;
+			lo.marginLeft = marginLeft;
+			lo.marginRight = marginRight;
+			lo.marginTop = marginTop;
+			lo.marginBottom = marginButtom;
 			layout = lo;
 		} else if (layoutString.equals(RCPCSSConstants.LAYOUT_FILL_VALUE)) {
 			FillLayout fl = new FillLayout();
@@ -58,7 +86,7 @@ public class SWTUtils {
 			alignValue = fill;
 		}
 		return alignValue;
-	}	
+	}
 
 	public static Object constructLayoutData(RCPStylableElement stylable,
 			Composite parent) {
@@ -84,13 +112,13 @@ public class SWTUtils {
 		String align = alignValue.getStringValue();
 		String alignVertical = alignVerticalValue.getStringValue();
 		String fill = fillValue.getStringValue();
-		String grab = grabValue.getStringValue();		
+		String grab = grabValue.getStringValue();
 
 		int colspan = (int) colspanValue.getFloatValue();
 		int rowspan = (int) rowspanValue.getFloatValue();
-		
-		int width = (int)widthValue.getFloatValue();
-		int height = (int)heightValue.getFloatValue();
+
+		int width = (int) widthValue.getFloatValue();
+		int height = (int) heightValue.getFloatValue();
 
 		if (parent.getLayout() instanceof GridLayout) {
 			GridData gd = new GridData();
@@ -119,18 +147,17 @@ public class SWTUtils {
 			}
 			gd.horizontalSpan = colspan;
 			gd.verticalSpan = rowspan;
-			if( width != -1 ) {
+			if (width != -1) {
 				gd.widthHint = width;
-			}
-			else {
+			} else {
 				gd.widthHint = SWT.DEFAULT;
 			}
-			if( height != -1 ) {
+			if (height != -1) {
 				gd.heightHint = height;
-			}
-			else {
+			} else {
 				gd.heightHint = SWT.DEFAULT;
 			}
+
 			return gd;
 		}
 		return null;
