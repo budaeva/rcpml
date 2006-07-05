@@ -28,7 +28,7 @@ public class BundleContentProvider implements IContentProvider {
 					CorePlugin.IOEXCEPTION_ERROR, "Bundle not found", null);
 			throw new CoreException(status);
 		}
-		String script = uri.getQuery();
+		String script = uri.getPath();
 		URL url = bundle.getEntry(script);
 		if (url == null) {
 			IStatus status = new Status(IStatus.ERROR, CorePlugin.PLUGIN_ID,

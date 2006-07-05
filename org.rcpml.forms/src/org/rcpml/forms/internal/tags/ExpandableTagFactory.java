@@ -36,7 +36,7 @@ public class ExpandableTagFactory extends AbstractBridgeFactory {
 		}
 
 		protected void construct(Composite parent) {
-			int style = 0;
+			int style = ExpandableComposite.EXPANDED;
 			String styleAttr = this.getAttribute(TYPE_ATTR);
 			if (styleAttr.equals(TREE_STYLE)) {
 				style |= ExpandableComposite.TREE_NODE;
@@ -49,7 +49,7 @@ public class ExpandableTagFactory extends AbstractBridgeFactory {
 					.createExpandableComposite(parent, style);
 			if (title != null) {
 				this.fExpandableComposite.setText(title);
-			}
+			}			
 
 			this.fExpandableComposite.setLayoutData(this
 					.constructLayoutData(parent));
@@ -60,8 +60,10 @@ public class ExpandableTagFactory extends AbstractBridgeFactory {
 				}
 			});
 			this.fExpandableComposite.setLayout(new FillLayout());
-			this.fComposite = this.getFormToolkit().createComposite(this.fExpandableComposite, SWT.NONE );
-			this.fComposite.setLayout( EclipseFormsUtil.constructLayout((RCPStylableElement)this.getNode()));
+			this.fComposite = this.getFormToolkit().createComposite(
+					this.fExpandableComposite, SWT.NONE);
+			this.fComposite.setLayout(EclipseFormsUtil
+					.constructLayout((RCPStylableElement) this.getNode()));
 			this.fExpandableComposite.setClient(fComposite);
 
 			this.fExpandableComposite
@@ -77,10 +79,13 @@ public class ExpandableTagFactory extends AbstractBridgeFactory {
 		}
 
 		public void update() {
-			this.fExpandableComposite.setLayoutData(this
-					.constructLayoutData(this.fExpandableComposite.getParent()));
-			this.fComposite.layout();
-			this.fExpandableComposite.layout();
+			if (this.fExpandableComposite != null) {
+				this.fExpandableComposite.setLayoutData(this
+						.constructLayoutData(this.fExpandableComposite
+								.getParent()));
+				this.fComposite.layout();
+				this.fExpandableComposite.layout();
+			}
 		}
 	}
 

@@ -1,0 +1,36 @@
+form#myform {
+	rcpml-layout: grid;
+	rcpml-layout-columns: 1
+}
+
+section#one {
+	rcpml-layout: grid;
+	rcpml-layout-columns: 1;
+	rcpml-fill: horizontal;
+	rcpml-grab: horizontal;
+}
+
+section#two {
+	rcpml-layout: column;
+	rcpml-layout-columns: 1;
+	rcpml-fill: horizontal;
+	rcpml-grab: horizontal;
+}
+
+section#three {
+	rcpml-layout: grid;
+	rcpml-layout-columns: 1;
+	rcpml-fill: horizontal;
+	rcpml-grab: horizontal;
+}
+
+form#myform>section>text {
+	rcpml-fill: horizontal;
+	rcpml-grab: horizontal;
+}
+composite#co0 {
+	rcpml-layout:column;
+	rcpml-layout-columns:1;
+	rcpml-fill:horizontal;
+	rcpml-grab:horizontal;
+}

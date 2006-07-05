@@ -21,6 +21,15 @@ public class ContentProviderManager {
 	private Map sProviders = new HashMap();
 
 	private IContentProvider fDefaultProvider;
+	
+	private static ContentProviderManager sGlobalProvider;
+	
+	public static ContentProviderManager getInstance() {
+		if( sGlobalProvider == null ) {
+			sGlobalProvider = new ContentProviderManager();			
+		}
+		return sGlobalProvider;
+	}
 
 	public ContentProviderManager() {
 		initializeExtensions();

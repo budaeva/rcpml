@@ -1,16 +1,12 @@
 <?xml version="1.0"?>
 <ui:view xmlns="http://rcpml.org/forms" xmlns:ui="http://rcpml.org/ui" xmlns:core="http://rcpml.org/core">
-	<core:style type="text/css">
-		form#myform {rcpml-layout:grid; rcpml-layout-columns:1}
-		section#one {rcpml-layout:grid;rcpml-layout-columns:7;rcpml-fill:horizontal;rcpml-grab:horizontal;}
-		section#two {rcpml-layout:column;rcpml-layout-columns:7;rcpml-fill:horizontal;rcpml-grab:horizontal;}
-		section#three {rcpml-layout:grid;rcpml-layout-columns:2;rcpml-fill:horizontal;rcpml-grab:horizontal;}
-		form#myform > section > text { rcpml-fill:horizontal;rcpml-grab:horizontal; }
+	<core:style type="text/css" src="bundle://org.rcpml.example.forms/style/sample8.css">
+		
 	</core:style>
 	
 	<form id="myform" scroll="true" title="Form with wrapped sections.">		
 		<section id="one" title="Link section:0" description="An example of a section with links">
-			<composite style="rcpml-layout:column;rcpml-layout-columns:7;rcpml-fill:horizontal;rcpml-grab:horizontal;">
+			<composite id="co0">
 				<link>Hyperlink text 1</link>
 				<link>Hyperlink text 2</link>
 				<button title="add button" onclick="addButton();"/>
