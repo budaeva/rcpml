@@ -29,17 +29,17 @@ import org.w3c.dom.events.EventTarget;
 public class Controller implements IController, IVisitor, EventListener,
 		CSSContext {
 
-	private static final String DOMATTR_MODIFIED = "DOMAttrModified";
+	public static final String DOMATTR_MODIFIED = "DOMAttrModified";
 
-	private static final String DOMNODE_INSERTED_INTO_DOCUMENT = "DOMNodeInsertedIntoDocument";
+	public static final String DOMNODE_INSERTED_INTO_DOCUMENT = "DOMNodeInsertedIntoDocument";
 
-	private static final String DOMNODE_REMOVED_FROM_DOCUMENT = "DOMNodeRemovedFromDocument";
+	public static final String DOMNODE_REMOVED_FROM_DOCUMENT = "DOMNodeRemovedFromDocument";
 
-	private static final String DOMNODE_REMOVED = "DOMNodeRemoved";
+	public static final String DOMNODE_REMOVED = "DOMNodeRemoved";
 
-	private static final String DOMNODE_INSERTED = "DOMNodeInserted";
+	public static final String DOMNODE_INSERTED = "DOMNodeInserted";
 
-	private static final String DOMSUBTREE_MODIFIED = "DOMSubtreeModified";
+	public static final String DOMSUBTREE_MODIFIED = "DOMSubtreeModified";
 
 	private BridgeFactoryManager fBridgeBuilder;
 
@@ -54,6 +54,8 @@ public class Controller implements IController, IVisitor, EventListener,
 	private IBridge fRootBridge;
 
 	private boolean fWithConstructor = false;
+	
+	private boolean fSkipEvents = false;
 	
 	public Controller(Document document ) {
 		this(document, false);
@@ -148,6 +150,9 @@ public class Controller implements IController, IVisitor, EventListener,
 	 * Handle mutation events from document modification.
 	 */
 	public void handleEvent(Event event) {
+		if( fSkipEvents ) {
+			return;
+		}
 		String type = event.getType();
 		EventTarget target = event.getTarget();
 		if (target instanceof Node) {
@@ -371,5 +376,8 @@ public class Controller implements IController, IVisitor, EventListener,
 
 	public boolean isWithConstructor() {
 		return this.fWithConstructor;
-	}	
+	}
+	public void setSkipEvents( boolean skip ) {
+		this.fSkipEvents = skip;
+	}
 }

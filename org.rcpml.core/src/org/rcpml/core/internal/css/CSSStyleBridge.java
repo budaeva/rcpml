@@ -10,7 +10,9 @@ import org.eclipse.core.runtime.CoreException;
 import org.rcpml.core.IController;
 import org.rcpml.core.RCPMLException;
 import org.rcpml.core.bridge.AbstractBridge;
+import org.rcpml.core.internal.Controller;
 import org.rcpml.core.internal.contentprovider.ContentProviderManager;
+import org.rcpml.core.internal.dom.RCPOMStyleElement;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
@@ -53,7 +55,15 @@ public class CSSStyleBridge extends AbstractBridge {
 			if( content.length() > 0 ) {
 				Document doc = getNode().getOwnerDocument();
 				Node textNode = doc.createTextNode(content);
-				getNode().appendChild(textNode);
+				if( getController() instanceof Controller ) {
+					Controller ctrl = (Controller)getController();
+					ctrl.setSkipEvents(true);
+					getNode().appendChild(textNode);
+					ctrl.setSkipEvents(false);
+//					if( node instanceof RCPOMStyleElement ) {
+//						((RCPOMStyleElement)node).clearStyleSheetCache();
+//					}
+				}				
 			}
 		}		
 	}
