@@ -1,6 +1,5 @@
 package org.rcpml.core.bridge;
 
-import org.osgi.framework.Bundle;
 import org.rcpml.core.IController;
 import org.rcpml.core.dom.DOMUtils;
 import org.w3c.dom.Node;
