@@ -27,7 +27,7 @@ public class ScriptBridge extends AbstractBridge implements IScriptingContext
 	public ScriptBridge( Node node, IController container )
 	{		
 		super( node, container, false );
-		System.out.println("Script constructed");
+		//System.out.println("Script constructed");
 		
 		String langName = DOMUtils.getAttribute(node, ATTR_LANGUAGE);
 		if (langName == null) {
@@ -47,7 +47,7 @@ public class ScriptBridge extends AbstractBridge implements IScriptingContext
 
 	private String getExternalScript() {
 		String scriptSource = getAttribute(SRC);
-		if( scriptSource != null ) {
+		if( scriptSource != null && scriptSource.length() > 0 ) {
 			ContentProviderManager provider = ContentProviderManager.getInstance();
 			String content = "";
 			try {
@@ -76,7 +76,7 @@ public class ScriptBridge extends AbstractBridge implements IScriptingContext
 
 	private boolean useExternalScript() {
 		String scriptSource = getAttribute(SRC);
-		if( scriptSource != null || scriptSource.length() > 0 ) {
+		if( scriptSource != null && scriptSource.length() > 0 ) {
 			return true;
 		}
 		return false;

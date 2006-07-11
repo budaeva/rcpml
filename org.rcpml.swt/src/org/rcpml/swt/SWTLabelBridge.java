@@ -16,6 +16,7 @@ import org.rcpml.core.dom.RCPStylableElement;
 import org.w3c.dom.Node;
 
 public class SWTLabelBridge extends AbstractSWTBridge {
+	private static final String SEPARATOR = "separator";
 	private Label fLabel;
 	public SWTLabelBridge(Node node, IController container) {
 		super( node, container, false );			
@@ -31,7 +32,7 @@ public class SWTLabelBridge extends AbstractSWTBridge {
 		if( wrapValue.getStringValue().equals(RCPCSSConstants.TRUE_VALUE)) {
 			style |= SWT.WRAP;
 		}		
-		String separator = getAttribute("separator");
+		String separator = getAttribute(SEPARATOR);
 		if( separator != null && separator.equals("horizontal")) {
 			style |= SWT.SEPARATOR | SWT.HORIZONTAL; 
 		}

@@ -8,13 +8,34 @@
          id="core"
          name="Core namespace"
          point="org.rcpml.core.namespace">
-      <namespace xmlNS="http://rcpml.org/core">
+      <namespace
+            definition="/docs/tags.xml"
+            xmlNS="http://rcpml.org/core">
          <tag
                class="org.rcpml.core.internal.scripting.ScriptFactory"
-               name="script"/>
+               name="script">
+            <attribute
+                  name="src"
+                  required="false">
+                  Specifies external URI of script source.
+            </attribute>            
+            Script tag are used to embed scripts into document.
+            <attribute
+                  name="language"
+                  required="true">
+                  Script language.
+            </attribute>
+         </tag>
          <tag
                class="org.rcpml.core.internal.css.CSSStyleTagFactory"
-               name="style"/>
+               name="style">
+            <attribute
+                  name="type"
+                  required="true">
+               Specifies external URI of style source.
+            </attribute>
+            Styles are used to describe CSS information.
+         </tag>
       </namespace>
    </extension>
    <extension

@@ -5,25 +5,81 @@
          id="org.rcpml.swt"
          name="SWT RCPML namespace"
          point="org.rcpml.core.namespace">
-      <namespace xmlNS="http://rcpml.org/swt">
+      <namespace
+            definition="/docs/tags.xml"
+            xmlNS="http://rcpml.org/swt">
          <tag
                class="org.rcpml.swt.internal.tags.ButtonTagFactory"
-               name="button"/>
+               name="button">
+            <attribute
+                  name="title"
+                  required="false"/>
+            <attribute
+                  name="enabled"
+                  required="false"
+                  values="true, false"/>
+            <description>
+Button UI element.
+title - used to specify on button text.
+enabled - if false then button are disabled.
+            </description>
+         </tag>
          <tag
                class="org.rcpml.swt.internal.tags.CheckTagFactory"
-               name="checkbox"/>
+               name="checkbox">
+            <attribute
+                  name="title"
+                  required="false"/>
+            <attribute
+                  name="enabled"
+                  required="false"
+                  values="true, false"/>
+            <description>
+Checkbox UI element.
+title - used to specify on button text.
+enabled - if false then button are disabled.
+            </description>
+         </tag>
          <tag
                class="org.rcpml.swt.internal.tags.LabelTagFactory"
-               name="label"/>
+               name="label">
+            <attribute
+                  name="separator"
+                  required="false"
+                  values=",horizontal"/>
+            <description>
+Labels are used to specify some static text information.
+separator - If separator are horizontal then label is horizontal line.
+            </description>                  
+         </tag>
          <tag
                class="org.rcpml.swt.internal.tags.ShellTagBuilder"
-               name="shell"/>
+               name="shell">
+            <attribute
+                  name="title"
+                  required="false"/>
+            <description>
+               Shell is a window.
+            </description>
+         </tag>
          <tag
                class="org.rcpml.swt.internal.tags.CompositeTagFactory"
-               name="composite"/>
+               name="composite">
+            <description>
+               Composites are used to hold other controls. Composites support layouting styles.
+            </description>           
+         </tag>
          <tag
                class="org.rcpml.swt.internal.tags.TextTagFactory"
-               name="text"/>
+               name="text">
+            <attribute
+                  name="editable"
+                  required="false"/>
+            <description>
+               Text are edit box. There content can be edited.
+edtable - if false then text coul&apos;d not be deleted.
+            </description>
+         </tag>
       </namespace>
    </extension>
 
