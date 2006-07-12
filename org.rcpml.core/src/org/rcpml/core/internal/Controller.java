@@ -1,6 +1,10 @@
 package org.rcpml.core.internal;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.batik.css.engine.CSSContext;
@@ -11,6 +15,8 @@ import org.rcpml.core.IController;
 import org.rcpml.core.IRCPMLConstructor;
 import org.rcpml.core.bridge.IBridge;
 import org.rcpml.core.bridge.IVisitor;
+import org.rcpml.core.datasource.IDataSource;
+import org.rcpml.core.internal.datasource.DataSourceBridge;
 import org.rcpml.core.internal.dom.RCPDOMImplementation;
 import org.rcpml.core.internal.dom.RCPOMDocument;
 import org.rcpml.core.internal.scripting.ScriptContextManager;
@@ -45,38 +51,41 @@ public class Controller implements IController, IVisitor, EventListener,
 
 	private Document fDocument = null;
 
-	private Map/*<Node, IBridge>*/ fNodeToBridgeMap = new HashMap/*<Node, IBridge>*/();
+	private Map/* <Node, IBridge> */fNodeToBridgeMap = new HashMap/*
+																 * <Node,
+																 * IBridge>
+																 */();
 
-	//private Bundle fBundle;
+	// private Bundle fBundle;
 
 	private IScriptContextManager fScriptContextManager;
 
 	private IBridge fRootBridge;
 
 	private boolean fWithConstructor = false;
-	
+
 	private boolean fSkipEvents = false;
-	
-	public Controller(Document document ) {
+
+	public Controller(Document document) {
 		this(document, false);
 	}
-	
-	public Controller(Document document, boolean withConstructor ) {
+
+	public Controller(Document document, boolean withConstructor) {
 		this.fDocument = document;
-		//this.fBundle = bundle;
+		// this.fBundle = bundle;
 		this.fBridgeBuilder = new BridgeFactoryManager();
 		this.fBridgeBuilder.setController(this);
-		this.fWithConstructor  = withConstructor;
+		this.fWithConstructor = withConstructor;
 
-		this.fScriptContextManager = new ScriptContextManager(this.fDocument );
-		
+		this.fScriptContextManager = new ScriptContextManager(this.fDocument);
+
 		// Initialize css
 		this.initializeCSS(this.fDocument);
 
 		this.setEventHandler();
 
 		this.visit(this.fDocument);
-		if( !this.fWithConstructor ) {
+		if (!this.fWithConstructor) {
 			this.update();
 		}
 	}
@@ -87,14 +96,14 @@ public class Controller implements IController, IVisitor, EventListener,
 
 	public IBridge getBridge(Node node) {
 		if (this.fNodeToBridgeMap.containsKey(node)) {
-			return (IBridge)this.fNodeToBridgeMap.get(node);
+			return (IBridge) this.fNodeToBridgeMap.get(node);
 		}
 		return null;
 	}
 
-//	public Bundle getBundle() {
-//		return this.fBundle;
-//	}
+	// public Bundle getBundle() {
+	// return this.fBundle;
+	// }
 
 	public IBridge createBridge(Node node) {
 		IBridge bridge = this.fBridgeBuilder.createBridge(node);
@@ -120,14 +129,13 @@ public class Controller implements IController, IVisitor, EventListener,
 		if (!(this.fNodeToBridgeMap.containsKey(node))) {
 			int type = node.getNodeType();
 			if (type == Node.ELEMENT_NODE) {
-				if( this.fRootBridge == null ) {
+				if (this.fRootBridge == null) {
 					IBridge bridge = this.createBridge(node);
-					if( this.fWithConstructor == true ) {
+					if (this.fWithConstructor == true) {
 						return;
 					}
 					bridge.visit(this);
-				}
-				else {
+				} else {
 					IBridge bridge = this.createBridge(node);
 					bridge.visit(this);
 				}
@@ -150,7 +158,7 @@ public class Controller implements IController, IVisitor, EventListener,
 	 * Handle mutation events from document modification.
 	 */
 	public void handleEvent(Event event) {
-		if( fSkipEvents ) {
+		if (fSkipEvents) {
 			return;
 		}
 		String type = event.getType();
@@ -162,23 +170,22 @@ public class Controller implements IController, IVisitor, EventListener,
 				if (parent != null) {
 					visit(parent);
 				}
-				//this.update(parent);
+				// this.update(parent);
 			} else if (DOMNODE_REMOVED_FROM_DOCUMENT.equals(type)) {
-				//Node parent = this.findExistParent(node);
+				// Node parent = this.findExistParent(node);
 				this.disposeNode(node);
-				//this.update(parent);
-			}
-			else if( DOMATTR_MODIFIED.equals(type) ) {
-				//this.update(node);
+				// this.update(parent);
+			} else if (DOMATTR_MODIFIED.equals(type)) {
+				// this.update(node);
 				return;
 			}
-			if( DOMSUBTREE_MODIFIED.equals(type) ) {
+			if (DOMSUBTREE_MODIFIED.equals(type)) {
 				Node parent = this.findExistParent(node);
 				this.update(parent);
-				//update();
+				// update();
 			}
-		}			
-	}	
+		}
+	}
 
 	/**
 	 * Disposes node and all subnodes.
@@ -229,12 +236,13 @@ public class Controller implements IController, IVisitor, EventListener,
 			updateVisitor.visit(rootNode);
 		}
 	}
+
 	// incremental update
 	private void update(Node node) {
 		if (this.fRootBridge != null) {
-			IVisitor updateVisitor = this.createUpdateVisitor();			
+			IVisitor updateVisitor = this.createUpdateVisitor();
 			updateVisitor.visit(node);
-		}		
+		}
 	}
 
 	protected IVisitor createUpdateVisitor() {
@@ -259,22 +267,19 @@ public class Controller implements IController, IVisitor, EventListener,
 			eng = impl.createCSSEngine(doc, this);
 			eng.setCSSEngineUserAgent(new RCPCSSEngineUserAgent());
 			doc.setCSSEngine(eng);
-			//eng.setMedia(userAgent.getMedia());
-			//String uri = userAgent.getUserStyleSheetURI();
-			/*if (uri != null) {
-				try {
-					URL url = new URL(uri);
-					eng.setUserAgentStyleSheet(eng.parseStyleSheet(url, "all"));
-				} catch (MalformedURLException e) {
-					userAgent.displayError(e);
-				}
-			}*/
-			//eng.setAlternateStyleSheet(userAgent.getAlternateStyleSheet());
+			// eng.setMedia(userAgent.getMedia());
+			// String uri = userAgent.getUserStyleSheetURI();
+			/*
+			 * if (uri != null) { try { URL url = new URL(uri);
+			 * eng.setUserAgentStyleSheet(eng.parseStyleSheet(url, "all")); }
+			 * catch (MalformedURLException e) { userAgent.displayError(e); } }
+			 */
+			// eng.setAlternateStyleSheet(userAgent.getAlternateStyleSheet());
 		}
 	}
 
-	//TODO: Add correct code here.
-	public static class RCPCSSEngineUserAgent implements CSSEngineUserAgent {		
+	// TODO: Add correct code here.
+	public static class RCPCSSEngineUserAgent implements CSSEngineUserAgent {
 		RCPCSSEngineUserAgent() {
 		}
 
@@ -282,16 +287,16 @@ public class Controller implements IController, IVisitor, EventListener,
 		 * Displays an error resulting from the specified Exception.
 		 */
 		public void displayError(Exception ex) {
-			//ua.displayError(ex);
-			System.out.println("RCPCSSEngine:" + ex.getMessage() );
+			// ua.displayError(ex);
+			System.out.println("RCPCSSEngine:" + ex.getMessage());
 		}
 
 		/**
 		 * Displays a message in the User Agent interface.
 		 */
 		public void displayMessage(String message) {
-			//ua.displayMessage(message);
-			System.out.println("RCPCSSEngine:" + message );
+			// ua.displayMessage(message);
+			System.out.println("RCPCSSEngine:" + message);
 		}
 	}
 
@@ -340,9 +345,10 @@ public class Controller implements IController, IVisitor, EventListener,
 		return 0;
 	}
 
-	public void checkLoadExternalResource(ParsedURL arg0, ParsedURL arg1) throws SecurityException {
+	public void checkLoadExternalResource(ParsedURL arg0, ParsedURL arg1)
+			throws SecurityException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public boolean isDynamic() {
@@ -356,20 +362,20 @@ public class Controller implements IController, IVisitor, EventListener,
 	}
 
 	public CSSEngine getCSSEngineForElement(Element arg0) {
-		RCPOMDocument doc = (RCPOMDocument)this.fDocument;
+		RCPOMDocument doc = (RCPOMDocument) this.fDocument;
 		return doc.getCSSEngine();
 	}
 
 	// if this is root element then lets dispose all tree.
 	public void bridgeDisposed(IBridge bridge) {
-		if( bridge.equals(this.fRootBridge)) {
+		if (bridge.equals(this.fRootBridge)) {
 			this.disposeNode(bridge.getNode());
-		}		
+		}
 	}
 
 	public IRCPMLConstructor getRootBridge() {
-		if( fRootBridge != null && fRootBridge instanceof IRCPMLConstructor ) {
-			return (IRCPMLConstructor)fRootBridge;
+		if (fRootBridge != null && fRootBridge instanceof IRCPMLConstructor) {
+			return (IRCPMLConstructor) fRootBridge;
 		}
 		return null;
 	}
@@ -377,7 +383,57 @@ public class Controller implements IController, IVisitor, EventListener,
 	public boolean isWithConstructor() {
 		return this.fWithConstructor;
 	}
-	public void setSkipEvents( boolean skip ) {
+
+	public void setSkipEvents(boolean skip) {
 		this.fSkipEvents = skip;
+	}
+
+	public IDataSource getDataSource(Node node, String path) {
+		IBridge bridge = getBridge(node);
+		IBridge parentBridge = bridge.getParent();
+
+		return null;
+	}
+
+	private IDataSource searchDataSourceBefore(final Node beforeNode,
+			IBridge bridge, String path) {
+
+		String lName = null;
+		if (path != null) {
+			URI uri = null;
+			try {
+				uri = new URI(path);
+			} catch (URISyntaxException ex) {
+				ex.printStackTrace();
+				return null;
+			}
+			lName = uri.getHost();
+		}
+		final List dataSourceList = new ArrayList();
+
+		final String name = lName;
+
+		IVisitor visitor = new IVisitor() {
+			boolean search = true;
+
+			public void visit(Node node) {
+				if (search) {
+					if (node.equals(beforeNode)) {
+						search = false;
+						return;
+					}
+					IBridge br = getBridge(node);
+					if (br instanceof DataSourceBridge) {
+						IDataSource ds = (IDataSource) br.getPresentation();
+						if (ds != null) {
+							dataSourceList.add(ds);
+						}
+					}
+					br.visit(this);
+				}
+			}
+		};
+		//TODO: Add implementation here.
+		return null;
 	}
 }

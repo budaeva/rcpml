@@ -3,13 +3,10 @@ package org.rcpml.core;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URI;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
-import org.osgi.framework.Bundle;
 import org.rcpml.core.internal.Controller;
 import org.rcpml.core.internal.CorePlugin;
 import org.rcpml.core.internal.contentprovider.ContentProviderManager;

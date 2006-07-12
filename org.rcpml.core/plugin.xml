@@ -4,6 +4,7 @@
    <extension-point id="namespace" name="RCPML Tag Namespace" schema="schema/namespace.exsd"/>
    <extension-point id="language" name="RCPML Scripting Language" schema="schema/language.exsd"/>
    <extension-point id="contentProvider" name="contentProvider" schema="schema/contentProvider.exsd"/>
+   <extension-point id="dataSource" name="dataSource" schema="schema/dataSource.exsd"/>
    <extension
          id="core"
          name="Core namespace"
@@ -35,6 +36,13 @@
                Specifies external URI of style source.
             </attribute>
             Styles are used to describe CSS information.
+         </tag>
+         <tag
+               class="org.rcpml.core.internal.datasource.DataSourceTagFactory"
+               name="datasource">
+            <attribute
+                  name="src"
+                  required="true"/>
          </tag>
       </namespace>
    </extension>
