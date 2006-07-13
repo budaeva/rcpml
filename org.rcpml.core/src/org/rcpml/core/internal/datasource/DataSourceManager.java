@@ -30,28 +30,18 @@ public class DataSourceManager {
 		return sDataSourceManager;
 	}
 
-	public IDataSource getDataSource(String src, Node node ) {
+	public IDataSource getDataSource(String src, Node node ) {	
 
-		URI uri = null;
-		try {
-			uri = new URI(src);
-		} catch (URISyntaxException ex) {
-			ex.printStackTrace();
-			return null;
-		}
-
-		String name = uri.getHost();
-
-		if (sDataSourceFactorys.containsKey(name)) {
-			IDataSourceFactory factory = (IDataSourceFactory) sDataSourceFactorys
-					.get(name);
-			return factory.createDataSource(uri, node);
-		}
-
-		if (name == null) {
+		if (src == null) {
 			System.err.println("DataSource Manager: incorrect datasource...");
 			return null;
 		}
+		
+		if (sDataSourceFactorys.containsKey(src)) {
+			IDataSourceFactory factory = (IDataSourceFactory) sDataSourceFactorys
+					.get(src);
+			return factory.createDataSource(node);
+		}		
 
 		IConfigurationElement configs[] = Platform.getExtensionRegistry()
 				.getConfigurationElementsFor(DATASOURCE_EXT_POINT);
@@ -59,11 +49,11 @@ public class DataSourceManager {
 			for (int i = 0; i < configs.length; ++i) {
 				IConfigurationElement configElement = configs[i];
 				String dsName = configElement.getAttribute(NAME_ATTR);
-				if (name.equals(dsName)) {
+				if (src.equals(dsName)) {
 					try {
 						IDataSourceFactory factory = (IDataSourceFactory) configElement
 								.createExecutableExtension(CLASS_ATTR);
-						return factory.createDataSource(uri, node );
+						return factory.createDataSource( node );
 					} catch (CoreException ex) {
 						ex.printStackTrace();
 						return null;
@@ -71,10 +61,10 @@ public class DataSourceManager {
 				}
 			}
 		}
-		return null;
+		return getLocalDataSource(node);
 	}
 
-	public IDataSource getLocalDataSource() {
+	public IDataSource getLocalDataSource(Node node) {
 		// TODO: Add local xml xpath.
 		return null;
 	}

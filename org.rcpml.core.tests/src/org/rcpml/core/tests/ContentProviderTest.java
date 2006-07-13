@@ -19,6 +19,9 @@ public class ContentProviderTest extends TestCase {
 		System.out.println("query:" +uri2.getQuery());
 		System.out.println("host:" +uri2.getHost());
 		System.out.println("host:" +uri2.getPort());
+		
+		URI uri3 = new URI("mySource");
+		System.out.println(uri3.getHost());
 	}
 	public void testCP002() throws Exception {
 		ContentProviderManager cpm = new ContentProviderManager();
@@ -29,5 +32,5 @@ public class ContentProviderTest extends TestCase {
 		
 		InputStream is2 = cpm.getStream("file:///temp/file.xml");		
 		assertNotNull("file:///temp/file.xml", is2);
-	}
+	}	
 }

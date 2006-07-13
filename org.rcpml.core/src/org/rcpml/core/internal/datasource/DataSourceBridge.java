@@ -7,6 +7,8 @@ import org.rcpml.core.datasource.IDataSource;
 import org.w3c.dom.Node;
 
 public class DataSourceBridge extends AbstractBridge implements IBridge {
+	private static final String NAME_ATTR = "name";
+
 	private static final String SRC_ATTR = "src";
 
 	private IDataSource fDataSource;
@@ -21,11 +23,15 @@ public class DataSourceBridge extends AbstractBridge implements IBridge {
 		} else {
 			System.err.println("Warning: DataSource: required src element");
 			this.fDataSource = DataSourceManager.getInstance()
-					.getLocalDataSource();
+					.getLocalDataSource(node);
 		}
 	}
 
 	public Object getPresentation() {
 		return fDataSource;
+	}
+
+	public String getName() {		
+		return getAttribute(NAME_ATTR);
 	}
 }

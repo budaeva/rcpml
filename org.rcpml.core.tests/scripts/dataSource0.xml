@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<test_datasource xmlns="http://rcpml.org/core/tests/datasource"
+	xmlns:core="http://rcpml.org/core">
+	<core:datasource name="myDS" src="testDataSource"/>
+	<core:datasource name="myDS2" src="testDataSource"/>
+	<core:datasource name="myDS3" src="testDataSource"/>
+	<test_datasource path="/a/b/c">
+		<test_datasource path="myDS2:/a/b/c"/>
+	</test_datasource>
+	<test_datasource path="myDS:/a/b/c"/>
+</test_datasource>

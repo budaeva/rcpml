@@ -13,8 +13,10 @@ public class CorePlugin extends Plugin {
 
 	public final static int SCRIPT_NOT_FOUND = 200;
 	public final static int RENDERER_NOT_FOUND = 201;
+	public static final int DOCUMENT_LOAD_EXCEPTION = 202;
 	
 	public final static String PLUGIN_ID = "org.rcpml.core";
+	
 	
 	//The shared instance.
 	private static CorePlugin plugin;

@@ -2,10 +2,11 @@ package org.rcpml.core.internal;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Stack;
+import java.util.jar.Attributes.Name;
 
 import org.apache.batik.css.engine.CSSContext;
 import org.apache.batik.css.engine.CSSEngine;
@@ -388,16 +389,7 @@ public class Controller implements IController, IVisitor, EventListener,
 		this.fSkipEvents = skip;
 	}
 
-	public IDataSource getDataSource(Node node, String path) {
-		IBridge bridge = getBridge(node);
-		IBridge parentBridge = bridge.getParent();
-
-		return null;
-	}
-
-	private IDataSource searchDataSourceBefore(final Node beforeNode,
-			IBridge bridge, String path) {
-
+	public IDataSource getDataSource(final Node node, String path) {
 		String lName = null;
 		if (path != null) {
 			URI uri = null;
@@ -407,33 +399,50 @@ public class Controller implements IController, IVisitor, EventListener,
 				ex.printStackTrace();
 				return null;
 			}
-			lName = uri.getHost();
+			lName = uri.getScheme();
 		}
-		final List dataSourceList = new ArrayList();
-
-		final String name = lName;
+		final Stack dataSourceList = new Stack();		
 
 		IVisitor visitor = new IVisitor() {
 			boolean search = true;
 
-			public void visit(Node node) {
+			public void visit(Node elementNode) {
 				if (search) {
-					if (node.equals(beforeNode)) {
+					if (elementNode.equals(node)) {
 						search = false;
 						return;
 					}
-					IBridge br = getBridge(node);
+					IBridge br = getBridge(elementNode);
 					if (br instanceof DataSourceBridge) {
 						IDataSource ds = (IDataSource) br.getPresentation();
 						if (ds != null) {
-							dataSourceList.add(ds);
+							dataSourceList.add(br);
 						}
 					}
-					br.visit(this);
+					if( br != null ) {
+						br.visit(this);
+					}
 				}
 			}
-		};
-		//TODO: Add implementation here.
+		};		
+		
+		if (this.fRootBridge != null) {
+			visitor.visit(this.fRootBridge.getNode());
+		}
+		
+		Iterator i = dataSourceList.iterator();
+		while( i.hasNext() ) {
+			DataSourceBridge dsBridge = (DataSourceBridge)i.next();
+			if( lName == null ) {
+				return (IDataSource)dsBridge.getPresentation();
+			}
+			String dsName = dsBridge.getName(); 
+			if( lName.equals(dsName)) {
+				return (IDataSource)dsBridge.getPresentation();
+			}
+		}
+		
 		return null;
 	}
+
 }

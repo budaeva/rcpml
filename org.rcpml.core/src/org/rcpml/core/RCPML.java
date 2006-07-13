@@ -39,7 +39,13 @@ public class RCPML {
 			throw new CoreException(status);
 		}
 		try {
-			return XML.loadDocument(new InputStreamReader(is), uri);
+			Document doc = XML.loadDocument(new InputStreamReader(is), uri);
+			if( doc == null ) {
+				IStatus status = new Status(IStatus.ERROR, CorePlugin.PLUGIN_ID,
+						CorePlugin.DOCUMENT_LOAD_EXCEPTION, "Document load exception", null );
+				throw new CoreException(status);				
+			}
+			return renderDocument(doc);
 		} catch (IOException ioex) {
 			ioex.printStackTrace();
 			IStatus status = new Status(IStatus.ERROR, CorePlugin.PLUGIN_ID,

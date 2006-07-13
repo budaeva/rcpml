@@ -5,31 +5,17 @@
          id="script"
          name="Script Tag for Core namespace"
          point="org.rcpml.core.namespace">
-      <namespace xmlNS="http://rcpml.org/ui2">
+      <namespace xmlNS="http://rcpml.org/core/tests/datasource">
          <tag
-               class="org.rcpml.core.tests.extension.FormTagBuilder"
-               name="form"/>
-         <tag
-               class="org.rcpml.core.tests.extension.ButtonTagBuilder"
-               name="button"/>
-         <tag
-               class="org.rcpml.core.tests.extension.LabelTagBuilder"
-               name="label"/>
-         <tag
-               class="org.rcpml.core.tests.extension.ShellTagBuilder"
-               name="shell"/>
-         <tag
-               class="org.rcpml.core.tests.extension.CheckTagBridge"
-               name="checkbox"/>
+               class="org.rcpml.core.tests.datasource.DataSourceTestBridgeFactory"
+               name="test_datasource"/>
       </namespace>
-      <namespace xmlNS="http://rcpml.org/tests">
-         <tag
-               class="org.rcpml.core.tests.extension.tests.TestContainerFactory"
-               name="testcontainer"/>
-         <tag
-               class="org.rcpml.core.tests.extension.tests.TestTagFactory"
-               name="test"/>
-      </namespace>
+   </extension>
+   <extension
+         point="org.rcpml.core.dataSource">
+      <dataSource
+            class="org.rcpml.core.tests.datasource.TestDataSourceFactory"
+            name="testDataSource"/>
    </extension>
 
 </plugin>
