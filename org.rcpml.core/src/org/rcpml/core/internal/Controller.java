@@ -390,7 +390,7 @@ public class Controller implements IController, IVisitor, EventListener,
 
 	public IDataSource getDataSource(final Node node, String path) {
 		String lName = null;
-		if( path.contains(":")) {
+		if( path.indexOf(':')!=-1) {
 			lName = path.substring(0, path.indexOf(":"));
 		}
 		final Stack dataSourceList = new Stack();		
