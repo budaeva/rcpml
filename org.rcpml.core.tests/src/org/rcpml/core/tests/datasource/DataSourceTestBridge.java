@@ -12,7 +12,7 @@ public class DataSourceTestBridge extends AbstractBridge {
 		String path = getAttribute("path");
 		if( path != null && !path.equals("")) {
 			IDataSource ds = getController().getDataSource(node, path);
-			System.out.println("DataSourceTestBridge found:" + ds.getName() );
+			System.out.println("DataSourceTestBridge found:" + ds );
 		}
 	}
 

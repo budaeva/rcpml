@@ -1,6 +1,6 @@
 package org.rcpml.core.datasource;
 
-public interface IDataSourceElement {
+public interface IDataSourceElementBinding extends IDataSourceElementListener {
 	
 	/**
 	 * The value type of this observable value, or <code>null</code> if this

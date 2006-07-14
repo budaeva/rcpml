@@ -24,6 +24,8 @@ public class ExpandableTagFactory extends AbstractBridgeFactory {
 		private static final String TREE_STYLE = "tree";
 
 		private static final String TWISTIE_STYLE = "twistie";
+		
+		private static final String NONE_STYLE = "none";
 
 		private static final String TITLE_ATTR = "title";
 
@@ -38,7 +40,8 @@ public class ExpandableTagFactory extends AbstractBridgeFactory {
 		protected void construct(Composite parent) {
 			int style = ExpandableComposite.EXPANDED;
 			String styleAttr = this.getAttribute(TYPE_ATTR);
-			if (styleAttr.equals(TREE_STYLE)) {
+			
+			if (styleAttr.equals(TREE_STYLE) || !styleAttr.equals(NONE_STYLE) ) {
 				style |= ExpandableComposite.TREE_NODE;
 			} else if (styleAttr.equals(TWISTIE_STYLE)) {
 				style |= ExpandableComposite.TREE_NODE;

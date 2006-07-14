@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Stack;
-import java.util.jar.Attributes.Name;
 
 import org.apache.batik.css.engine.CSSContext;
 import org.apache.batik.css.engine.CSSEngine;
@@ -391,15 +390,8 @@ public class Controller implements IController, IVisitor, EventListener,
 
 	public IDataSource getDataSource(final Node node, String path) {
 		String lName = null;
-		if (path != null) {
-			URI uri = null;
-			try {
-				uri = new URI(path);
-			} catch (URISyntaxException ex) {
-				ex.printStackTrace();
-				return null;
-			}
-			lName = uri.getScheme();
+		if( path.contains(":")) {
+			lName = path.substring(0, path.indexOf(":"));
 		}
 		final Stack dataSourceList = new Stack();		
 

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<ui:view xmlns="http://rcpml.org/forms" xmlns:ui="http://rcpml.org/ui"
+	xmlns:core="http://rcpml.org/core">
+	<core:style type="text/css">
+		composite { rcpml-layout:grid;rcpml-columns:2; } text {
+		rcpml-layout-width:300; }
+	</core:style>
+	<composite>
+		<core:datasource name="merge0"
+			src="org.rcpml.example.forms.datasource.merge" />
+		<core:datasource name="merge1"
+			src="org.rcpml.example.forms.datasource.merge" />
+		<label>Element 1:</label><text path="merge0:" />
+		<label>Element 2:</label><text path="merge0:">This is text</text>
+	</composite>
+</ui:view>

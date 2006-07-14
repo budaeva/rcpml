@@ -11,11 +11,13 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 import org.rcpml.core.IController;
 import org.rcpml.core.css.RCPCSSConstants;
+import org.rcpml.core.datasource.IDataSource;
 import org.rcpml.core.dom.RCPStylableElement;
 import org.rcpml.swt.databinding.ElementTextObservable;
 import org.w3c.dom.Node;
 
 public class SWTTextBridge extends AbstractSWTBridge {
+	private static final String PATH_ATTR = "path";
 	private static final String EDITABLE_ID = "editable";
 	protected Text fText;
 	
@@ -33,6 +35,12 @@ public class SWTTextBridge extends AbstractSWTBridge {
 		//todo add specs test here.
 		DataBindingContext dbc = this.getBindingContext();
 		dbc.bind( new Property( this.fText, "text" ), new ElementTextObservable(getNode()), null );
+		
+		String path = getAttribute(PATH_ATTR);
+		if( path != null && !path.equals("")) {
+			IDataSource ds = getController().getDataSource(this.getNode(), path);
+			//ds.bind( new , path);
+		}
 	}	
 	
 	protected int getStyle() {

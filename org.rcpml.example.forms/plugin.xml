@@ -66,6 +66,18 @@
             icon="icons/sample.gif"
             id="org.rcpml.example.forms.sample8"
             name="RCPML Forms view 8( Section add button )"/>
+	<view
+            category="org.rcpml.example.forms"
+            class="org.rcpml.core.RCPMLExtension:/views/sample9.xml"
+            icon="icons/sample.gif"
+            id="org.rcpml.example.forms.sample9"
+            name="RCPML Forms view 9( Simple databinding )"/>
+   </extension>
+   <extension
+         point="org.rcpml.core.dataSource">
+      <dataSource
+            class="org.rcpml.example.forms.datasource.MergeDataSourceFactory"
+            name="org.rcpml.example.forms.datasource.merge"/>
    </extension>
 
 </plugin>

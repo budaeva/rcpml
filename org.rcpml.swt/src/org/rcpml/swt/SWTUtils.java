@@ -51,7 +51,7 @@ public class SWTUtils {
 			lo.marginLeft = marginLeft;
 			lo.marginRight = marginRight;
 			lo.marginTop = marginTop;
-			lo.marginBottom = marginButtom;
+			lo.marginBottom = marginButtom;			
 			layout = lo;
 		} else if (layoutString.equals(RCPCSSConstants.LAYOUT_FILL_VALUE)) {
 			FillLayout fl = new FillLayout();
@@ -89,7 +89,7 @@ public class SWTUtils {
 	}
 
 	public static Object constructLayoutData(RCPStylableElement stylable,
-			Composite parent) {
+			Composite parent) {		
 		Value alignValue = stylable
 				.getComputedValue(RCPCSSConstants.LAYOUT_ALIGN_INDEX);
 		Value alignVerticalValue = stylable
@@ -156,7 +156,7 @@ public class SWTUtils {
 				gd.heightHint = height;
 			} else {
 				gd.heightHint = SWT.DEFAULT;
-			}
+			}			
 
 			return gd;
 		}
