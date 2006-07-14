@@ -1,7 +1,5 @@
 package org.rcpml.core.internal;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
