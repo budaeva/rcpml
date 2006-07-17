@@ -1,6 +1,7 @@
 package org.rcpml.core.internal.css;
 
 import java.net.URL;
+import java.util.HashMap;
 
 import org.apache.batik.css.engine.CSSContext;
 import org.apache.batik.css.engine.CSSEngine;
@@ -65,7 +66,7 @@ public class RCPCSSEngine extends CSSEngine {
 
 	private final static ShorthandManager[] RCP_SHORTHAND_MANAGERS = {};
 
-	private RCPErrorHandler fParserErrorHandler = new RCPErrorHandler();
+	private RCPErrorHandler fParserErrorHandler = new RCPErrorHandler();	
 
 	/**
 	 * Creates a new RCPCSSEngine.

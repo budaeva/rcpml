@@ -10,13 +10,14 @@ import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.rcpml.core.IController;
+import org.rcpml.core.RCPMLTagConstants;
 import org.rcpml.core.css.RCPCSSConstants;
 import org.rcpml.core.dom.DOMUtils;
 import org.rcpml.core.dom.RCPStylableElement;
 import org.w3c.dom.Node;
 
 public class SWTLabelBridge extends AbstractSWTBridge {
-	private static final String SEPARATOR = "separator";
+	private static final String SEPARATOR = RCPMLTagConstants.SEPARATOR_ATTR;
 	private Label fLabel;
 	public SWTLabelBridge(Node node, IController container) {
 		super( node, container, false );			
@@ -33,7 +34,7 @@ public class SWTLabelBridge extends AbstractSWTBridge {
 			style |= SWT.WRAP;
 		}		
 		String separator = getAttribute(SEPARATOR);
-		if( separator != null && separator.equals("horizontal")) {
+		if( separator != null && separator.equals(RCPCSSConstants.LAYOUT_HORIZONTAL_VALUE)) {
 			style |= SWT.SEPARATOR | SWT.HORIZONTAL; 
 		}
 		this.fLabel = constructLabel( parent, style );		
@@ -49,7 +50,9 @@ public class SWTLabelBridge extends AbstractSWTBridge {
 		return new Label(parent, style );
 	}
 	public void update() {		
-		this.fLabel.setLayoutData( constructLayoutData(fLabel.getParent() ));
-		this.fLabel.setText( DOMUtils.getChildrenAsText(this.getNode()));		
+		if( this.fLabel != null ) {
+			this.fLabel.setLayoutData( constructLayoutData(fLabel.getParent() ));
+			this.fLabel.setText( DOMUtils.getChildrenAsText(this.getNode()));
+		}
 	}		
 }

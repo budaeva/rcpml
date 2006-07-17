@@ -8,6 +8,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.forms.widgets.Section;
 import org.rcpml.core.IController;
 import org.rcpml.core.RCPMLException;
+import org.rcpml.core.RCPMLTagConstants;
 import org.rcpml.core.bridge.AbstractBridgeFactory;
 import org.rcpml.core.bridge.IBridge;
 import org.rcpml.core.dom.RCPStylableElement;
@@ -17,9 +18,9 @@ import org.w3c.dom.Node;
 
 public class SectionTagFactory extends AbstractBridgeFactory {
 	private class SectionBridge extends AbstractEclipseFormsBridge {
-		private static final String TITLE_ATTR = "title";
+		private static final String TITLE_ATTR = RCPMLTagConstants.TITLE_ATTR;
 
-		private static final String DESCRIPTION_ATTR = "description";
+		private static final String DESCRIPTION_ATTR = RCPMLTagConstants.DESCRIPTION_ATTR;
 
 		private Section fSection;
 

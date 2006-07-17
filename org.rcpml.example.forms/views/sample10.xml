@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<ui:view xmlns="http://rcpml.org/forms" xmlns:ui="http://rcpml.org/ui" xmlns:core="http://rcpml.org/core">
+	<core:style id="style" type="text/css" src="bundle://org.rcpml.example.forms/style/sample10_1.css"/>
+	
+	<composite style="rcpml-layout:grid;rcpml-layout-columns:2;">
+		<button title="Select style 1" onclick="selStyle('sample10_1.css');"/>
+		<button title="Select style 2" onclick="selStyle('sample10_2.css');"/>
+	</composite>
+	<composite id="modificable">
+		<text/>
+	</composite>
+	<core:script language="javascript">		
+		function selStyle(path) {
+			java.lang.System.out.println("selStyle:" + path );
+			node = document.getElementById("style")
+			java.lang.System.out.println("node:" + node );
+			node.setAttribute("src", "bundle://org.rcpml.example.forms/style/" + path );
+		}
+	</core:script>
+</ui:view>

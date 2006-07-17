@@ -7,8 +7,10 @@ import org.eclipse.ui.forms.widgets.Form;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.rcpml.core.IController;
 import org.rcpml.core.RCPMLException;
+import org.rcpml.core.RCPMLTagConstants;
 import org.rcpml.core.bridge.AbstractBridgeFactory;
 import org.rcpml.core.bridge.IBridge;
+import org.rcpml.core.css.RCPCSSConstants;
 import org.rcpml.core.dom.RCPStylableElement;
 import org.rcpml.forms.internal.AbstractEclipseFormsBridge;
 import org.rcpml.forms.internal.EclipseFormsUtil;
@@ -17,9 +19,9 @@ import org.w3c.dom.Node;
 public class FormTagFactory extends AbstractBridgeFactory {
 
 	private static class FormBridge extends AbstractEclipseFormsBridge {
-		private static final String TITLE_ATTR = "title";
-		private static final String SCROLL_ATTR = "scroll";		
-		private static final String TRUE_STATE = "true";	
+		private static final String TITLE_ATTR = RCPMLTagConstants.TITLE_ATTR;
+		private static final String SCROLL_ATTR = RCPMLTagConstants.SCROLL_ATTR;		
+		private static final String TRUE_STATE = RCPCSSConstants.TRUE_VALUE;	
 		
 		private Form fForm;
 		private ScrolledForm fSForm;

@@ -1,9 +1,11 @@
 package org.rcpml.core.internal.dom;
 
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.MissingResourceException;
 
+import org.apache.batik.css.engine.StyleMap;
 import org.apache.batik.dom.AbstractStylableDocument;
 import org.apache.batik.dom.GenericAttr;
 import org.apache.batik.dom.GenericAttrNS;
@@ -49,6 +51,13 @@ public class RCPOMDocument extends AbstractStylableDocument implements
 	 * Is this document immutable?
 	 */
 	protected transient boolean readonly;
+	
+	/**
+	 * Style Maps hash.
+	 * For support of dynamic css updating.
+	 */
+	
+	HashMap fStyleMapHash = new HashMap();
 
 	/**
 	 * Creates a new uninitialized document.
@@ -246,4 +255,18 @@ public class RCPOMDocument extends AbstractStylableDocument implements
 		sd.url = url;
 		return n;
 	}	
+	
+	public StyleMap getStyleMapForElement( Element element ) {
+		if( this.fStyleMapHash.containsKey(element)) {
+			return (StyleMap)this.fStyleMapHash.get(element);
+		}
+		return null;
+	}
+	public void putStyleMapForElement( Element element, StyleMap styleMap ) {
+		this.fStyleMapHash.put(element, styleMap);
+	}
+	public void clearStylesMap() {
+		this.fStyleMapHash.clear();
+	}
+	
 }

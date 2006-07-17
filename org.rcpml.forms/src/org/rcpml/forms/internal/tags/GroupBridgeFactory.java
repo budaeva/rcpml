@@ -5,6 +5,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.rcpml.core.IController;
 import org.rcpml.core.RCPMLException;
+import org.rcpml.core.RCPMLTagConstants;
 import org.rcpml.core.bridge.AbstractBridgeFactory;
 import org.rcpml.core.bridge.IBridge;
 import org.rcpml.core.dom.RCPStylableElement;
@@ -14,7 +15,7 @@ import org.w3c.dom.Node;
 
 public class GroupBridgeFactory extends AbstractBridgeFactory {
 	private static class GroupBridge extends AbstractEclipseFormsBridge {
-		private static final String TITLE_ATTR = "title";
+		private static final String TITLE_ATTR = RCPMLTagConstants.TITLE_ATTR;
 		private Group fGroup;
 
 		protected GroupBridge(Node node, IController controller) {

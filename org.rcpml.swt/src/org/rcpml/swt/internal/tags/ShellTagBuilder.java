@@ -6,6 +6,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 import org.rcpml.core.IController;
 import org.rcpml.core.RCPMLException;
+import org.rcpml.core.RCPMLTagConstants;
 import org.rcpml.core.bridge.AbstractBridge;
 import org.rcpml.core.bridge.AbstractBridgeFactory;
 import org.rcpml.core.bridge.IBridge;
@@ -17,8 +18,9 @@ import org.w3c.dom.Node;
 
 public class ShellTagBuilder extends AbstractBridgeFactory {
 
-	private static class ShellBridge extends AbstractBridge implements ICompositeParentConstructor {
-		private static final String TITLE_ATTR = "title";
+	private static class ShellBridge extends AbstractBridge implements
+			ICompositeParentConstructor {
+		private static final String TITLE_ATTR = RCPMLTagConstants.TITLE_ATTR;
 
 		private Shell fShell;
 
@@ -39,29 +41,33 @@ public class ShellTagBuilder extends AbstractBridgeFactory {
 					}
 				}
 			}
-			if( composite != null && !( composite instanceof Shell ) ) {
+			if (composite != null && !(composite instanceof Shell)) {
 				throw new RCPMLException("Shell parent can't be not shell.");
 			}
 			this.construct(composite);
 		}
 
 		public void update() {
-			this.fShell.layout();
-			String title = this.getAttribute(TITLE_ATTR);
-			if (title != null) {
-				this.fShell.setText(title);
+			if (this.fShell != null) {
+				this.fShell.setLayout(SWTUtils
+						.constructLayout((RCPStylableElement) this.getNode()));
+				
+				this.fShell.layout();
+				String title = this.getAttribute(TITLE_ATTR);
+				if (title != null) {
+					this.fShell.setText(title);
+				}
 			}
 		}
 
-		protected void construct(Composite parent) {			
-			this.fShell = new Shell();
-			this.fShell.setLayout(SWTUtils.constructLayout((RCPStylableElement) this.getNode()));
-			this.fShell.addDisposeListener( new DisposeListener() {
+		protected void construct(Composite parent) {
+			this.fShell = new Shell();			
+			this.fShell.addDisposeListener(new DisposeListener() {
 
 				public void widgetDisposed(DisposeEvent e) {
 					getController().bridgeDisposed(ShellBridge.this);
 				}
-				
+
 			});
 			update();
 		}
@@ -77,8 +83,8 @@ public class ShellTagBuilder extends AbstractBridgeFactory {
 		}
 
 		public Object createInstance(Object[] args) {
-			if( args.length == 1 && args[0] instanceof Composite) {
-				construct((Composite)args[0]);
+			if (args.length == 1 && args[0] instanceof Composite) {
+				construct((Composite) args[0]);
 				this.getController().update();
 				return getPresentation();
 			}

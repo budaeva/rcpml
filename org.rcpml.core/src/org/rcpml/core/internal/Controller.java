@@ -50,9 +50,9 @@ public class Controller implements IController, IVisitor, EventListener,
 	private Document fDocument = null;
 
 	private Map/* <Node, IBridge> */fNodeToBridgeMap = new HashMap/*
-																 * <Node,
-																 * IBridge>
-																 */();
+																	 * <Node,
+																	 * IBridge>
+																	 */();
 
 	// private Bundle fBundle;
 
@@ -63,6 +63,8 @@ public class Controller implements IController, IVisitor, EventListener,
 	private boolean fWithConstructor = false;
 
 	private boolean fSkipEvents = false;
+
+	private boolean fFullUpdateRequired = false;
 
 	public Controller(Document document) {
 		this(document, false);
@@ -174,13 +176,22 @@ public class Controller implements IController, IVisitor, EventListener,
 				this.disposeNode(node);
 				// this.update(parent);
 			} else if (DOMATTR_MODIFIED.equals(type)) {
-				// this.update(node);
+				if (!this.fFullUpdateRequired) {
+					this.update(node);
+				} else {
+					update();
+					this.fFullUpdateRequired = false;
+				}
 				return;
 			}
 			if (DOMSUBTREE_MODIFIED.equals(type)) {
 				Node parent = this.findExistParent(node);
-				this.update(parent);
-				// update();
+				if (!this.fFullUpdateRequired) {
+					this.update(parent);
+				} else {
+					update();
+					this.fFullUpdateRequired = false;
+				}
 			}
 		}
 	}
@@ -388,10 +399,10 @@ public class Controller implements IController, IVisitor, EventListener,
 
 	public IDataSource getDataSource(final Node node, String path) {
 		String lName = null;
-		if( path.indexOf(':')!=-1) {
+		if (path.indexOf(':') != -1) {
 			lName = path.substring(0, path.indexOf(":"));
 		}
-		final Stack dataSourceList = new Stack();		
+		final Stack dataSourceList = new Stack();
 
 		IVisitor visitor = new IVisitor() {
 			boolean search = true;
@@ -409,30 +420,33 @@ public class Controller implements IController, IVisitor, EventListener,
 							dataSourceList.add(br);
 						}
 					}
-					if( br != null ) {
+					if (br != null) {
 						br.visit(this);
 					}
 				}
 			}
-		};		
-		
+		};
+
 		if (this.fRootBridge != null) {
 			visitor.visit(this.fRootBridge.getNode());
 		}
-		
+
 		Iterator i = dataSourceList.iterator();
-		while( i.hasNext() ) {
-			DataSourceBridge dsBridge = (DataSourceBridge)i.next();
-			if( lName == null ) {
-				return (IDataSource)dsBridge.getPresentation();
+		while (i.hasNext()) {
+			DataSourceBridge dsBridge = (DataSourceBridge) i.next();
+			if (lName == null) {
+				return (IDataSource) dsBridge.getPresentation();
 			}
-			String dsName = dsBridge.getName(); 
-			if( lName.equals(dsName)) {
-				return (IDataSource)dsBridge.getPresentation();
+			String dsName = dsBridge.getName();
+			if (lName.equals(dsName)) {
+				return (IDataSource) dsBridge.getPresentation();
 			}
 		}
-		
+
 		return null;
 	}
 
+	public void requireFullUpdate() {
+		this.fFullUpdateRequired = true;
+	}
 }

@@ -16,7 +16,7 @@ public class RCPOMElement extends GenericElementNS implements
 		CSSStylableElement, RCPStylableElement {
 	private static final long serialVersionUID = 1L;
 
-	private StyleMap fStyleMap;
+	//private StyleMap fStyleMap;
 
 	public RCPOMElement(String nsURI, String name, AbstractDocument owner) {
 		super(nsURI, name, owner);
@@ -24,12 +24,13 @@ public class RCPOMElement extends GenericElementNS implements
 	}
 
 	public StyleMap getComputedStyleMap(String arg0) {
-		return this.fStyleMap;
+		RCPOMDocument document = (RCPOMDocument)this.getOwnerDocument();
+		return document.getStyleMapForElement(this);
 	}
 
 	public void setComputedStyleMap(String pseudo, StyleMap styleMap) {
-		this.fStyleMap = styleMap;
-
+		RCPOMDocument document = (RCPOMDocument)this.getOwnerDocument();
+		document.putStyleMapForElement(this, styleMap );
 	}
 
 	public String getXMLId() {

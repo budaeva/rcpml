@@ -66,4 +66,6 @@ public interface IController extends IVisitor {
 	 */
 	IDataSource getDataSource( Node node, String path );
 
+	void requireFullUpdate();
+
 }

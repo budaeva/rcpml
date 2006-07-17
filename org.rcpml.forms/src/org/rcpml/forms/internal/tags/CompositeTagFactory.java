@@ -24,9 +24,7 @@ public class CompositeTagFactory extends AbstractBridgeFactory {
 
 		protected void construct(Composite parent) {
 			fComposite = getFormToolkit().createComposite(parent);
-			this.fComposite.setLayout(EclipseFormsUtil
-					.constructLayout((RCPStylableElement) this.getNode()));
-			this.fComposite.setLayoutData(this.constructLayoutData(parent));
+			update();
 		}
 
 		public Object getPresentation() {
@@ -49,6 +47,10 @@ public class CompositeTagFactory extends AbstractBridgeFactory {
 		}
 		public void update() {	
 			if( this.fComposite != null ) {
+				this.fComposite.setLayout(EclipseFormsUtil
+						.constructLayout((RCPStylableElement) this.getNode()));
+				this.fComposite.setLayoutData(this.constructLayoutData(this.fComposite.getParent()));
+				
 				this.fComposite.layout();				
 			}
 		}

@@ -72,6 +72,12 @@
             icon="icons/sample.gif"
             id="org.rcpml.example.forms.sample9"
             name="RCPML Forms view 9( Simple databinding )"/>
+	<view
+            category="org.rcpml.example.forms"
+            class="org.rcpml.core.RCPMLExtension:/views/sample10.xml"
+            icon="icons/sample.gif"
+            id="org.rcpml.example.forms.sample10"
+            name="RCPML Forms view 10( CSS Selection )"/>
    </extension>
    <extension
          point="org.rcpml.core.dataSource">

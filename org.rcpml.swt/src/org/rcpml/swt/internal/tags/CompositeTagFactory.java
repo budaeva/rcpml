@@ -22,11 +22,7 @@ public class CompositeTagFactory extends AbstractBridgeFactory {
 		}
 
 		protected void construct(Composite parent) {			
-			this.fComposite = new Composite( parent, SWT.NULL );
-			RCPStylableElement stylable =  (RCPStylableElement)this.getNode();
-			this.fComposite.setLayout(SWTUtils.constructLayout( stylable ));
-			
-			this.fComposite.setLayoutData(this.constructLayoutData(parent));
+			this.fComposite = new Composite( parent, SWT.NULL );				
 			
 			fComposite.addDisposeListener( new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
@@ -38,6 +34,11 @@ public class CompositeTagFactory extends AbstractBridgeFactory {
 
 		public void update() {	
 			if( this.fComposite != null ) {
+				RCPStylableElement stylable =  (RCPStylableElement)this.getNode();
+				this.fComposite.setLayout(SWTUtils.constructLayout( stylable ));
+				
+				this.fComposite.setLayoutData(this.constructLayoutData(this.fComposite.getParent()));
+				
 				this.fComposite.layout();				
 			}
 		}

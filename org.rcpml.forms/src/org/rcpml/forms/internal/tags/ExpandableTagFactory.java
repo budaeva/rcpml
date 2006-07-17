@@ -10,6 +10,7 @@ import org.eclipse.ui.forms.events.ExpansionEvent;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.rcpml.core.IController;
 import org.rcpml.core.RCPMLException;
+import org.rcpml.core.RCPMLTagConstants;
 import org.rcpml.core.bridge.AbstractBridgeFactory;
 import org.rcpml.core.bridge.IBridge;
 import org.rcpml.core.dom.RCPStylableElement;
@@ -19,15 +20,15 @@ import org.w3c.dom.Node;
 
 public class ExpandableTagFactory extends AbstractBridgeFactory {
 	private static class ExpandableBridge extends AbstractEclipseFormsBridge {
-		private static final String TYPE_ATTR = "type";
+		private static final String TYPE_ATTR = RCPMLTagConstants.TYPE_ATTR;
 
-		private static final String TREE_STYLE = "tree";
+		private static final String TREE_STYLE = RCPMLTagConstants.TREE_VALUE;
 
-		private static final String TWISTIE_STYLE = "twistie";
+		private static final String TWISTIE_STYLE = RCPMLTagConstants.TWISTIE_VALUE;
 		
-		private static final String NONE_STYLE = "none";
+		private static final String NONE_STYLE = RCPMLTagConstants.NONE_VALUE;
 
-		private static final String TITLE_ATTR = "title";
+		private static final String TITLE_ATTR = RCPMLTagConstants.TITLE_ATTR;
 
 		private ExpandableComposite fExpandableComposite;
 

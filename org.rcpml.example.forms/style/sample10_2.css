@@ -1,0 +1,7 @@
+composite {
+	rcpml-layout:grid;
+	rcpml-columns:1;
+}
+text {
+	rcpml-layout-width:100;
+}

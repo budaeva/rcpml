@@ -12,7 +12,6 @@ import org.rcpml.core.internal.Controller;
 import org.w3c.dom.Node;
 import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
-import org.w3c.dom.events.EventTarget;
 import org.w3c.dom.stylesheets.LinkStyle;
 
 public class RCPOMStyleElement extends RCPOMElement implements
@@ -27,7 +26,7 @@ public class RCPOMStyleElement extends RCPOMElement implements
     /**
      * The style sheet.
      */
-    protected transient org.w3c.dom.stylesheets.StyleSheet fSheet;
+    //protected transient org.w3c.dom.stylesheets.StyleSheet fSheet;
     
     /**
      * The DOM CSS style-sheet.
@@ -36,7 +35,9 @@ public class RCPOMStyleElement extends RCPOMElement implements
 
 	private EventListener domCharacterDataModifiedListener = new EventListener() {
 		public void handleEvent(Event arg0) {
-			fStyleSheet = null;
+			fStyleSheet = null;		
+			RCPOMDocument document = (RCPOMDocument)getOwnerDocument();
+			document.clearStylesMap();
 		}		
 	};
 

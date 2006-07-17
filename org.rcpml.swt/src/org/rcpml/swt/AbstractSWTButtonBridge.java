@@ -7,6 +7,8 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.rcpml.core.IController;
+import org.rcpml.core.RCPMLTagConstants;
+import org.rcpml.core.css.RCPCSSConstants;
 import org.rcpml.core.scripting.IScriptContextManager;
 import org.rcpml.core.scripting.IScriptingContext;
 import org.w3c.dom.Node;
@@ -14,8 +16,8 @@ import org.w3c.dom.Node;
 public abstract class AbstractSWTButtonBridge extends AbstractSWTBridge {
 	private Button fButton;	
 	
-	public static final String TITLE_ATTR = "title";	
-	private static final String ENABLED_ATTR = "enabled";
+	public static final String TITLE_ATTR = RCPMLTagConstants.TITLE_ATTR;	
+	private static final String ENABLED_ATTR = RCPMLTagConstants.ENABLED_ATTR;
 	
 	protected abstract int getStyle();	
 	
@@ -37,9 +39,7 @@ public abstract class AbstractSWTButtonBridge extends AbstractSWTBridge {
 		// check initial values.
 		int style = this.getStyle();
 		String title = this.getTitle();
-		this.fButton = this.createButton( parent, title, style );
-		
-		this.fButton.setLayoutData( this.constructLayoutData(parent) );
+		this.fButton = this.createButton( parent, title, style );		
 		
 		update();
 		
@@ -50,7 +50,7 @@ public abstract class AbstractSWTButtonBridge extends AbstractSWTBridge {
 		Button button = this.getButton();							
 		button.addSelectionListener( new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent arg0) {
-				String onClickAction = getAttribute("onclick");
+				String onClickAction = getAttribute(RCPMLTagConstants.ONCLICK_ATTR);
 				if( onClickAction.length() > 0 ) {
 					IScriptContextManager manager = getController().getScriptManager();
 					IScriptingContext context = manager.getContextFrom( onClickAction );
@@ -70,7 +70,7 @@ public abstract class AbstractSWTButtonBridge extends AbstractSWTBridge {
 		
 	protected boolean getEnabled() {
 		String enabled = this.getAttribute(ENABLED_ATTR);
-		if( enabled.equals("false") ) {
+		if( enabled.equals(RCPCSSConstants.FALSE_VALUE) ) {
 			return false;
 		}
 		return true;
@@ -84,14 +84,18 @@ public abstract class AbstractSWTButtonBridge extends AbstractSWTBridge {
 		return this.fButton;
 	}
 	public void update() {
-		String title = this.getTitle();
-		if( title != null ) {
-			this.fButton.setText(title);
+		if( this.fButton != null ) {
+			this.fButton.setLayoutData( this.constructLayoutData(this.fButton.getParent() ) );
+			
+			String title = this.getTitle();
+			if( title != null ) {
+				this.fButton.setText(title);
+			}
+		
+			this.fButton.setEnabled(this.getEnabled());
+		
+			this.fButton.update();
 		}
-		
-		this.fButton.setEnabled(this.getEnabled());
-		
-		this.fButton.update();
 	}
 	public void dispose() {
 		if( this.fButton != null ) {

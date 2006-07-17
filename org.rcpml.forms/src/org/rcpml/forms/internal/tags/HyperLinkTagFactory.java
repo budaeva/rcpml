@@ -9,6 +9,7 @@ import org.eclipse.ui.forms.events.HyperlinkEvent;
 import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.rcpml.core.IController;
 import org.rcpml.core.RCPMLException;
+import org.rcpml.core.RCPMLTagConstants;
 import org.rcpml.core.bridge.AbstractBridgeFactory;
 import org.rcpml.core.bridge.IBridge;
 import org.rcpml.core.dom.DOMUtils;
@@ -17,7 +18,7 @@ import org.w3c.dom.Node;
 
 public class HyperLinkTagFactory extends AbstractBridgeFactory {
 	private static class HyperLinkBridge extends AbstractEclipseFormsBridge {
-		protected static final String ONCLICK_SCRIPT_ATTR = "onclick";		
+		protected static final String ONCLICK_SCRIPT_ATTR = RCPMLTagConstants.ONCLICK_ATTR;		
 		
 		private Hyperlink fHyperLink;
 		protected HyperLinkBridge(Node node, IController controller) {
