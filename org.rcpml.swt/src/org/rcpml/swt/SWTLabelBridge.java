@@ -18,6 +18,7 @@ import org.w3c.dom.Node;
 
 public class SWTLabelBridge extends AbstractSWTBridge {
 	private static final String SEPARATOR = RCPMLTagConstants.SEPARATOR_ATTR;
+	private static final String TOOLTIP = RCPMLTagConstants.TOOLTIP_ATTR;
 	private Label fLabel;
 	public SWTLabelBridge(Node node, IController container) {
 		super( node, container, false );			
@@ -37,14 +38,15 @@ public class SWTLabelBridge extends AbstractSWTBridge {
 		if( separator != null && separator.equals(RCPCSSConstants.LAYOUT_HORIZONTAL_VALUE)) {
 			style |= SWT.SEPARATOR | SWT.HORIZONTAL; 
 		}
-		this.fLabel = constructLabel( parent, style );		
-		update();
+		this.fLabel = constructLabel( parent, style );
 		
 		this.fLabel.addDisposeListener( new DisposeListener() {
 			public void widgetDisposed(DisposeEvent e) {
 				disposeDataBinding();
 			}			
 		});
+		
+		update();
 	}
 	protected Label constructLabel( Composite parent, int style ) {
 		return new Label(parent, style );
@@ -53,6 +55,11 @@ public class SWTLabelBridge extends AbstractSWTBridge {
 		if( this.fLabel != null ) {
 			this.fLabel.setLayoutData( constructLayoutData(fLabel.getParent() ));
 			this.fLabel.setText( DOMUtils.getChildrenAsText(this.getNode()));
+			
+			String tooltip = getAttribute(TOOLTIP);
+			if( tooltip!= null ) {
+				this.fLabel.setToolTipText(tooltip);
+			}
 		}
 	}		
 }

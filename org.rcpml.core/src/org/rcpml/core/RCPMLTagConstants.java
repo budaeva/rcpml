@@ -16,4 +16,5 @@ public interface RCPMLTagConstants {
 	static final String TYPE_ATTR = "type";
 	static final String SCROLL_ATTR = "scroll";
 	static final String DESCRIPTION_ATTR = "description";
+	static final String TOOLTIP_ATTR = "tooltip";
 }
