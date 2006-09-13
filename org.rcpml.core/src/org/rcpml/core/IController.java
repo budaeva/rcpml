@@ -1,6 +1,5 @@
 package org.rcpml.core;
 
-import org.osgi.framework.Bundle;
 import org.rcpml.core.bridge.IBridge;
 import org.rcpml.core.bridge.IVisitor;
 import org.rcpml.core.datasource.IDataSource;

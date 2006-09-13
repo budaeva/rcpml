@@ -1,7 +1,6 @@
 package org.rcpml.forms.internal;
 
 import org.apache.batik.css.engine.value.Value;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Layout;
 import org.eclipse.ui.forms.FormColors;
