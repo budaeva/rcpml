@@ -2,8 +2,8 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Swt Plug-in
 Bundle-SymbolicName: org.rcpml.swt; singleton:=true
-Bundle-Version: 1.0.0
-Bundle-Vendor: xored software
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Xored software, Inc
 Bundle-Localization: plugin
 Require-Bundle: org.rcpml.core,
  org.rcpml.batik,
