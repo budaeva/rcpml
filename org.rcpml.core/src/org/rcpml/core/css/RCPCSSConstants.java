@@ -52,7 +52,7 @@ public interface RCPCSSConstants {
 	String CSS_LAYOUT_SPACING_HORIZONTAL_PROPERTY = "rcpml-layout-spacing-horizontal";
 
 	String CSS_LAYOUT_SPACING_VERTICAL_PROPERTY = "rcpml-layout-spacing-vertical";
-
+	
 	// The CSS property values
 
 	String NONE_VALUE = "none";
@@ -136,4 +136,8 @@ public interface RCPCSSConstants {
 	public final static int LAYOUT_MARGIN_RIGHT = 16;
 
 	public final static int LAYOUT_MARGIN_BUTTOM = 17;
+	
+	public final static int LAYOUT_SPACING_HORIZONTAL = 18;
+	
+	public final static int LAYOUT_SPACING_VERTICAL = 19;
 }

@@ -70,6 +70,7 @@ public class EditPartTagFactory extends AbstractBridgeFactory {
 		public void init(IEditorSite site, IEditorInput input) throws PartInitException {
 			setSite(site);
 			setInput(input);							
+			this.bridge.getController().getScriptManager().getDefaultContext().bindObject("editorInput", input );
 		}
 
 		public boolean isDirty() {
@@ -92,7 +93,7 @@ public class EditPartTagFactory extends AbstractBridgeFactory {
 		}
 
 		public void executeInitScript( EditorPart part ) {
-			this.getController().getScriptManager().getDefaultContext().bindObject("editor", part );
+			this.getController().getScriptManager().getDefaultContext().bindObject("editor", part );			
 			executeScript("oninit");
 		}
 

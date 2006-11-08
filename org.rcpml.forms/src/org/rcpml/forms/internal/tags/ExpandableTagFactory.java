@@ -39,7 +39,7 @@ public class ExpandableTagFactory extends AbstractBridgeFactory {
 		}
 
 		protected void construct(Composite parent) {
-			int style = ExpandableComposite.EXPANDED;
+			int style = ExpandableComposite.COMPACT;
 			String styleAttr = this.getAttribute(TYPE_ATTR);
 			
 			if (styleAttr.equals(TREE_STYLE) || !styleAttr.equals(NONE_STYLE) ) {
