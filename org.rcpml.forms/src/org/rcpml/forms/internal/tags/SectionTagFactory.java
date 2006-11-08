@@ -45,14 +45,15 @@ public class SectionTagFactory extends AbstractBridgeFactory {
 			this.fSection = this.getFormToolkit().createSection(parent, style);
 			this.fSection.setText(title);
 			this.fSection.setDescription(description);
+			this.fSection.setTitleBarForeground(this.getFormToolkit().getColors().getForeground());
 			this.fSection.setLayout( new GridLayout() );
 			this.fComposite = this.getFormToolkit().createComposite(
 					this.fSection);
 			this.fComposite.setLayout(EclipseFormsUtil
 					.constructLayout((RCPStylableElement) this.getNode()));
-			// this.fComposite.setLayoutData(this.constructLayout(parent));
+			//this.fComposite.setLayoutData(this.constructLayout(parent));
 			this.fSection.setClient(this.fComposite);
-			this.fSection.setLayoutData(this.constructLayoutData(parent));
+			//this.fSection.setLayoutData(this.constructLayoutData(parent));
 
 			fSection.addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {

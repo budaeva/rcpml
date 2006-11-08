@@ -33,6 +33,7 @@ public class EditPartTagFactory extends AbstractBridgeFactory {
 
 		public void createPartControl(Composite parent) {
 			fComposite = new Composite(parent, SWT.NONE);
+			parent.setLayout(new FillLayout());
 			this.fComposite.setLayout(new FillLayout());
 			this.bridge.build();
 			fInitialized = true;
