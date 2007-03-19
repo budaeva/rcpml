@@ -48,4 +48,19 @@ public class LayoutAlignValueManager extends IdentifierManager {
 	public StringMap getIdentifiers() {
 		return values;
 	}
+
+	public int getPropertyType() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public boolean isAdditiveProperty() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean isAnimatableProperty() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

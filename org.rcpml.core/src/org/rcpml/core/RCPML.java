@@ -23,6 +23,6 @@ public class RCPML {
 
 	public static Object renderURI(String uri) throws CoreException {
 		Document doc = RCPMLImpl.getDocument(uri);
-		return renderDocument(doc);		
+		return renderDocument(doc);
 	}
 }

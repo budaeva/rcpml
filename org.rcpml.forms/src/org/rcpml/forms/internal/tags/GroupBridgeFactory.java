@@ -42,9 +42,19 @@ public class GroupBridgeFactory extends AbstractBridgeFactory {
 						.constructLayout((RCPStylableElement) this.getNode()));
 				this.fGroup.setLayoutData(this.constructLayoutData(this.fGroup
 						.getParent()));
+				this.fGroup.layout();
+//				this.fGroup.update();
+//				System.out.println("Group update...");
 			}
 		}
 
+		public void parentUpdate() {
+			if( this.fGroup != null ) {
+				this.fGroup.layout();
+			}
+			super.parentUpdate();
+		}
+		
 	}
 
 	public IBridge createBridge(Node node) throws RCPMLException {

@@ -1,7 +1,7 @@
 package org.rcpml.swt.databinding;
 
-import org.eclipse.jface.internal.databinding.provisional.observable.Diffs;
-import org.eclipse.jface.internal.databinding.provisional.observable.value.AbstractObservableValue;
+import org.eclipse.core.databinding.observable.Diffs;
+import org.eclipse.core.databinding.observable.value.AbstractObservableValue;
 import org.rcpml.core.dom.DOMUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -29,7 +29,7 @@ public class ElementTextObservable extends AbstractObservableValue implements Ev
 		return String.class;
 	}
 	
-	public void setValue(Object value) {
+	protected void doSetValue(Object value) {
 		if( value instanceof String ) {
 			DOMUtils.setChildrenText(this.fNode, (String)value );
 			this.fValue = (String)value;

@@ -57,7 +57,7 @@ public class ScriptBridge extends AbstractBridge implements IScriptingContext
 					try {
 						String line = br.readLine();
 						while( line != null ) {
-							content += line;
+							content += line + "\n";
 							line = br.readLine();
 						}
 					}

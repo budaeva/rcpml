@@ -61,5 +61,11 @@ public class SWTLabelBridge extends AbstractSWTBridge {
 				this.fLabel.setToolTipText(tooltip);
 			}
 		}
-	}		
+	}	
+	public void dispose() {
+		if( this.fLabel != null ) {
+			this.fLabel.dispose();
+			this.fLabel = null;
+		}
+	}
 }

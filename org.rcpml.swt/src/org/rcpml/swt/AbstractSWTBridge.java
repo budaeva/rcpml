@@ -1,9 +1,6 @@
 package org.rcpml.swt;
 
-import org.eclipse.jface.internal.databinding.provisional.DataBindingContext;
-import org.eclipse.jface.internal.databinding.provisional.factories.DefaultBindSupportFactory;
-import org.eclipse.jface.internal.databinding.provisional.factories.DefaultBindingFactory;
-import org.eclipse.jface.internal.databinding.provisional.swt.SWTObservableFactory;
+import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.swt.widgets.Composite;
 import org.rcpml.core.IController;
 import org.rcpml.core.RCPMLException;
@@ -57,9 +54,9 @@ public abstract class AbstractSWTBridge extends AbstractBridge {
 		}
 	    this.fDatabindingContext = new DataBindingContext();
 	//    this.fDatabindingContext.addObservableFactory(new BeanObservableFactory(this.fDatabindingContext, null, null)); // binding to beans
-	    this.fDatabindingContext.addObservableFactory(new SWTObservableFactory()); // binding to SWT controls
-	    this.fDatabindingContext.addBindSupportFactory(new DefaultBindSupportFactory()); // default converters
-	    this.fDatabindingContext.addBindingFactory(new DefaultBindingFactory()); // default binding behaviour	    
+//	    this.fDatabindingContext.addObservableFactory(new SWTObservableFactory()); // binding to SWT controls
+//	    this.fDatabindingContext.addBindSupportFactory(new DefaultBindSupportFactory()); // default converters
+//	    this.fDatabindingContext.addBindingFactory(new DefaultBindingFactory()); // default binding behaviour
 	    return fDatabindingContext;
 	}
 	protected void disposeDataBinding() {

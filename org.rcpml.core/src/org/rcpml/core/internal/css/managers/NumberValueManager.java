@@ -78,4 +78,19 @@ public class NumberValueManager extends AbstractValueManager implements
 		}
 		throw createInvalidLexicalUnitDOMException(lu.getLexicalUnitType());
 	}
+
+	public int getPropertyType() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public boolean isAdditiveProperty() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean isAnimatableProperty() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

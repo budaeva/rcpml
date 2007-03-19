@@ -107,4 +107,16 @@ public class RCPDOMImplementation extends ExtensibleDOMImplementation implements
 	public CSSStyleDeclaration createCSSStyleDeclaration() {
 		throw new InternalError("Not implemented");
 	}	
+	/**
+     * <b>DOM</b>: Implements
+     * {@link org.w3c.dom.DOMImplementation#getFeature(String,String)}.
+     * No compound document support, so just return this DOMImlpementation
+     * where appropriate.
+     */
+    public Object getFeature(String feature, String version) {
+        if (hasFeature(feature, version)) {
+            return this;
+        }
+        return null;
+    }
 }

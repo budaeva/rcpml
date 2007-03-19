@@ -48,7 +48,7 @@ public class RCPMLExtension implements IExecutableExtension,
 						"unknown io exception", null);
 				throw new CoreException(status);
 			}
-			return XML.loadDocument(new InputStreamReader(is), script);
+			return XML.loadDocument(is, script);
 
 		} catch (IOException ioex) {
 			ioex.printStackTrace();

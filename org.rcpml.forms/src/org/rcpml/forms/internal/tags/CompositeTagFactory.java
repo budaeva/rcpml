@@ -50,9 +50,21 @@ public class CompositeTagFactory extends AbstractBridgeFactory {
 				this.fComposite.setLayout(EclipseFormsUtil
 						.constructLayout((RCPStylableElement) this.getNode()));
 				this.fComposite.setLayoutData(this.constructLayoutData(this.fComposite.getParent()));
-				
-				this.fComposite.layout();				
+				this.fComposite.layout();
+				this.fComposite.update();
 			}
+		}
+		public void dispose() {
+			if( this.fComposite != null ) {
+				this.fComposite.dispose();
+				this.fComposite = null;
+			}
+		}
+		public void parentUpdate() {
+			if( this.fComposite != null ) {
+				this.fComposite.layout();
+			}
+			super.parentUpdate();
 		}
 	}
 

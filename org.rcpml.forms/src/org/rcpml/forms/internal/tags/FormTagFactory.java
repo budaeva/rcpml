@@ -31,7 +31,7 @@ public class FormTagFactory extends AbstractBridgeFactory {
 
 		protected void construct(Composite parent) {
 			String scroll = this.getAttribute( SCROLL_ATTR );			
-			if( scroll.equals( TRUE_STATE) ) {
+			if( scroll.equals( TRUE_STATE ) ) {
 				this.fSForm = this.getFormToolkit().createScrolledForm(parent);
 				this.fForm = this.fSForm.getForm();
 			}			
@@ -62,10 +62,15 @@ public class FormTagFactory extends AbstractBridgeFactory {
 
 		public void update() {
 			this.fForm.getBody().layout();
-			this.fForm.layout();			
 			if( this.fSForm != null ) {
-				this.fSForm.reflow(true);				
+				this.fSForm.layout();
+				this.fSForm.reflow(true);	
 			}
+			this.fForm.layout();
+		}
+		public void parentUpdate() {
+			update();
+			super.parentUpdate();
 		}
 	}
 	

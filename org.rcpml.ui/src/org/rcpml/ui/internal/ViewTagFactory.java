@@ -77,6 +77,7 @@ public class ViewTagFactory extends AbstractBridgeFactory {
 			Composite composite = this.fViewPart.getComposite();
 			if (composite != null) {
 				composite.layout();
+				composite.update();
 			}
 		}
 		

@@ -4,8 +4,8 @@
 package org.rcpml.swt;
 
 import org.apache.batik.css.engine.value.Value;
-import org.eclipse.jface.internal.databinding.provisional.DataBindingContext;
-import org.eclipse.jface.internal.databinding.provisional.description.Property;
+import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
@@ -17,13 +17,15 @@ import org.rcpml.swt.databinding.ElementTextObservable;
 import org.w3c.dom.Node;
 
 public class SWTTextBridge extends AbstractSWTBridge {
-	private static final String FALSE_VALUE = "false";
+	private static final String FALSE_VALUE = RCPCSSConstants.FALSE_VALUE;
 
-	private static final String TRUE_VALUE = "true";
+	private static final String TRUE_VALUE = RCPCSSConstants.TRUE_VALUE;
 
 	private static final String PATH_ATTR = "path";
 
 	private static final String EDITABLE_ID = "editable";
+
+	private static final String MULTILINE = "multiline";
 
 	protected Text fText;
 
@@ -41,7 +43,8 @@ public class SWTTextBridge extends AbstractSWTBridge {
 
 		// todo add specs test here.
 		DataBindingContext dbc = this.getBindingContext();
-		dbc.bind(new Property(this.fText, "text"), new ElementTextObservable(
+		
+		dbc.bindValue(SWTObservables.observeText(this.fText, SWT.Modify), new ElementTextObservable(
 				getNode()), null);
 
 		String path = getAttribute(PATH_ATTR);
@@ -55,6 +58,11 @@ public class SWTTextBridge extends AbstractSWTBridge {
 	protected int getStyle() {
 		int style = 0;
 		RCPStylableElement stylable = (RCPStylableElement) getNode();
+		
+		String multiline = getAttribute(MULTILINE);
+		if( multiline != null && multiline.equals(RCPCSSConstants.TRUE_VALUE)) {
+			style |= SWT.MULTI;
+		}
 
 		Value borderValue = stylable
 				.getComputedValue(RCPCSSConstants.LAYOUT_BORDER_INDEX);

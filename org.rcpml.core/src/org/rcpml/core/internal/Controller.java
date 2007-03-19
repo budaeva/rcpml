@@ -170,11 +170,19 @@ public class Controller implements IController, IVisitor, EventListener,
 				if (parent != null) {
 					visit(parent);
 				}
-				// this.update(parent);
+				this.update(node);
+				IBridge bridge = this.getBridge(node.getParentNode());
+				if( bridge != null ) {
+					bridge.parentUpdate();
+				}
 			} else if (DOMNODE_REMOVED_FROM_DOCUMENT.equals(type)) {
 				// Node parent = this.findExistParent(node);
-				this.disposeNode(node);
 				// this.update(parent);
+				IBridge bridge = this.getBridge(node.getParentNode());
+				this.disposeNode(node);
+				if( bridge != null ) {
+					bridge.parentUpdate();
+				}
 			} else if (DOMATTR_MODIFIED.equals(type)) {
 				if (!this.fFullUpdateRequired) {
 					this.update(node);

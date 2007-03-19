@@ -2,7 +2,6 @@ package org.rcpml.core.internal;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
@@ -22,7 +21,7 @@ public class RCPMLImpl {
 			throw new CoreException(status);
 		}
 		try {
-			Document doc = XML.loadDocument(new InputStreamReader(is), uri);
+			Document doc = XML.loadDocument(is, uri);
 			if (doc == null) {
 				IStatus status = new Status(IStatus.ERROR,
 						CorePlugin.PLUGIN_ID,

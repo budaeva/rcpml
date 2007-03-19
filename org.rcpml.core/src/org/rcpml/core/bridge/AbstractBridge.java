@@ -55,4 +55,10 @@ public abstract class AbstractBridge implements IBridge {
 	}
 	public void update() {
 	}
+	public void parentUpdate() {
+		IBridge parent = getParent();
+		if( parent != null ) {
+			parent.parentUpdate();
+		}
+	}
 }

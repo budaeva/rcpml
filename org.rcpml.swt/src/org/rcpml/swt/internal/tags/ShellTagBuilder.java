@@ -34,9 +34,11 @@ public class ShellTagBuilder extends AbstractBridgeFactory {
 			this.fShell.pack();
 		}
 	}
+
 	private static class ShellBridge extends AbstractBridge implements
 			ICompositeParentConstructor {
 		private static final String TITLE_ATTR = RCPMLTagConstants.TITLE_ATTR;
+		public static final String RESIZE_ATTR = "resize";
 
 		private Shell fShell;
 
@@ -56,6 +58,7 @@ public class ShellTagBuilder extends AbstractBridgeFactory {
 
 				int width = (int) widthValue.getFloatValue();
 				int height = (int) heightValue.getFloatValue();
+				boolean noResize = false;
 				if( width != -1 && height != -1 ) {
 					this.fShell.setSize(width, height);
 				}
@@ -87,7 +90,14 @@ public class ShellTagBuilder extends AbstractBridgeFactory {
 			getController().update();
 		}
 		protected void construct(Display display ) {
-			this.fShell = new Shell( display, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL | SWT.RESIZE );			
+			int style = SWT.DIALOG_TRIM;
+			String resize = this.getAttribute(RESIZE_ATTR);
+			if (resize != null) {
+				if( resize.equals(RCPCSSConstants.TRUE_VALUE)) {
+					style |= SWT.RESIZE | SWT.MAX | SWT.MIN;
+				}
+			}
+			this.fShell = new Shell( display, style );			
 			initialize();
 		}
 		

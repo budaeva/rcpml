@@ -9,5 +9,6 @@ Require-Bundle: org.rcpml.core,
  org.rcpml.batik,
  org.eclipse.swt,
  org.eclipse.jface.databinding,
- org.eclipse.jface
+ org.eclipse.jface,
+ org.eclipse.core.databinding
 Export-Package: org.rcpml.swt

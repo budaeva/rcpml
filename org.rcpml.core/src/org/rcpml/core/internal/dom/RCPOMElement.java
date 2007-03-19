@@ -5,6 +5,7 @@ import java.net.URL;
 
 import org.apache.batik.css.engine.CSSEngine;
 import org.apache.batik.css.engine.CSSStylableElement;
+import org.apache.batik.css.engine.StyleDeclarationProvider;
 import org.apache.batik.css.engine.StyleMap;
 import org.apache.batik.css.engine.value.Value;
 import org.apache.batik.dom.AbstractDocument;
@@ -76,5 +77,9 @@ public class RCPOMElement extends GenericElementNS implements
 	public Value getComputedValue(int index) {		
 		CSSEngine engine = this.getCSSEngine();
 		return engine.getComputedStyle( this, null, index );
+	}
+
+	public StyleDeclarationProvider getOverrideStyleDeclarationProvider() {
+		return null;
 	}
 }
