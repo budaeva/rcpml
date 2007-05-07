@@ -45,7 +45,7 @@ public class SWTTextBridge extends AbstractSWTBridge {
 		DataBindingContext dbc = this.getBindingContext();
 		
 		dbc.bindValue(SWTObservables.observeText(this.fText, SWT.Modify), new ElementTextObservable(
-				getNode()), null);
+				getNode()), null, null );
 
 		String path = getAttribute(PATH_ATTR);
 		if (path != null && !path.equals("")) {
