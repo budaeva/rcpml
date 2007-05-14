@@ -81,7 +81,7 @@ public class XML {
 
 		DOMImplementation impl = RCPDOMImplementation.getDOMImplementation();
 		Document document = impl.createDocument(namespace, qualifiedName, null);
-		document.setDocumentURI(documentURI);
+//		document.setDocumentURI(documentURI);
 		return document;
 	}
 }
