@@ -3,9 +3,10 @@ package org.rcpml.core;
 import org.rcpml.core.bridge.IBridge;
 import org.rcpml.core.bridge.IVisitor;
 import org.rcpml.core.datasource.IDataSource;
-import org.rcpml.core.scripting.IScriptContextManager;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+
+import com.xored.scripting.core.IScriptContextManager;
 
 /**
  * Hold information about bridges in document.

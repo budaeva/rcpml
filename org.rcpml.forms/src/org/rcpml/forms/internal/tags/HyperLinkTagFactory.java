@@ -16,6 +16,8 @@ import org.rcpml.core.dom.DOMUtils;
 import org.rcpml.forms.internal.AbstractEclipseFormsBridge;
 import org.w3c.dom.Node;
 
+import com.xored.scripting.core.ScriptException;
+
 public class HyperLinkTagFactory extends AbstractBridgeFactory {
 	private static class HyperLinkBridge extends AbstractEclipseFormsBridge {
 		protected static final String ONCLICK_SCRIPT_ATTR = RCPMLTagConstants.ONCLICK_ATTR;		
@@ -39,7 +41,11 @@ public class HyperLinkTagFactory extends AbstractBridgeFactory {
 					Node nde = getNode();
 					String script = getAttribute( ONCLICK_SCRIPT_ATTR );
 					if( script != null ) {
-						getController().getScriptManager().executeScript(script);
+						try {
+							getController().getScriptManager().executeScript(script);
+						} catch (ScriptException e1) {
+							e1.printStackTrace();
+						}
 					}
 				}
 			});

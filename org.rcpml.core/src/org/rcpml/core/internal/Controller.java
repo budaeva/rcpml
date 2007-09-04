@@ -17,8 +17,6 @@ import org.rcpml.core.datasource.IDataSource;
 import org.rcpml.core.internal.datasource.DataSourceBridge;
 import org.rcpml.core.internal.dom.RCPDOMImplementation;
 import org.rcpml.core.internal.dom.RCPOMDocument;
-import org.rcpml.core.internal.scripting.ScriptContextManager;
-import org.rcpml.core.scripting.IScriptContextManager;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -26,6 +24,9 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
+
+import com.xored.scripting.core.IScriptContextManager;
+import com.xored.scripting.core.ScriptingCore;
 
 /**
  * This is General Bridges Tree implementation.
@@ -77,7 +78,8 @@ public class Controller implements IController, IVisitor, EventListener,
 		this.fBridgeBuilder.setController(this);
 		this.fWithConstructor = withConstructor;
 
-		this.fScriptContextManager = new ScriptContextManager(this.fDocument);
+		this.fScriptContextManager = ScriptingCore.createContextManager();
+		this.fScriptContextManager.addDefaultBinding("document", this.fDocument);
 
 		// Initialize css
 		this.initializeCSS(this.fDocument);

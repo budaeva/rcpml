@@ -9,9 +9,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.rcpml.core.IController;
 import org.rcpml.core.RCPMLTagConstants;
 import org.rcpml.core.css.RCPCSSConstants;
-import org.rcpml.core.scripting.IScriptContextManager;
-import org.rcpml.core.scripting.IScriptingContext;
 import org.w3c.dom.Node;
+
+import com.xored.scripting.core.IScriptContextManager;
+import com.xored.scripting.core.IScriptingContext;
+import com.xored.scripting.core.ScriptException;
 
 public abstract class AbstractSWTButtonBridge extends AbstractSWTBridge {
 	private Button fButton;	
@@ -53,7 +55,13 @@ public abstract class AbstractSWTButtonBridge extends AbstractSWTBridge {
 				String onClickAction = getAttribute(RCPMLTagConstants.ONCLICK_ATTR);
 				if( onClickAction.length() > 0 ) {
 					IScriptContextManager manager = getController().getScriptManager();
-					IScriptingContext context = manager.getContextFrom( onClickAction );
+					IScriptingContext context;
+					try {
+						context = manager.getContextFrom( onClickAction );
+					} catch (ScriptException e) {
+						e.printStackTrace();
+						context = null;
+					}
 					if( context != null ) {
 						context.bindObject("node", getNode() );
 						context.executeScript( onClickAction );

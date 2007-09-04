@@ -20,6 +20,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
+import com.xored.scripting.core.ScriptException;
+
 class MultiBridgeEditPart extends MultiPageEditorPart implements
 		ICompositeHolder, IBridgeEditorPart {
 	private Composite fComposite;
@@ -44,7 +46,12 @@ class MultiBridgeEditPart extends MultiPageEditorPart implements
 		this.addPage(fComposite);
 		this.setPageText(0, "RCPML Editor");
 		
-		this.bridge.getController().getScriptManager().getDefaultContext();			
+		try {
+			this.bridge.getController().getScriptManager().getDefaultContext();
+		} catch (ScriptException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}			
 		this.bridge.executeInitScript( this );
 		
 		this.fTextComposite = new ScrolledComposite(this.getContainer(), SWT.H_SCROLL | SWT.V_SCROLL);
@@ -97,7 +104,12 @@ class MultiBridgeEditPart extends MultiPageEditorPart implements
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
 		setSite(site);
 		setInput(input);							
-		this.bridge.getController().getScriptManager().getDefaultContext().bindObject("editorInput", input );
+		try {
+			this.bridge.getController().getScriptManager().getDefaultContext().bindObject("editorInput", input );
+		} catch (ScriptException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public boolean isDirty() {

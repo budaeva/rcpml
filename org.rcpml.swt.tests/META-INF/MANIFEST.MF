@@ -6,7 +6,6 @@ Bundle-Version: 1.0.0
 Bundle-Activator: org.rcpml.swt.tests.TestsPlugin
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime,
- org.rcpml.batik,
  org.rcpml.core,
  org.junit,
  org.eclipse.swt

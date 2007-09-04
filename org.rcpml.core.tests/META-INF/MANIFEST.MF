@@ -10,6 +10,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.junit,
  org.eclipse.swt,
  org.eclipse.ui,
- org.eclipse.ui.views,
- org.rcpml.batik
+ org.eclipse.ui.views
 Eclipse-AutoStart: true

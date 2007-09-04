@@ -11,6 +11,8 @@ import org.rcpml.core.bridge.IVisitor;
 import org.rcpml.core.css.RCPCSSConstants;
 import org.w3c.dom.Node;
 
+import com.xored.scripting.core.ScriptException;
+
 class EditorBridge extends AbstractBridge {
 	private static final String DEBUG = "rcpmldebugmode";
 	private IBridgeEditorPart fEditPart;
@@ -27,14 +29,24 @@ class EditorBridge extends AbstractBridge {
 	}
 
 	public void executeInitScript( EditorPart part ) {
-		this.getController().getScriptManager().getDefaultContext().bindObject("editor", part );
+		try {
+			this.getController().getScriptManager().getDefaultContext().bindObject("editor", part );
+		} catch (ScriptException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		executeScript("oninit");
 	}
 
 	private void executeScript( String attrName ) {
 		String initScript = getAttribute( attrName );
 		if( initScript.length() > 0 ) {
-			this.getController().getScriptManager().executeScript( initScript );
+			try {
+				this.getController().getScriptManager().executeScript( initScript );
+			} catch (ScriptException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 

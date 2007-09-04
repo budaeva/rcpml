@@ -13,8 +13,10 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.EditorPart;
 import org.rcpml.swt.ICompositeHolder;
 
-class BridgeEditPart extends EditorPart implements
-		ICompositeHolder, IBridgeEditorPart {
+import com.xored.scripting.core.ScriptException;
+
+class BridgeEditPart extends EditorPart implements ICompositeHolder,
+		IBridgeEditorPart {
 	private Composite fComposite;
 
 	EditorBridge bridge;
@@ -32,9 +34,14 @@ class BridgeEditPart extends EditorPart implements
 		this.fComposite.setLayout(new FillLayout());
 		this.bridge.build();
 		fInitialized = true;
-		
-		this.bridge.getController().getScriptManager().getDefaultContext();			
-		this.bridge.executeInitScript( this );							
+
+		try {
+			this.bridge.getController().getScriptManager().getDefaultContext();
+		} catch (ScriptException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.bridge.executeInitScript(this);
 	}
 
 	public boolean isInitialized() {
@@ -55,18 +62,25 @@ class BridgeEditPart extends EditorPart implements
 
 	public void doSave(IProgressMonitor monitor) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void doSaveAs() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
+	public void init(IEditorSite site, IEditorInput input)
+			throws PartInitException {
 		setSite(site);
-		setInput(input);							
-		this.bridge.getController().getScriptManager().getDefaultContext().bindObject("editorInput", input );
+		setInput(input);
+		try {
+			this.bridge.getController().getScriptManager().getDefaultContext()
+					.bindObject("editorInput", input);
+		} catch (ScriptException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public boolean isDirty() {

@@ -6,11 +6,6 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 
 import org.apache.batik.css.engine.StyleMap;
-import org.apache.batik.dom.AbstractAttr;
-import org.apache.batik.dom.AbstractAttrNS;
-import org.apache.batik.dom.AbstractDOMImplementation;
-import org.apache.batik.dom.AbstractElement;
-import org.apache.batik.dom.AbstractNode;
 import org.apache.batik.dom.AbstractStylableDocument;
 import org.apache.batik.dom.GenericAttr;
 import org.apache.batik.dom.GenericAttrNS;
@@ -22,11 +17,8 @@ import org.apache.batik.dom.GenericEntityReference;
 import org.apache.batik.dom.GenericProcessingInstruction;
 import org.apache.batik.dom.GenericText;
 import org.apache.batik.dom.StyleSheetFactory;
-import org.apache.batik.dom.events.EventSupport;
-import org.apache.batik.dom.util.DOMUtilities;
 import org.apache.batik.i18n.Localizable;
 import org.apache.batik.i18n.LocalizableSupport;
-import org.apache.batik.util.XMLConstants;
 import org.rcpml.core.internal.IRCPMLConstants;
 import org.w3c.dom.Attr;
 import org.w3c.dom.CDATASection;
@@ -38,11 +30,9 @@ import org.w3c.dom.DocumentFragment;
 import org.w3c.dom.DocumentType;
 import org.w3c.dom.Element;
 import org.w3c.dom.EntityReference;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.ProcessingInstruction;
 import org.w3c.dom.Text;
-import org.w3c.dom.UserDataHandler;
 
 public class RCPOMDocument extends AbstractStylableDocument implements
 		IRCPMLConstants {
