@@ -17,12 +17,20 @@ public class RCPML {
 		if (constructor != null) {
 			return constructor;
 		}
-		throw new RuntimeException(
-				"RCPML: Could not create constructor from element");
+//		throw new RuntimeException(
+//				"RCPML: Could not create constructor from element");
+		return null;
 	}
 
 	public static Object renderURI(String uri) throws CoreException {
 		Document doc = RCPMLImpl.getDocument(uri);
 		return renderDocument(doc);
+	}
+
+	public static IController create(Document document) {
+		return new Controller(document);
+	}
+	public static IController createWithConstructor(Document document) {
+		return new Controller(document, true);
 	}
 }

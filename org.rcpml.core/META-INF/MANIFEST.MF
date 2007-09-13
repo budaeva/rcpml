@@ -9,7 +9,8 @@ Bundle-Localization: plugin
 Require-Bundle: com.xored.temprorary.batik.libs,
  org.apache.batik,
  org.eclipse.core.runtime,
- com.xored.scripting.core;visibility:=reexport
+ com.xored.scripting.core;visibility:=reexport,
+ org.eclipse.core.resources
 Eclipse-AutoStart: true
 Export-Package: org.rcpml.core,
  org.rcpml.core.bridge,

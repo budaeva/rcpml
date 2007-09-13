@@ -80,6 +80,7 @@ public class Controller implements IController, IVisitor, EventListener,
 
 		this.fScriptContextManager = ScriptingCore.createContextManager();
 		this.fScriptContextManager.addDefaultBinding("document", this.fDocument);
+		this.fScriptContextManager.setDefaultLanguage("javascript");
 
 		// Initialize css
 		this.initializeCSS(this.fDocument);

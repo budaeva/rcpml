@@ -28,5 +28,34 @@
          </view>
       </perspectiveExtension>
    </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="org.rcpml.tools.ui.internal.browser.RCPMLBrowserEditor"
+            extensions="rcpml"
+            icon="icons/sample.gif"
+            id="org.rcpml.tools.ui.browser"
+            name="RCPML Browser">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="org.rcpml.tools.ui.rcpmlTools"
+            label="RCPML Tools"
+            visible="true">
+         <action
+               class="org.rcpml.tools.ui.internal.browser.OpenRCPMLBrowserEditorAction"
+               icon="icons/sample.gif"
+               id="org.rcpml.tools.ui.browser"
+               label="Open RCPML browser"
+               menubarPath="org.rcpml.tools.ui.menu/">
+         </action>
+         <menu
+               id="org.rcpml.tools.ui.menu"
+               label="RCPML Tools">
+         </menu>
+      </actionSet>
+   </extension>
 
 </plugin>

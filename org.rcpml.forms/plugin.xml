@@ -37,6 +37,10 @@
          <tag
                class="org.rcpml.forms.internal.tags.GroupBridgeFactory"
                name="group"/>
+         <tag
+               class="org.rcpml.forms.internal.tags.ComboTagFactory"
+               name="combo">
+         </tag>
       </namespace>
    </extension>
 
