@@ -5,8 +5,7 @@ Bundle-SymbolicName: org.rcpml.swt; singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: Xored software, Inc
 Bundle-Localization: plugin
-Require-Bundle: com.xored.temprorary.batik.libs,
- org.rcpml.core,
+Require-Bundle: org.rcpml.core,
  org.apache.batik,
  org.eclipse.swt,
  org.eclipse.jface.databinding,

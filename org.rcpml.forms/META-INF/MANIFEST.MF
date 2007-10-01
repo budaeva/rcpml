@@ -4,8 +4,7 @@ Bundle-Name: Forms Plug-in
 Bundle-SymbolicName: org.rcpml.forms; singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Localization: plugin
-Require-Bundle: com.xored.temprorary.batik.libs,
- org.apache.batik,
+Require-Bundle: org.apache.batik,
  org.eclipse.ui.forms,
  org.rcpml.core,
  org.eclipse.ui,

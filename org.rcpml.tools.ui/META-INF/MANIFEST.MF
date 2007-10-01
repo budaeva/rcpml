@@ -5,8 +5,7 @@ Bundle-SymbolicName: org.rcpml.tools.ui; singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Activator: org.rcpml.tools.ui.internal.Activator
 Bundle-Localization: plugin
-Require-Bundle: com.xored.temprorary.batik.libs,
- org.eclipse.ui,
+Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.rcpml.core,
  org.eclipse.jface.text,

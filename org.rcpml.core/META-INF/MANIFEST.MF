@@ -6,8 +6,7 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.rcpml.core.internal.CorePlugin
 Bundle-Vendor: Xored software, Inc
 Bundle-Localization: plugin
-Require-Bundle: com.xored.temprorary.batik.libs,
- org.apache.batik,
+Require-Bundle: org.apache.batik,
  org.eclipse.core.runtime,
  com.xored.scripting.core;visibility:=reexport,
  org.eclipse.core.resources
