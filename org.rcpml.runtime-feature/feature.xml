@@ -34,12 +34,6 @@
          unpack="false"/>
 
    <plugin
-         id="org.rcpml.javascript"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
          id="org.rcpml.swt"
          download-size="0"
          install-size="0"
@@ -47,14 +41,21 @@
          unpack="false"/>
 
    <plugin
-         id="org.rcpml.ui"
+         id="org.apache.batik"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.apache.batik"
+         id="com.xored.scripting.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.xored.scripting.javascript"
          download-size="0"
          install-size="0"
          version="0.0.0"
