@@ -9,7 +9,8 @@ Bundle-Localization: plugin
 Require-Bundle: org.apache.batik,
  org.eclipse.core.runtime,
  com.xored.scripting.core;visibility:=reexport,
- org.eclipse.core.resources
+ org.eclipse.core.resources,
+ org.w3c.xml
 Eclipse-AutoStart: true
 Export-Package: org.rcpml.core,
  org.rcpml.core.bridge,
