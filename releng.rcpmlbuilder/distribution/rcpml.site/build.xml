@@ -58,7 +58,7 @@
         <property name="result" value="${buildDirectory}/${buildLabel}" />
         <property name="indexTemplateFilename" value="index.html.template" />
 		
-    	<copy file="${rcpml.builder.home}/distribution/batik.site/templateFiles/${indexTemplateFilename}" tofile="${buildDirectory}/${indexFileName}" />
+    	<copy file="${rcpml.builder.home}/distribution/rcpml.site/templateFiles/${indexTemplateFilename}" tofile="${buildDirectory}/${indexFileName}" />
     	
         <condition property="isBuildTested" value="true">
             <available file="${buildDirectory}/${buildLabel}/testResults/html" />
