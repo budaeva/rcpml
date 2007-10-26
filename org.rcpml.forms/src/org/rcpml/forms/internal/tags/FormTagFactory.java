@@ -42,6 +42,7 @@ public class FormTagFactory extends AbstractBridgeFactory {
 			this.fForm.setText(text);
 						
 			this.fForm.getBody().setLayout( EclipseFormsUtil.constructLayout((RCPStylableElement)this.getNode()) );
+			this.fForm.setLayoutData(this.constructLayoutData(this.fForm.getParent()));
 			
 			fForm.addDisposeListener( new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
