@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.URL;
 
 import org.eclipse.core.runtime.CoreException;
@@ -114,5 +115,9 @@ public class ScriptBridge extends AbstractBridge implements IScriptingContext
 	public void unBindObject(String name) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public Object executeScript(Reader reader, String file) {
+		throw new RuntimeException("not implemented");
 	}
 }
