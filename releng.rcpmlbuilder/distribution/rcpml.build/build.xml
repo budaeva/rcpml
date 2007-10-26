@@ -4,7 +4,7 @@
 
 	<target name="build" depends="getBaseBuilder">
 		<dirname file="${ant.file}" property="distribution.xored.build.dir" />
-		<property file="${scripting.builder.home}/build.properties" />
+		<property file="${rcpml.builder.home}/build.properties" />
 		<property name="buildTargets" value="${rcpml.builder.home}/scripts/build/runbuild.xml" />
 
 

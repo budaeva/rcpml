@@ -33,7 +33,7 @@
             <jvmarg value="-DmapVersionTag=${mapVersionTag}" />
             <jvmarg value="-Dbuild.distribution=${build.distribution}" />
             <jvmarg value="-DbuildDirectory=${buildDirectory}" />
-            <jvmarg value="-Dscripting.builder.home=${scripting.builder.home}" />
+            <jvmarg value="-Drcpml.builder.home=${rcpml.builder.home}" />
             <arg value="-data" />
             <arg value="${basedir}/workspace" />
             <arg value="-application" />
@@ -49,7 +49,7 @@
     <!-- ===================================================================== -->
     <target name="publish">
         <dirname file="${ant.file}" property="component.dir" />
-        <ant antfile="${scripting.builder.home}/scripts/build/label.xml" />
+        <ant antfile="${rcpml.builder.home}/scripts/build/label.xml" />
         <property file="${buildDirectory}/label.properties" />
 
         <property name="publish.xml" value="${component.dir}/publish.xml" />
@@ -58,7 +58,7 @@
         <property name="result" value="${buildDirectory}/${buildLabel}" />
         <property name="indexTemplateFilename" value="index.html.template" />
 		
-    	<copy file="${scripting.builder.home}/distribution/batik.site/templateFiles/${indexTemplateFilename}" tofile="${buildDirectory}/${indexFileName}" />
+    	<copy file="${rcpml.builder.home}/distribution/batik.site/templateFiles/${indexTemplateFilename}" tofile="${buildDirectory}/${indexFileName}" />
     	
         <condition property="isBuildTested" value="true">
             <available file="${buildDirectory}/${buildLabel}/testResults/html" />
