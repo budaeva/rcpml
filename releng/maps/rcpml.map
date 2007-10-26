@@ -1,0 +1,12 @@
+
+! Xored Composer Widget
+! Copyright (c) 2004, 2007 xored software, Inc.
+!
+! $Id$ 
+
+feature@org.rcpml.runtime=v20071009,:pserver:anonymous@us.xored.com:/opt/rcpml,,org.rcpml.runtime-feature
+
+plugin@org.rcpml.core=v20071009,:pserver:anonymous@us.xored.com:/opt/rcpml,
+plugin@org.rcpml.swt=v20071009,:pserver:anonymous@us.xored.com:/opt/rcpml,
+plugin@org.rcpml.forms=v20071009,:pserver:anonymous@us.xored.com:/opt/rcpml,
+plugin@org.rcpml.ui=v20071009,:pserver:anonymous@us.xored.com:/opt/rcpml,
