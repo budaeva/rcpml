@@ -7,6 +7,10 @@
     <!-- Add on <ant> task for each top level element being built. -->
     <!-- ===================================================================== -->
     <target name="allElements">
+	
+    	<echo message="releng: ${releng}" />
+    	
+    	<property file="${rcpml.builder.home}/mapsFileLocal.properties"/>
         <echo message="Target:${target} " />
         <echo message="basedir: ${basedir}" />
         <echo message="buildDirectory: ${buildDirectory}" />
@@ -42,41 +46,39 @@
 
 	<target name="prePackage" />
 
-    <target name="postPackage">
-        <property
-            name="archiveName"
-            value="xored-rcpml-${buildLabel}.zip" />
-        <ant
-            antfile="${rcpml.builder.home}/scripts/build/buildutilities.xml"
-            target="unpackUpdateJarsAndCreateZippedPackages">
-            <property
-                name="buildDirectory"
-                value="${buildDirectory}" />
-            <property
-                name="buildLabel"
-                value="${buildLabel}" />
-            <property
-                name="archiveName"
-                value="${archiveName}" />
-        </ant>
+	<target name="postPackage">
+	        <property
+	            name="archiveName"
+	            value="xored-rcpml-${buildLabel}.zip" />
+	        <ant
+	            antfile="${rcpml.builder.home}/scripts/build/buildutilities.xml"
+	            target="unpackUpdateJarsAndCreateZippedPackages">
+	            <property
+	                name="buildDirectory"
+	                value="${buildDirectory}" />
+	            <property
+	                name="buildLabel"
+	                value="${buildLabel}" />
+	            <property
+	                name="archiveName"
+	                value="${archiveName}" />
+	            <property name="projectname" value="${projectname}" />
+	        </ant>
 
-        <ant
-            antfile="${rcpml.builder.home}/scripts/build/buildutilities.xml"
-            target="createChecksums">
-            <property
-                name="buildDirectory"
-                value="${buildDirectory}" />
-            <property
-                name="buildLabel"
-                value="${buildLabel}" />
-            <property
-                name="archiveName"
-                value="${archiveName}" />
-        </ant>
-
-
-
-    </target>
+	        <ant
+	            antfile="${rcpml.builder.home}/scripts/build/buildutilities.xml"
+	            target="createChecksums">
+	            <property
+	                name="buildDirectory"
+	                value="${buildDirectory}" />
+	            <property
+	                name="buildLabel"
+	                value="${buildLabel}" />
+	            <property
+	                name="archiveName"
+	                value="${archiveName}" />
+	        </ant>
+	    </target>
 
     <!-- ===================================================================== -->
     <!-- Check out map files from correct repository -->
@@ -85,7 +87,7 @@
     <target name="checkLocal">
         <available
             property="mapsLocal"
-            file="${buildDirectory}/maps/releng" />
+            file="${mapsFileLocal}" />
     </target>
     <target
         name="getMapFiles"
@@ -131,7 +133,11 @@
     <!-- ===================================================================== -->
     <!-- Steps to do before setup -->
     <!-- ===================================================================== -->
-    <target name="preSetup"></target>
+    <target name="preSetup">
+    	<echo message="releng: ${releng}" />
+    	<property file="${rcpml.builder.home}/mapsFileLocal.properties"/>
+		<echo message="mapsFileLocal: ${mapsFileLocal}" />
+    </target>
 
     <!-- ===================================================================== -->
     <!-- Steps to do after setup but before starting the build proper -->
@@ -142,13 +148,17 @@
             property="component.dir" />
         <echo message="ant.file: ${ant.file}" />
         <echo message="component.dir: ${component.dir}" />
-
+		
+    	
+    	<echo message="Before: mapsFileLocal: ${mapsFileLocal}" />
+    	<property file="${rcpml.builder.home}/mapsFileLocal.properties"/>
+    	<echo message="After: mapsFileLocal: ${mapsFileLocal}" />
         <ant
             antfile="${component.dir}/dependency.xml"
             target="get">
             <property
                 name="dependency.properties"
-                value="${buildDirectory}/maps/releng/maps/dependencies.properties" />
+                value="${mapsFileLocal}/maps/dependencies.properties" />
             <property
                 name="base.install.dir"
                 value="${buildRoot}" />
@@ -173,7 +183,7 @@
     <!-- Steps to do before generating the build scripts. -->
     <!-- ===================================================================== -->
     <target name="postGenerate">
-        <customizeAccessRules bundleDirectory="${buildDirectory}/plugins" defaultRules="+org/rcpml/runtime/**/*" />
+        <!--customizeAccessRules bundleDirectory="${buildDirectory}/plugins" defaultRules="+com/xored/rubygears/**/*" /-->
     </target>
 
     <!-- ===================================================================== -->
