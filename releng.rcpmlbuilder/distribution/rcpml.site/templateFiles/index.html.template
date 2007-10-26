@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>RCPML Downloads</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <link href="downloads.css" rel="stylesheet" type="text/css" />
+
+<?php
+//ini_set("display_errors", "true");
+//error_reporting (E_ALL);
+
+//todo: compute downloadprefix based on host server, and stage of declaration
+$downloadprefix="./";
+
+// todo: unsure if can handle filenames that are URLs?
+function fileSizeInMegs($filename) {
+        // handy constant to compute file size in megabytes
+        $onemeg=1024*1024;
+        $zipfilesize=filesize($filename);
+        $zipfilesize=number_format (round($zipfilesize/$onemeg, 1), 1, ',', '');
+        return $zipfilesize;
+}
+
+// expecting grandTotalErrors and grandTotalTests
+$filename = "unitTestsSummary.xml";
+if (file_exists($filename)) {
+        $prefix = "unitTests_";
+        $unitTestsSummary = simplexml_load_file($filename);
+        foreach ($unitTestsSummary->summaryItem as $summaryItem) {
+                $name = $summaryItem->name;
+                $value = $summaryItem->value;
+                $code= "\$" . $prefix . $name . " = " . $value . ";";
+                //echo "<br />code: " . $code;
+                eval($code);
+        }
+}
+
+$filename = "compilelogsSummary.xml";
+$prefix = "code_";
+$compileSummary = simplexml_load_file($filename);
+foreach ($compileSummary->summaryItem as $summaryItem) {
+        $name = $summaryItem->name;
+        $value = $summaryItem->value;
+        $code= "\$" . $prefix . $name . " = " . $value . ";";
+        //echo "<br />code: " . $code;
+        eval($code);
+}
+
+$filename = "testcompilelogsSummary.xml";
+$prefix = "test_";
+$compileSummary = simplexml_load_file($filename);
+foreach ($compileSummary->summaryItem as $summaryItem) {
+        $name = $summaryItem->name;
+        $value = $summaryItem->value;
+        $code= "\$" . $prefix . $name . " = " . $value . ";";
+        //echo "<br />code: " . $code;
+        eval($code);
+}
+
+
+?>
+</head>
+
+<body>
+<div id="container">
+
+   <div id="summary">
+     <div id="logo">
+       <a href="http://www.xored.com"><img src="logo.png" alt="" /></a>
+     </div>
+
+    <div id="header">
+      <h1>@build@</h1>
+      <h4>@date@</h4>
+             <h2>RCPML</h2>
+     </div>
+   </div>
+
+  <div id="build">
+<!-- ***********  Prerequisites **************  -->
+    <div class="build_item">
+    <h3>Prerequisites</h3>
+    <h4>The list of prerequisite projects to run the RCPML. They must be downloaded and installed before RCPML can be installed
+or used.</h4>
+    <table>
+      <tr>
+        <td class="bold" width="182">Eclipse Platform</td>
+        <td width="790"><a href="@eclipseURL@">@eclipseFile@</a> or <a href="@eclipseBuildURL@">other platform</a></td>
+      </tr>
+      <tr>
+        <td class="bold">Orbit</td>
+        <td><a href="@orbitURL@">@orbitFile@</a></td>
+      </tr>
+      <tr>
+        <td class="bold">Scripting</td>
+        <td><a href="@xored_scriptingURL@">@xored_scriptingFile@</a></td>
+      </tr>
+      <tr>
+        <td class="bold">Batik</td>
+        <td><a href="@xored_batikURL@">@xored_batikFile@</a></td>
+      </tr>
+    </table>
+  </div>
+
+<!-- *********** COMPONENTS **************  -->
+<div class="build_item">
+    <h3>RCPML</h3>
+    <table><tr>
+        <th width="135">Name</th>
+	    <th width="220">Requirements</th>
+	    <th width="210">Runtime Downloads</th>
+   	    <th width="220">SDK Downloads</th>
+      </tr>
+      <tr>
+        <td>RCPML</td>
+        <td></td>
+        <?php
+        $zipfilename="xored-rcpml-@build@";
+        $filename=$zipfilename.".zip";
+        $zipfilesize=fileSizeInMegs($filename);
+        echo '<td><img src="images/download.png" alt="" /><a href="' . ${downloadprefix} . ${filename} . '">' . "Download " . '</a><h6>'.${zipfilesize}.'mb</h6><a href="checksum/' . ${filename} . '.md5"><img src="images/md5.png" alt="" /></a></td>';
+        echo '<td></td>';
+        ?>
+      </tr>
+     </table>
+    </div>
+
+
+<!-- ***********  Build Status **************  -->
+   <div class="build_item">
+    <h3>Status, tests and other interesting details</h3>
+    <table>
+      <tr><td width="890">
+        <?php
+        $buildmachineScript="../../../displayBuildMachine.php";
+        if (file_exists($buildmachineScript))
+        {
+                include $buildmachineScript;
+                echo displayBuildMachine();
+        }
+        ?> 
+        <a href="buildNotes.php">Build notes</a>
+      </td></tr>
+      <tr><td><a href="directory.txt">Map files</a></td></tr>
+      <tr><td><?php
+        if (isset($unitTests_grandTotalErrors)) {
+                $errorColor="green";
+                if ($unitTests_grandTotalErrors > 0) {
+                        $errorColor="red";
+                }
+                echo "<a href=\"testResults.php\">Unit test results</a>";
+                echo "<img src=\"junit_err.png\"/>" . $unitTests_grandTotalErrors . "&nbsp;Total: " . $unitTests_grandTotalTests;
+        }
+        else {
+                echo "Unit tests are pending<!--img src=\"pending.gif\"/-->";
+        }
+        ?></td></tr>
+      <tr><td><a href="compileResults.php">Compile logs: Code Bundles  
+        <?php
+        echo "<img src=\"plugins.png\"/>($code_totalBundles)";
+        echo "<img src=\"compile_err.png\"/>$code_totalErrors";
+        echo "<img src=\"compile_warn.png\"/>$code_totalWarnings";
+        echo "<img src=\"access_err.png\"/>$code_totalforbiddenAccessWarningCount";
+        echo "<img src=\"access_warn.png\"/>$code_totaldiscouragedAccessWarningCount";
+        ?></a></td></tr>
+        <tr><td><a href="testCompileResults.php">Compile logs: Test Bundles
+        <?php
+        echo "<img src=\"plugins.png\"/>($test_totalBundles)";
+        echo "<img src=\"compile_err.png\"/>$test_totalErrors";
+        echo "<img src=\"compile_warn.png\"/>$test_totalWarnings";
+        echo "<img src=\"access_err.png\"/>$test_totalforbiddenAccessWarningCount";
+        echo "<img src=\"access_warn.png\"/>$test_totaldiscouragedAccessWarningCount";
+        ?></a></td></tr>
+      <tr><td><a href="whatisfixed/buglog.html">What is fixed</a></td></tr>
+      <tr><td><a href="pii.php">Unused property messages</a></td></tr> 		
+    </table>
+   </div>
+  </div>
+  <div id="footer">
+    <p>All downloads are provided under the terms and conditions of the Eclipse.org Software User Agreement unless otherwise specified.</p>
+    <p>If you have problems downloading the drops, contact the webmaster.</p>
+  </div>
+</div>
+</body>
+</html>

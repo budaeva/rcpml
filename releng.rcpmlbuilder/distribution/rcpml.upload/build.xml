@@ -1,0 +1,11 @@
+<project default="upload" basedir=".">
+
+
+    <target name="upload">
+
+        <ant antfile="${rcpml.builder.home}/scripts/upload/upload.xml">
+        	<property name="folder" value="rcpml"/>
+        </ant>
+
+    </target>
+</project>

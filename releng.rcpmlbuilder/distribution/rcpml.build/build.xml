@@ -1,0 +1,38 @@
+<project default="build" basedir=".">
+
+
+
+	<target name="build" depends="getBaseBuilder">
+		<dirname file="${ant.file}" property="distribution.xored.build.dir" />
+		<property file="${scripting.builder.home}/build.properties" />
+		<property name="buildTargets" value="${rcpml.builder.home}/scripts/build/runbuild.xml" />
+
+
+		<ant antfile="${buildTargets}">
+			<property name="component" value="rcpml" />
+		</ant>
+				
+		<ant antfile="${rcpml.builder.home}/scripts/build/label.xml" />
+
+		<antcall target="package"/>
+		
+		<!-- todo: all-one's will have to be moved after 'package' now --> 
+		
+	</target>
+
+	<target name="getBaseBuilder" if="eclipse.builder.fetch">
+		<dirname file="${ant.file}" property="wtbuilder.dir" />
+		<property name="buildTargets" value="${rcpml.builder.home}/scripts/build/runbuild.xml" />
+		<ant antfile="${buildTargets}" target="getBaseBuilder">
+			<property name="eclipse.builder.fetch" value="${eclipse.builder.fetch}" />
+		</ant>
+	</target>
+	
+	<target name="package">
+		<!-- post, post packaging, for WTP ... "manually" assemble the desired zips -->
+	
+		<!--antcall target="combineArchives" /-->
+		
+	</target>
+	
+</project>

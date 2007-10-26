@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="runbuild" default="runbuild" basedir=".">
+
+    <!-- = = = standard properties pattern = = = -->
+    <!-- 
+    	Note to be cross-platform, "environment variables" are only appropriate for 
+        some variables, e.g. ones we set, since properties are case sensitive, even if 
+        the environment variables on your operating system are not, e.g. it will 
+        be ${env.Path} not ${env.PATH} on Windows -->
+    <property environment="env" />
+     
+    <!-- 
+    	Let users override standard properties, if desired.
+    	If directory, file, or some properties do not exist,  
+    	then standard properties will be used.
+     -->
+    <!--property file="${env.LOCAL_BUILD_PROPERTIES_DIR}/${ant.project.name}.properties" /-->
+    <!-- load standard properties for production environment -->
+    <!--property file="${env.STANDARD_PROPERTIES_DIR}/${ant.project.name}.properties" /-->
+	<property file="${rcpml.builder.home}/projectname.properties" />
+	<echo message="projectname: ${projectname}" />
+    <property file="${env.BUILD_HOME}/releng.control/${projectname}.properties" />    
+    <!-- = = = end standard properties pattern = = = -->
+
+    
+
+    <!-- if not explicitly set by caller, we'll assume we should fail 
+    	here on errors. In some cases, such as JUnit test compiles, or 
+    	even leaf components, the caller may want to set to false, so that 
+    	some part of the build is still made available -->
+    <property name="eclipseBuildFailOnError" value="true" />
+
+
+    <target name="runbuild">
+        <dirname file="${ant.file}"
+                 property="scripts.build.dir" />
+        <property name="rcpml.builder.home"
+                  value="${scripts.build.dir}/../.." />
+
+        <antcall target="runEclipseBuild">
+            <param name="rcpml.builder.home"
+                   value="${rcpml.builder.home}" />
+        </antcall>
+        <antcall target="runEclipseBuildStamped">
+            <param name="rcpml.builder.home"
+                   value="${rcpml.builder.home}" />
+        </antcall>
+    </target>
+
+
+
+    <target name="build" depends="init">
+
+        <!--this property required as of Eclipse 3.0 stream builds > 20031126 -->
+        <property name="buildingOSGi" value="true" />
+
+        <!-- this generateFeatureVersionSuffix property causes feature 
+            suffixes to be calcuated based on their 
+            own CVS tag, plus the qualifier of their contained plugins -->
+        <!-- 
+            https://bugs.eclipse.org/bugs/show_bug.cgi?id=138825
+            false for builds intended for 3.1.2, since can generate underscores
+            true for builds instended for 3.2
+        -->
+        <property name="generateFeatureVersionSuffix"
+                  value="true" />
+
+        <property name="outputUpdateJars" value="true" />
+
+        <!--run the build for the specified component-->
+        <echo message="basedir: ${basedir}" />
+        <echo message="component: ${component}" />
+        <echo message="buildDirectory: ${buildDirectory}" />
+        <echo message="rcpml.builder.home: ${rcpml.builder.home}" />
+
+        <ant antfile="build.xml" dir="${pde.build.scripts}">
+            <property name="builder"
+                      value="${rcpml.builder.home}/components/${component}" />
+            <property name="rcpml.builder.home"
+                      value="${rcpml.builder.home}" />
+            <property name="buildBranch"
+                      value="${buildBranch}" />
+            <property name="cvsUser" value="${cvsUser}" />
+            <property name="cvsProtocol"
+                      value="${cvsProtocol}" />
+            <property name="dependencyTargets"
+                      value="${rcpml.builder.home}/scripts/dependency/build.xml" />
+            <property name="local.cache.dir"
+                      value="${env.LOCAL_PREREQS_CACHE}" />
+            <property name="baseLocation"
+                      value="${env.BUILD_HOME}/${build.current}-${build.distribution}-${buildBranch}-${buildType}/${base.location}" />
+            <property name="buildBranch"
+                      value="${buildBranch}" />
+            <property name="build.pack-all-in-one"
+                      value="${build.pack-all-in-one}" />
+            <property name="buildRoot"
+                      value="${env.BUILD_HOME}/${build.current}-${build.distribution}-${buildBranch}-${buildType}" />
+            <property name="testRoot"
+                      value="${env.BUILD_HOME}/${build.tests}-${build.distribution}-${buildBranch}-${buildType}" />
+            <property name="performanceRoot"
+                      value="${env.BUILD_HOME}/${build.perf.tests}-${buildType}" />
+        </ant>
+    </target>
+
+    <target name="checkBaseBuilder" depends="checkWTPBaseBuilder,checkEPPBaseBuilder">
+        
+        <!-- we just check if both base, and our wtp specific one are current, if 
+            either is not, we'll get them both -->
+
+        <condition property="basebuilderLocal">
+            <and>
+                <available file="${pde.builder.path}" />
+            	  <!-- should we check explicitly for "true" instead of just isset? 
+            	  either should work for this case, but which is better ant style? -->
+                <isset property="eppBuilderPresent"/>
+            </and>
+        </condition>
+
+    </target>
+
+    <target name="checkWTPBaseBuilder">
+        <condition property="wtpBuilderPresent">
+            <available
+                file="${basebuilder.path}/org.eclipse.releng.basebuilder/plugins/${wtpBuildTools.file}" />
+        </condition>
+    </target>
+
+	
+    <target name="getBaseBuilder"
+            depends="init,checkBaseBuilder"
+            unless="basebuilderLocal">
+        <!-- ***  change the repo info -->
+        <property name="basebuilderCvsRoot" 
+    		value=":ext:kurtov@turbine.xored.local:/cvsroot/eclipse" />
+    	<!--property name="builderCvsRoot"
+    	                  value=":pserver:anonymous@dev.eclipse.org:/cvsroot/eclipse" />
+    	  <property name="basebuilder.path" value="${env.BUILD_HOME}/builders/${eclipse.builder.version}" /-->
+        <!-- note: untagged or some default version of base builder is not good to use. 
+            in some cases, won't run at all, in the best of cases, will simply
+            be unstable, so we'll fail if we forgot to specify it -->
+        <fail unless="eclipse.builder.version" /> 
+        <mkdir dir="${env.BUILD_HOME}/builders/${eclipse.builder.version}" />
+        <cvs cvsRoot="${basebuilderCvsRoot}"
+             package="org.eclipse.releng.basebuilder"
+             dest="${basebuilder.path}"
+             tag="${eclipse.builder.version}" />
+    	
+        <!--fail unless="epp-tools.url" /-->
+        <!-- now add our WTP base builder if not there -->
+        <!--antcall target="getEPPBaseBuilder" /-->
+
+        <fail unless="wtpBuildTools.url" />
+        <!-- now add our WTP base builder if not there -->
+        <antcall target="getWTPBaseBuilder" />
+        	
+    </target>
+
+   <target
+        name="getEPPBaseBuilder"
+        depends="checkEPPBaseBuilder"
+        unless="eppBuilderPresent">
+   		<!--copydir dest="${basebuilder.path}/org.eclipse.releng.basebuilder/" 
+   				src="/home/releng/epp-tools/" /-->
+   		<!--property name="get_dest" value="${basebuilder.path}/org.eclipse.releng.basebuilder/plugins/${epp-tools.file}"/>
+		<property name="get_src" value="${epp-tools.url}/${epp-tools.file}"/>
+		<echo message="get_dest: ${get_dest}"/>
+		<echo message="get_src: ${get_src}"/>
+   		<mkdir dir="${basebuilder.path}/org.eclipse.releng.basebuilder/plugins" /> 
+        <get
+            dest="${basebuilder.path}/org.eclipse.releng.basebuilder/plugins/${epp-tools.file}"
+            src="${epp-tools.url}/${epp-tools.file}"
+            usetimestamp="false" /-->
+    </target>
+
+    <target name="checkEPPBaseBuilder">
+    	<echo message="Checking presence of epp-tools" />
+        <condition property="eppBuilderPresent">
+            <available
+                file="${basebuilder.path}/org.eclipse.releng.basebuilder/plugins/${epp-tools.file}" />
+        </condition>
+    	<echo message="eppBuilderPresent: ${eppBuilderPresent}" />
+    </target>
+	
+    <target
+        name="getWTPBaseBuilder"
+        depends="checkWTPBaseBuilder"
+        unless="wtpBuilderPresent">
+        <get
+            dest="${basebuilder.path}/org.eclipse.releng.basebuilder/plugins/${wtpBuildTools.file}"
+            src="${wtpBuildTools.url}/${wtpBuildTools.file}"
+            usetimestamp="true" />
+    </target>
+	
+    <target name="init">
+
+		<!--echo message="buildBranch: ${buildBranch}" /-->
+
+        <!--condition property="buildBranch" value="R1.0">
+            <equals arg1="${mapVersionTag}" arg2="HEAD" />
+        </condition-->
+    	
+        <!--echo message="buildBranch: ${buildBranch}" /-->
+    	
+        <!--condition property="buildBranch" value="R2.0">
+            <equals arg1="${mapVersionTag}" arg2="HEAD" />
+        </condition-->
+    	
+    	<property file="${rcpml.builder.home}/distr_name.properties"/>
+    	
+    	<echo message="FROM FILE: buildBranch: ${buildBranch}" />
+    	
+    	
+        <property file="${rcpml.builder.home}/build.properties" />
+        
+
+        <ant antfile="${rcpml.builder.home}/scripts/build/label.xml" />
+        <property file="${buildDirectory}/label.properties" />
+
+        <!--fetch the HEAD stream of all projects if build type specified as N-->
+        <condition property="fetchTag" value="HEAD">
+            <equals arg1="${buildType}" arg2="N" />
+        </condition>
+
+        <condition property="tagMaps">
+            <equals arg1="${build.trial}" arg2="false" />
+        </condition>
+    </target>
+
+    <target name="runEclipseBuild" if="buildId">
+    	
+    	<echo message="running Eclipse Build: source ${javacSource}, target ${javacTarget}"/>
+    	<property file="${rcpml.builder.home}/mapsFileLocal.properties"/>
+    	<echo message="mapsFileLocal: ${mapsFileLocal}" />
+    	
+        <java taskname="build-${build.distribution}-${component}"
+              jar="${eclipse.launcher}"
+              fork="true"
+              failonerror="${eclipseBuildFailOnError}">
+            <jvmarg value="-Dosgi.ws=${env.BASEWS}" />
+            <jvmarg value="-Dosgi.os=${env.BASEOS}" />
+            <jvmarg value="-Dosgi.arch=${env.BASEARCH}" />
+            <jvmarg value="-Dbuild.home=${env.BUILD_HOME}" />
+            <jvmarg value="-Dbuild.trial=${build.trial}" />
+            <jvmarg value="-DbuildType=${buildType}" />
+            <jvmarg value="-DbuildId=${buildId}" />
+            <jvmarg value="-DjavacDebugInfo=${javacDebugInfo}" />
+            <jvmarg value="-DjavacSource=${javacSource}" />
+            <jvmarg value="-DjavacTarget=${javacTarget}" />
+            <jvmarg value="-DmapVersionTag=${mapVersionTag}" />
+        	<jvmarg value="-DlogExtension=${logExtension}" />
+        	<jvmarg value="-DcvsUser=${cvsUser}" />
+            <jvmarg value="-DcvsProtocol=${cvsProtocol}" />
+            <jvmarg value="-Drcpml.builder.home=${rcpml.builder.home}" />
+            <jvmarg value="-Dbuild.distribution=${build.distribution}" />
+            <jvmarg value="-Dcomponent=${component}" />
+            <jvmarg value="-DJ2SE-1.5=${env.J2SE15}" />
+            <jvmarg value="-DJ2SE-1.4=${env.J2SE14}" />
+        	<jvmarg value="-Xms128m" />
+        	<jvmarg value="-Xmx384m" />
+            <arg value="-application" />
+            <arg value="org.eclipse.ant.core.antRunner" />
+            <arg value="-buildfile" />
+            <arg value="${ant.file}" />
+            <arg value="build" />
+            <sysproperty key="logExtension" value="${logExtension}"/>
+            
+        </java>
+    </target>
+    
+    <target name="runEclipseBuildStamped" unless="buildId">
+        <java taskname="build-${build.distribution}-${component}"
+              jar="${eclipse.launcher}"
+              fork="true"
+              failonerror="${eclipseBuildFailOnError}">
+            <jvmarg value="-Dosgi.ws=${env.BASEWS}" />
+            <jvmarg value="-Dosgi.os=${env.BASEOS}" />
+            <jvmarg value="-Dosgi.arch=${env.BASEARCH}" />
+            <jvmarg value="-Dbuild.home=${env.BUILD_HOME}" />
+            <jvmarg value="-Dbuild.trial=${build.trial}" />
+            <jvmarg value="-DbuildType=${buildType}" />
+            <jvmarg value="-DjavacDebugInfo=${javacDebugInfo}" />
+            <jvmarg value="-DmapVersionTag=${mapVersionTag}" />
+            <jvmarg value="-DcvsUser=${cvsUser}" />
+            <jvmarg value="-DcvsProtocol=${cvsProtocol}" />
+        	<jvmarg value="-DlogExtension=${logExtension}" />
+            <jvmarg value="-Drcpml.builder.home=${rcpml.builder.home}" />
+            <jvmarg value="-Dbuild.distribution=${build.distribution}" />
+            <jvmarg value="-Dcomponent=${component}" />
+            <jvmarg value="-DJ2SE-1.5=${env.J2SE15}" />
+            <jvmarg value="-DJ2SE-1.4=${env.J2SE14}" />
+           	<jvmarg value="-Xms128m" />
+           	<jvmarg value="-Xmx384m" />
+        	<arg value="-application" />
+            <arg value="org.eclipse.ant.core.antRunner" />
+            <arg value="-buildfile" />
+            <arg value="${ant.file}" />
+            <arg value="build" />
+            <sysproperty key="logExtension" value="${logExtension}"/>
+       </java>
+    </target>
+</project>
