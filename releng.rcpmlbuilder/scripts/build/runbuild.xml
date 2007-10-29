@@ -229,9 +229,6 @@
     <target name="runEclipseBuild" if="buildId">
     	
     	<echo message="running Eclipse Build: source ${javacSource}, target ${javacTarget}"/>
-    	<property name="javacSource" value="1.5" />
-    	<property name="javacTarget" value="1.5" />
-    	<echo message="running Eclipse Build: source ${javacSource}, target ${javacTarget}"/>
     	<property file="${rcpml.builder.home}/mapsFileLocal.properties"/>
     	<echo message="mapsFileLocal: ${mapsFileLocal}" />
     	
