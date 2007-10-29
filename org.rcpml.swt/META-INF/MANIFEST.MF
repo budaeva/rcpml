@@ -11,5 +11,6 @@ Require-Bundle: org.rcpml.core,
  org.eclipse.swt,
  org.eclipse.jface.databinding,
  org.eclipse.jface,
- org.eclipse.core.databinding
+ org.eclipse.core.databinding,
+ org.apache.xerces
 Export-Package: org.rcpml.swt
