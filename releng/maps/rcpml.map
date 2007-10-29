@@ -7,6 +7,6 @@
 feature@org.rcpml.runtime=v20071009,:ext:kurtov@turbine.xored.local:/cvsroot/rcpml,,org.rcpml.runtime-feature
 
 plugin@org.rcpml.core=v20071027-0000,:ext:kurtov@turbine.xored.local:/cvsroot/rcpml,
-plugin@org.rcpml.swt=v20071030-0005,:ext:kurtov@turbine.xored.local:/cvsroot/rcpml,
+plugin@org.rcpml.swt=v20071030_0005,:ext:kurtov@turbine.xored.local:/cvsroot/rcpml,
 plugin@org.rcpml.forms=v20071009,:ext:kurtov@turbine.xored.local:/cvsroot/rcpml,
 plugin@org.rcpml.ui=v20071009,:ext:kurtov@turbine.xored.local:/cvsroot/rcpml,
