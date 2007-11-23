@@ -17,6 +17,8 @@
       <import plugin="org.eclipse.ui"/>
       <import plugin="org.eclipse.ui.forms"/>
       <import plugin="org.eclipse.ui.views"/>
+      <import feature="com.xored.scripting.core" version="1.0.0"/>
+      <import feature="org.apache.batik" version="1.0.0"/>
    </requires>
 
    <plugin
@@ -35,13 +37,6 @@
 
    <plugin
          id="org.rcpml.swt"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.apache.batik"
          download-size="0"
          install-size="0"
          version="0.0.0"
