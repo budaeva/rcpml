@@ -58,14 +58,7 @@ public class DataSourceElementAttributeBinding extends AbstractDataSourceElement
 	}
 
 	public void handleValueChange(IDataSourceElementBinding source) {
-		if( this.fValue.equals((String)source.getValue())) {
-			return;
-		}
-		this.removeEventHandler();
-		this.fValue = (String)source.getValue();
-		DOMUtils.setAttribute(this.fNode, this.fAttribute, this.fValue );
-		this.initEventHandler();
-		this.notifyValueChanged();
+		setValue(source.getValue());
 	}
 	public void handleEvent(Event event) {
 		if( event.getType().equals(Controller.DOMATTR_MODIFIED)) {
