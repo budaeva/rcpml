@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="org.rcpml.core.RCPMLExtension:/editors/callgraph.xml"
+            extensions="callgraph,callgraph_diagram,taipan,taipan_diagram"
+            icon="icons/sample.gif"
+            id="org.rcpml.emf.editor.callgraph"
+            name="RCPML Call Graph Editor">
+      </editor>
+	</extension>
+	
+	<extension
+			point="org.rcpml.core.namespace">
+		<namespace xmlNS="http://rcpml.org/emf">
+			<tag
+				class="org.ecpml.emf.example.JLoaderTagFactory"
+				name="jloader"/>
+		</namespace>
+	</extension>
+	
+   <extension
+         point="org.rcpml.core.dataSource">
+      <dataSource
+            class="org.ecpml.emf.example.EMFDataSourceFactory"
+            name="org.rcpml.emf.datasource"/>
+   </extension>
+
+</plugin>

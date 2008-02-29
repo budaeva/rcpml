@@ -1,0 +1,57 @@
+<ui:editor oninit="load()" xmlns="http://rcpml.org/forms" xmlns:ui="http://rcpml.org/ui/editors"
+	xmlns:core="http://rcpml.org/core" xmlns:emf="http://rcpml.org/emf">
+	<core:style type="text/css">
+		composite#topParent { rcpml-layout:grid;rcpml-layout-columns:2; }
+		group { rcpml-layout:grid;rcpml-layout-columns:2;rcpml-colspan:2;rcpml-layout-width:400; }
+		text, combo { rcpml-fill:horizontal;rcpml-grab:horizontal; }
+		button { rcpml-colspan:2; }
+	</core:style>
+	
+	<emf:jloader/>
+	
+	<core:datasource name="emfds"
+		src="org.rcpml.emf.datasource" />
+	
+	<composite id="topParent">
+	</composite>
+	<core:script language="javascript">
+		function load() {
+			emfLoader.readObject(editorInput);
+		}
+		
+		function addGroup(groupID) {
+			group = document.createElementNS("http://rcpml.org/forms", "group");
+			group.setAttribute("id", groupID);
+			parent = document.getElementById("topParent");
+			parent.appendChild(group);
+		}
+		
+		function addText(name, value, nodeID, path) {
+			text = document.createElementNS("http://rcpml.org/forms", "text");
+			text.setAttribute('path', 'emfds:' + path);
+			valueNode = document.createTextNode(value);
+			text.appendChild(valueNode);
+			add(name, text, nodeID);
+		}
+		
+		function addLabel(name, value, nodeID) {
+			label = document.createElementNS("http://rcpml.org/forms", "label");
+			valueNode = document.createTextNode(value);
+			label.appendChild(valueNode);
+			add(name, label, nodeID);
+		}
+		
+		function add(labelName, node, nodeID) {
+			label = document.createElementNS("http://rcpml.org/forms", "label");
+			valueNode = document.createTextNode(labelName);
+			label.appendChild(valueNode);
+			
+			parent = document.getElementById(nodeID);
+			parent.appendChild(label);
+			parent.appendChild(node);
+		}
+		
+		function init() {
+		}
+	</core:script>
+</ui:editor>
