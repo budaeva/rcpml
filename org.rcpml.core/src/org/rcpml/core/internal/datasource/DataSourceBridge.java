@@ -25,6 +25,8 @@ public class DataSourceBridge extends AbstractBridge implements IBridge {
 			this.fDataSource = DataSourceManager.getInstance()
 					.getLocalDataSource(node);
 		}
+		if (fDataSource != null)
+			controller.addDataSource(getName(), fDataSource);
 	}
 
 	public Object getPresentation() {

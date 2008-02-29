@@ -1,7 +1,7 @@
 package org.rcpml.core.datasource;
 
+import org.rcpml.core.IController;
 import org.rcpml.core.dom.DOMUtils;
-import org.rcpml.core.internal.Controller;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.events.Event;
@@ -9,37 +9,42 @@ import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
 
 /**
- * This class are used to bind some attribute of DOM Node.
+ * This class are used to bind DOM Node content. 
  * 
  * @author haiodo
+ * @author Yuri Strot
  * 
  */
 public class DataSourceElementContentBinding extends AbstractDataSourceElementBinding implements EventListener {
 	private Node fNode;
-	private String fAttribute;
 	private String fValue;
+	
+	/**
+	 * Do not allow infinite recursive binding
+	 */
+	private boolean ignoreEvents;
 
-	public DataSourceElementContentBinding(Node node, String attribute) {		
-		this.fNode = node;
-		this.fAttribute = attribute;
-		this.fValue = DOMUtils.getAttribute(node, this.fAttribute);
+	public DataSourceElementContentBinding(Node node) {		
+		fNode = node;
+		fValue = DOMUtils.getChildrenAsText(node);
 		initEventHandler();
 	}
+	
 	private void initEventHandler() {
-		Document doc = this.fNode.getOwnerDocument();		
+		Document doc = fNode.getOwnerDocument();		
 		EventTarget et = (EventTarget) doc;
 
-		et.addEventListener( Controller.DOMATTR_MODIFIED, this, true);		
+		et.addEventListener( IController.DOMSUBTREE_MODIFIED, this, true);
 	}
 	private void removeEventHandler() {
-		Document doc = this.fNode.getOwnerDocument();		
+		Document doc = fNode.getOwnerDocument();		
 		EventTarget et = (EventTarget) doc;
 
-		et.removeEventListener( Controller.DOMATTR_MODIFIED, this, true);
+		et.addEventListener( IController.DOMSUBTREE_MODIFIED, this, true);
 	}
 
 	public Object getValue() {
-		return this.fValue;
+		return fValue;
 	}
 
 	public Object getValueType() {
@@ -47,34 +52,41 @@ public class DataSourceElementContentBinding extends AbstractDataSourceElementBi
 	}
 
 	public void setValue(Object value) {
-		if( this.fValue.equals((String)value)) {
+		if (ignoreEvents) return;
+		if( fValue.equals((String)value)) {
 			return;
 		}
-		this.removeEventHandler();
-		this.fValue = (String)value;
-		DOMUtils.setAttribute(this.fNode, this.fAttribute, this.fValue );
-		this.initEventHandler();
-		this.notifyValueChanged();
+		removeEventHandler();
+		fValue = (String)value;
+		set();
+		initEventHandler();
+		notifyValueChanged();
 	}
 
 	public void handleValueChange(IDataSourceElementBinding source) {
-		if( this.fValue.equals((String)source.getValue())) {
+		if (ignoreEvents) return;
+		if( fValue.equals((String)source.getValue())) {
 			return;
 		}
-		this.removeEventHandler();
-		this.fValue = (String)source.getValue();
-		DOMUtils.setAttribute(this.fNode, this.fAttribute, this.fValue );
-		this.initEventHandler();
-		this.notifyValueChanged();
+		removeEventHandler();
+		fValue = (String)source.getValue();
+		set();
+		initEventHandler();
+		notifyValueChanged();
 	}
 	public void handleEvent(Event event) {
-		if( event.getType().equals(Controller.DOMATTR_MODIFIED)) {
-			String value = DOMUtils.getAttribute(this.fNode, this.fAttribute);
-			if( this.fValue.equals(value)) {
-				return;
-			}
-			this.fValue = value;
-			this.notifyValueChanged();
-		}		
+		if (ignoreEvents) return;
+		String value = DOMUtils.getChildrenAsText(fNode);
+		if( fValue.equals(value)) {
+			return;
+		}
+		fValue = value;
+		notifyValueChanged();
+	}
+	
+	private void set() {
+		ignoreEvents = true;
+		DOMUtils.setChildrenText(fNode, fValue);
+		ignoreEvents = false;
 	}
 }

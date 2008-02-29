@@ -1,9 +1,10 @@
 package org.rcpml.core.internal;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
-import java.util.Stack;
 
 import org.apache.batik.css.engine.CSSContext;
 import org.apache.batik.css.engine.CSSEngine;
@@ -13,8 +14,8 @@ import org.rcpml.core.IController;
 import org.rcpml.core.IRCPMLConstructor;
 import org.rcpml.core.bridge.IBridge;
 import org.rcpml.core.bridge.IVisitor;
+import org.rcpml.core.datasource.DataBinding;
 import org.rcpml.core.datasource.IDataSource;
-import org.rcpml.core.internal.datasource.DataSourceBridge;
 import org.rcpml.core.internal.dom.RCPDOMImplementation;
 import org.rcpml.core.internal.dom.RCPOMDocument;
 import org.w3c.dom.Document;
@@ -33,18 +34,6 @@ import com.xored.scripting.core.ScriptingCore;
  */
 public class Controller implements IController, IVisitor, EventListener,
 		CSSContext {
-
-	public static final String DOMATTR_MODIFIED = "DOMAttrModified";
-
-	public static final String DOMNODE_INSERTED_INTO_DOCUMENT = "DOMNodeInsertedIntoDocument";
-
-	public static final String DOMNODE_REMOVED_FROM_DOCUMENT = "DOMNodeRemovedFromDocument";
-
-	public static final String DOMNODE_REMOVED = "DOMNodeRemoved";
-
-	public static final String DOMNODE_INSERTED = "DOMNodeInserted";
-
-	public static final String DOMSUBTREE_MODIFIED = "DOMSubtreeModified";
 
 	private BridgeFactoryManager fBridgeBuilder;
 
@@ -66,6 +55,10 @@ public class Controller implements IController, IVisitor, EventListener,
 	private boolean fSkipEvents = false;
 
 	private boolean fFullUpdateRequired = false;
+	
+	private Map dataSources = new HashMap();
+	
+	private List bindingWaitingNodes = new ArrayList();
 
 	public Controller(Document document) {
 		this(document, false);
@@ -407,54 +400,49 @@ public class Controller implements IController, IVisitor, EventListener,
 	public void setSkipEvents(boolean skip) {
 		this.fSkipEvents = skip;
 	}
-
-	public IDataSource getDataSource(final Node node, String path) {
-		String lName = null;
-		if (path.indexOf(':') != -1) {
-			lName = path.substring(0, path.indexOf(":"));
-		}
-		final Stack dataSourceList = new Stack();
-
-		IVisitor visitor = new IVisitor() {
-			boolean search = true;
-
-			public void visit(Node elementNode) {
-				if (search) {
-					if (elementNode.equals(node)) {
-						search = false;
-						return;
-					}
-					IBridge br = getBridge(elementNode);
-					if (br instanceof DataSourceBridge) {
-						IDataSource ds = (IDataSource) br.getPresentation();
-						if (ds != null) {
-							dataSourceList.add(br);
-						}
-					}
-					if (br != null) {
-						br.visit(this);
-					}
-				}
+	
+	public void addDataSource(String name, IDataSource dataSource) {
+		dataSources.put(name, dataSource);
+		Iterator it = bindingWaitingNodes.iterator();
+		while (it.hasNext()) {
+			DataBinding binding = (DataBinding) it.next();
+			if (isDataSourceCanBound(dataSource, name, binding.getPath())) {
+				bind(binding);
+				it.remove();
 			}
-		};
-
-		if (this.fRootBridge != null) {
-			visitor.visit(this.fRootBridge.getNode());
 		}
+	}
 
-		Iterator i = dataSourceList.iterator();
+	protected IDataSource getDataSource(String path) {
+		Iterator i = dataSources.keySet().iterator();
 		while (i.hasNext()) {
-			DataSourceBridge dsBridge = (DataSourceBridge) i.next();
-			if (lName == null) {
-				return (IDataSource) dsBridge.getPresentation();
-			}
-			String dsName = dsBridge.getName();
-			if (lName.equals(dsName)) {
-				return (IDataSource) dsBridge.getPresentation();
-			}
+			String name = (String)i.next();
+			IDataSource dataSource = (IDataSource)dataSources.get(name);
+			if (isDataSourceCanBound(dataSource, name, path))
+				return dataSource;
 		}
-
 		return null;
+	}
+	
+	protected boolean isDataSourceCanBound(
+			IDataSource dataSource, String name, String path) {
+		
+		String lName = null;
+		if (path.indexOf(':') != -1)
+			lName = path.substring(0, path.indexOf(":"));
+		if (lName == null)
+			return true;
+		
+		return lName.equals(name);
+	}
+	
+	public void bind(DataBinding binding) {
+		IDataSource ds = getDataSource(binding.getPath());
+		if (ds != null)
+			ds.bind(binding.getObject(), binding.getPath());
+		else {
+			bindingWaitingNodes.add(binding);
+		}
 	}
 
 	public void requireFullUpdate() {

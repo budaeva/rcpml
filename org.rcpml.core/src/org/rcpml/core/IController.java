@@ -2,6 +2,7 @@ package org.rcpml.core;
 
 import org.rcpml.core.bridge.IBridge;
 import org.rcpml.core.bridge.IVisitor;
+import org.rcpml.core.datasource.DataBinding;
 import org.rcpml.core.datasource.IDataSource;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -14,6 +15,19 @@ import com.xored.scripting.core.IScriptContextManager;
  * @author haiodo Implements visitor witch can build bridges on visited nodes.
  */
 public interface IController extends IVisitor {
+	
+	public static final String DOMATTR_MODIFIED = "DOMAttrModified";
+
+	public static final String DOMNODE_INSERTED_INTO_DOCUMENT = "DOMNodeInsertedIntoDocument";
+
+	public static final String DOMNODE_REMOVED_FROM_DOCUMENT = "DOMNodeRemovedFromDocument";
+
+	public static final String DOMNODE_REMOVED = "DOMNodeRemoved";
+
+	public static final String DOMNODE_INSERTED = "DOMNodeInserted";
+
+	public static final String DOMSUBTREE_MODIFIED = "DOMSubtreeModified";
+	
 	/**
 	 * Return bridge associated for selected node.
 	 */
@@ -58,13 +72,14 @@ public interface IController extends IVisitor {
 	 */
 	boolean isWithConstructor();
 	
+	void addDataSource(String name, IDataSource dataSource);
+	
 	/**
-	 * Used to search first appropriatet datasource for element.
+	 * Bind <code>DataBinding</code> with corresponding <code>IDataSource</code>
 	 * 
-	 * 1) Search on Bridges with DataSources.
-	 * 2) Return first with specified name, or first founded.
+	 * @param binding
 	 */
-	IDataSource getDataSource( Node node, String path );
+	public void bind(DataBinding binding);
 
 	void requireFullUpdate();
 

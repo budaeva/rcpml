@@ -8,7 +8,7 @@ import org.apache.batik.css.engine.CSSStyleSheetNode;
 import org.apache.batik.css.engine.StyleSheet;
 import org.apache.batik.dom.AbstractDocument;
 import org.apache.batik.util.XMLConstants;
-import org.rcpml.core.internal.Controller;
+import org.rcpml.core.IController;
 import org.w3c.dom.Node;
 import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
@@ -54,10 +54,10 @@ public class RCPOMStyleElement extends RCPOMElement implements
 
     
 	private void setEventHandler() {
-		addEventListener(Controller.DOMSUBTREE_MODIFIED, domCharacterDataModifiedListener, true);
-		addEventListener(Controller.DOMNODE_INSERTED, domCharacterDataModifiedListener, true);
-		addEventListener(Controller.DOMNODE_REMOVED, domCharacterDataModifiedListener, true);		
-		addEventListener(Controller.DOMATTR_MODIFIED, domCharacterDataModifiedListener, true);		
+		addEventListener(IController.DOMSUBTREE_MODIFIED, domCharacterDataModifiedListener, true);
+		addEventListener(IController.DOMNODE_INSERTED, domCharacterDataModifiedListener, true);
+		addEventListener(IController.DOMNODE_REMOVED, domCharacterDataModifiedListener, true);		
+		addEventListener(IController.DOMATTR_MODIFIED, domCharacterDataModifiedListener, true);		
 	}
 
 

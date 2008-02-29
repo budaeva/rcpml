@@ -2,6 +2,7 @@ package org.rcpml.swt.databinding;
 
 import org.eclipse.core.databinding.observable.Diffs;
 import org.eclipse.core.databinding.observable.value.AbstractObservableValue;
+import org.rcpml.core.IController;
 import org.rcpml.core.dom.DOMUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -19,7 +20,7 @@ public class ElementTextObservable extends AbstractObservableValue implements Ev
 		
 		EventTarget et = (EventTarget) doc;
 
-		et.addEventListener( "DOMSubtreeModified", this, true);		
+		et.addEventListener( IController.DOMSUBTREE_MODIFIED, this, true);		
 	}
 	protected Object doGetValue() {
 		return DOMUtils.getChildrenAsText(fNode);

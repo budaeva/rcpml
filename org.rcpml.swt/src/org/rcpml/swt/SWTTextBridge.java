@@ -11,7 +11,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 import org.rcpml.core.IController;
 import org.rcpml.core.css.RCPCSSConstants;
-import org.rcpml.core.datasource.IDataSource;
+import org.rcpml.core.datasource.DataBinding;
+import org.rcpml.core.datasource.DataSourceElementContentBinding;
 import org.rcpml.core.dom.RCPStylableElement;
 import org.rcpml.swt.databinding.ElementTextObservable;
 import org.w3c.dom.Node;
@@ -49,9 +50,8 @@ public class SWTTextBridge extends AbstractSWTBridge {
 
 		String path = getAttribute(PATH_ATTR);
 		if (path != null && !path.equals("")) {
-			IDataSource ds = getController()
-					.getDataSource(this.getNode(), path);
-			// ds.bind( new , path);
+			getController().bind(new DataBinding(
+					new DataSourceElementContentBinding(getNode()), path));
 		}
 	}
 
