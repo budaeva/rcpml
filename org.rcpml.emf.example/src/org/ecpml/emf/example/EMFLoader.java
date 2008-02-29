@@ -1,5 +1,6 @@
 package org.ecpml.emf.example;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -16,6 +17,8 @@ import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
 import org.eclipse.ui.IFileEditorInput;
 import org.rcpml.core.IController;
+import org.rcpml.core.datasource.DataSourceUtils;
+import org.rcpml.core.datasource.IDataSourceElementBinding;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
@@ -38,13 +41,49 @@ public class EMFLoader {
 	private int groupId = 0;
 	private Resource resource;
 	
+	private List bindings = new ArrayList();
+	
+	private class Binding {
+		String eObject;
+		String eFeature;
+		IDataSourceElementBinding object;
+		
+		public Binding(String eObject, String feature,
+				IDataSourceElementBinding object) {
+			super();
+			this.eObject = eObject;
+			this.eFeature = feature;
+			this.object = object;
+		}
+		
+	}
+	
 	public EMFLoader(IController container) {
 		this.container = container;
 		current = this;
 	}
 	
-	public Resource getResource() {
-		return resource;
+	public void addBinding(String eObject, String eFeature, IDataSourceElementBinding object) {
+		Binding binding = new Binding(eObject, eFeature, object);
+		if (resource != null)
+			addBinding(binding);
+		else
+			bindings.add(binding);
+	}
+	
+	private void addBinding(Binding binding) {
+		EObject obj = resource.getEObject(binding.eObject);
+		if (obj != null) {
+			Iterator attrs = obj.eClass().getEAllStructuralFeatures().iterator();
+			while (attrs.hasNext()) {
+				EStructuralFeature feature = (EStructuralFeature) attrs.next();
+				if (feature.getName().equals(binding.eFeature)) {
+					DataSourceUtils.bindDataSourceElement(new EMFDataSourceElementBinding(
+							obj, feature, feature.getEType().getInstanceClass()), binding.object);
+					break;
+				}
+			}
+		}
 	}
 	
 	private AdapterFactoryEditingDomain getEditDomain() {
@@ -76,10 +115,19 @@ public class EMFLoader {
 		return resource;
 	}
 	
+	private void updateBindings() {
+		Iterator it = bindings.iterator();
+		while (it.hasNext()) {
+			Binding elem = (Binding) it.next();
+			addBinding(elem);
+		}
+	}
+	
 	public void readObject(Object o) {
 		if (o instanceof IFileEditorInput) {
 			IFileEditorInput input = (IFileEditorInput)o;
 			resource = getResource(input);
+			updateBindings();
 			Iterator it = resource.getContents().iterator();
 			HashSet set = new HashSet();
 			while (it.hasNext()) {
@@ -114,7 +162,14 @@ public class EMFLoader {
 				add(object, set);
 			}
 			else if (feature != null && value != null){
-				addText(feature.getName(), value.toString(), id, resource.getURIFragment(object));
+				if (value instanceof Integer) {
+					addSpinner(feature.getName(), value.toString(), id);
+				}
+				else {
+					String path = resource.getURIFragment(object) + "/" + feature.getName();
+					addText(feature.getName(), value.toString(), id, path);
+					System.out.println(path);
+				}
 			}
 		}
 	}
@@ -159,6 +214,15 @@ public class EMFLoader {
 	private void addLabel(String name, String value, String id) {
 		try {
 			container.getScriptManager().executeScript("addLabel('" + 
+					name + ":', '" + value + "', '" + id + "')");
+		} catch (ScriptException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void addSpinner(String name, String value, String id) {
+		try {
+			container.getScriptManager().executeScript("addSpinner('" + 
 					name + ":', '" + value + "', '" + id + "')");
 		} catch (ScriptException e) {
 			e.printStackTrace();

@@ -1,10 +1,5 @@
 package org.ecpml.emf.example;
 
-import java.util.Iterator;
-
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.rcpml.core.datasource.DataSourceUtils;
 import org.rcpml.core.datasource.IDataSource;
 import org.rcpml.core.datasource.IDataSourceElementBinding;
 import org.rcpml.core.datasource.IDataSourceFactory;
@@ -29,14 +24,11 @@ public class EMFDataSourceFactory implements IDataSourceFactory {
 					if (index >= 0 && index + 1 < path.length()) {
 						path = path.substring(index + 1);
 					}
-					EObject obj = loader.getResource().getEObject(path);
-					if (obj != null) {
-						Iterator attrs = obj.eClass().getEAllStructuralFeatures().iterator();
-						EStructuralFeature feature = (EStructuralFeature)attrs.next();
-						if (feature != null) {
-							DataSourceUtils.bindDataSourceElement(object, 
-									new EMFDataSourceElementBinding(obj, feature));
-						}
+					index = path.lastIndexOf("/");
+					if (index >= 0) {
+						String featureName = path.substring(index + 1);
+						String objectURI = path = path.substring(0, index);
+						loader.addBinding(objectURI, featureName, object);
 					}
 				}
 			}

@@ -18,10 +18,12 @@ public class EMFDataSourceElementBinding extends AbstractDataSourceElementBindin
 	
 	private EObject obj;
 	private EStructuralFeature feature;
+	private Class type;
 	
-	public EMFDataSourceElementBinding(EObject obj, EStructuralFeature feature) {
+	public EMFDataSourceElementBinding(EObject obj, EStructuralFeature feature, Class type) {
 		this.obj = obj;
 		this.feature = feature;
+		this.type = type;
 	}
 
 	public Object getValue() {
@@ -29,10 +31,20 @@ public class EMFDataSourceElementBinding extends AbstractDataSourceElementBindin
 	}
 
 	public Object getValueType() {
-		return String.class;
+		return type;
 	}
 
 	public void setValue(Object value) {
+//		if (type == int.class || type == Integer.class) {
+//			if (!(value instanceof Integer) && value != null) {
+//				String s = value.toString();
+//				try {
+//					//value = new Integer(Integer.parseInt(s));
+//				}
+//				catch (Exception e) {
+//				}
+//			}
+//		}
 		obj.eSet(feature, value);
 		save();
 		notifyValueChanged();

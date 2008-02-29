@@ -3,7 +3,7 @@
 	<core:style type="text/css">
 		composite#topParent { rcpml-layout:grid;rcpml-layout-columns:2; }
 		group { rcpml-layout:grid;rcpml-layout-columns:2;rcpml-colspan:2;rcpml-layout-width:400; }
-		text, combo { rcpml-fill:horizontal;rcpml-grab:horizontal; }
+		text, combo, spinner { rcpml-fill:horizontal;rcpml-grab:horizontal; }
 		button { rcpml-colspan:2; }
 	</core:style>
 	
@@ -11,8 +11,12 @@
 	
 	<core:datasource name="emfds"
 		src="org.rcpml.emf.datasource" />
-	
+		
 	<composite id="topParent">
+		<group>
+			<label>Test</label>
+			<text path="emfds://@ports.0/location"/>
+		</group>
 	</composite>
 	<core:script language="javascript">
 		function load() {
@@ -32,6 +36,13 @@
 			valueNode = document.createTextNode(value);
 			text.appendChild(valueNode);
 			add(name, text, nodeID);
+		}
+		
+		function addSpinner(name, value, nodeID) {
+			spinner = document.createElementNS("http://rcpml.org/forms", "spinner");
+			valueNode = document.createTextNode(value);
+			spinner.appendChild(valueNode);
+			add(name, spinner, nodeID);
 		}
 		
 		function addLabel(name, value, nodeID) {

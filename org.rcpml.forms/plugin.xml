@@ -39,8 +39,10 @@
                name="group"/>
          <tag
                class="org.rcpml.forms.internal.tags.ComboTagFactory"
-               name="combo">
-         </tag>
+               name="combo"/>
+         <tag
+               class="org.rcpml.forms.internal.tags.SpinnerTagFactory"
+               name="spinner"/>
       </namespace>
    </extension>
 
