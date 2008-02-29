@@ -17,6 +17,8 @@ public interface RCPCSSConstants {
 
 	String CSS_LAYOUT_COLUMNS_PROPERTY = "rcpml-layout-columns";
 
+	String CSS_LAYOUT_EQUALS_WIDTH_PROPERTY = "rcpml-width-equals";
+
 	String CSS_LAYOUT_ALIGN_PROPERTY = "rcpml-align";
 
 	String CSS_LAYOUT_ALIGN_VERTICAL_PROPERTY = "rcpml-align-vertical";
@@ -105,39 +107,41 @@ public interface RCPCSSConstants {
 
 	public final static int LAYOUT_COLUMNS_INDEX = 1;
 
-	public final static int LAYOUT_ALIGN_INDEX = 2;
+	public final static int LAYOUT_WIDTH_EQUALS_INDEX = 2;
 
-	public final static int LAYOUT_ALIGN_VERTICAL_INDEX = 3;
+	public final static int LAYOUT_ALIGN_INDEX = 3;
 
-	public final static int LAYOUT_FILL_INDEX = 4;
+	public final static int LAYOUT_ALIGN_VERTICAL_INDEX = 4;
 
-	public final static int LAYOUT_GRAB_INDEX = 5;
+	public final static int LAYOUT_FILL_INDEX = 5;
 
-	public final static int LAYOUT_COLSPAN_INDEX = 6;
+	public final static int LAYOUT_GRAB_INDEX = 6;
 
-	public final static int LAYOUT_ROWSPAN_INDEX = 7;
+	public final static int LAYOUT_COLSPAN_INDEX = 7;
 
-	public final static int LAYOUT_WRAP_INDEX = 8;
+	public final static int LAYOUT_ROWSPAN_INDEX = 8;
 
-	public final static int LAYOUT_BORDER_INDEX = 9;
+	public final static int LAYOUT_WRAP_INDEX = 9;
 
-	public final static int LAYOUT_WIDTH_INDEX = 10;
+	public final static int LAYOUT_BORDER_INDEX = 10;
 
-	public final static int LAYOUT_HEIGHT_INDEX = 11;
+	public final static int LAYOUT_WIDTH_INDEX = 11;
 
-	public final static int LAYOUT_MARGIN_WIDTH = 12;
+	public final static int LAYOUT_HEIGHT_INDEX = 12;
 
-	public final static int LAYOUT_MARGIN_HEIGHT = 13;
+	public final static int LAYOUT_MARGIN_WIDTH = 13;
 
-	public final static int LAYOUT_MARGIN_LEFT = 14;
+	public final static int LAYOUT_MARGIN_HEIGHT = 14;
 
-	public final static int LAYOUT_MARGIN_TOP = 15;
+	public final static int LAYOUT_MARGIN_LEFT = 15;
 
-	public final static int LAYOUT_MARGIN_RIGHT = 16;
+	public final static int LAYOUT_MARGIN_TOP = 16;
 
-	public final static int LAYOUT_MARGIN_BUTTOM = 17;
+	public final static int LAYOUT_MARGIN_RIGHT = 17;
+
+	public final static int LAYOUT_MARGIN_BUTTOM = 18;
 	
-	public final static int LAYOUT_SPACING_HORIZONTAL = 18;
+	public final static int LAYOUT_SPACING_HORIZONTAL = 19;
 	
-	public final static int LAYOUT_SPACING_VERTICAL = 19;
+	public final static int LAYOUT_SPACING_VERTICAL = 20;
 }

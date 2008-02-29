@@ -17,9 +17,13 @@ public class SWTUtils {
 				.getComputedValue(RCPCSSConstants.LAYOUT_INDEX);
 		Value columnsValue = stylable
 				.getComputedValue(RCPCSSConstants.LAYOUT_COLUMNS_INDEX);
-
+		Value widthEqualsValue = stylable
+			.getComputedValue(RCPCSSConstants.LAYOUT_WIDTH_EQUALS_INDEX);
+		
 		String layoutString = layoutValue.getStringValue();
 		int columns = (int) columnsValue.getFloatValue();
+		boolean columnsEqualWidth = widthEqualsValue.getStringValue().equals(
+				RCPCSSConstants.TRUE_VALUE);
 
 		Value marginWidthValue = stylable
 				.getComputedValue(RCPCSSConstants.LAYOUT_MARGIN_WIDTH);
@@ -46,6 +50,7 @@ public class SWTUtils {
 		if (layoutString.equals(RCPCSSConstants.LAYOUT_GRID_VALUE)) {
 			GridLayout lo = new GridLayout();
 			lo.numColumns = columns;
+			lo.makeColumnsEqualWidth = columnsEqualWidth;
 			lo.marginWidth = marginWidth;
 			lo.marginHeight = marginHeight;
 			lo.marginLeft = marginLeft;

@@ -23,6 +23,7 @@ public class RCPCSSEngine extends CSSEngine {
 			// this is layout columns manager
 			new NumberValueManager(RCPCSSConstants.CSS_LAYOUT_COLUMNS_PROPERTY,
 					1, false),
+			new TrueFalseValueManager(RCPCSSConstants.CSS_LAYOUT_EQUALS_WIDTH_PROPERTY),
 			new LayoutAlignValueManager(
 					RCPCSSConstants.CSS_LAYOUT_ALIGN_PROPERTY,
 					LayoutAlignValueManager.LEFT_VALUE),
