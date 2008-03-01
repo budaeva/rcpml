@@ -8,6 +8,9 @@
          <tag
                class="org.rcpml.ui.internal.editors.EditPartTagFactory"
                name="editor"/>
+         <tag
+               class="org.rcpml.ui.internal.editors.MultiEditorTagFactory"
+               name="multieditor"/>
       </namespace>
    </extension>
 

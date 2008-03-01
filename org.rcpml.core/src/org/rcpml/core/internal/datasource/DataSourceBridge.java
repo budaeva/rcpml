@@ -19,7 +19,7 @@ public class DataSourceBridge extends AbstractBridge implements IBridge {
 		String src = getAttribute(SRC_ATTR);
 		if (src.length() > 0) {
 			this.fDataSource = DataSourceManager.getInstance().getDataSource(
-					src, node );
+					src, node, controller );
 		} else {
 			System.err.println("Warning: DataSource: required src element");
 			this.fDataSource = DataSourceManager.getInstance()

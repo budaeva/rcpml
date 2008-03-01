@@ -6,6 +6,7 @@ import java.util.Map;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Platform;
+import org.rcpml.core.IController;
 import org.rcpml.core.datasource.IDataSource;
 import org.rcpml.core.datasource.IDataSourceFactory;
 import org.w3c.dom.Node;
@@ -28,7 +29,7 @@ public class DataSourceManager {
 		return sDataSourceManager;
 	}
 
-	public IDataSource getDataSource(String src, Node node ) {	
+	public IDataSource getDataSource(String src, Node node, IController controller ) {	
 
 		if (src == null) {
 			System.err.println("DataSource Manager: incorrect datasource...");
@@ -38,7 +39,7 @@ public class DataSourceManager {
 		if (sDataSourceFactorys.containsKey(src)) {
 			IDataSourceFactory factory = (IDataSourceFactory) sDataSourceFactorys
 					.get(src);
-			return factory.createDataSource(node);
+			return factory.createDataSource(controller, node);
 		}		
 
 		IConfigurationElement configs[] = Platform.getExtensionRegistry()
@@ -51,7 +52,7 @@ public class DataSourceManager {
 					try {
 						IDataSourceFactory factory = (IDataSourceFactory) configElement
 								.createExecutableExtension(CLASS_ATTR);
-						return factory.createDataSource( node );
+						return factory.createDataSource( controller, node );
 					} catch (CoreException ex) {
 						ex.printStackTrace();
 						return null;

@@ -1,5 +1,6 @@
 package org.rcpml.core.tests.datasource;
 
+import org.rcpml.core.IController;
 import org.rcpml.core.datasource.IDataSource;
 import org.rcpml.core.datasource.IDataSourceElementBinding;
 import org.rcpml.core.datasource.IDataSourceFactory;
@@ -15,7 +16,8 @@ public class TestDataSourceFactory implements IDataSourceFactory {
 			return "testDataSource";
 		}		
 	}
-	public IDataSource createDataSource(Node node) {		
+	
+	public IDataSource createDataSource(IController controller, Node node) {
 		return new TestDataSource(); 
-	}	
+	}
 }

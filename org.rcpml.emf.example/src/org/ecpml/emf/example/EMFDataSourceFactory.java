@@ -1,5 +1,6 @@
 package org.ecpml.emf.example;
 
+import org.rcpml.core.IController;
 import org.rcpml.core.datasource.IDataSource;
 import org.rcpml.core.datasource.IDataSourceElementBinding;
 import org.rcpml.core.datasource.IDataSourceFactory;
@@ -42,7 +43,7 @@ public class EMFDataSourceFactory implements IDataSourceFactory {
 		}		
 	}
 	
-	public IDataSource createDataSource(Node node) {		
+	public IDataSource createDataSource(IController controller, Node node) {		
 		return new EMFDataSource(); 
 	}	
 }

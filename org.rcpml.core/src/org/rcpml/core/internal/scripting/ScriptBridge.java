@@ -106,15 +106,16 @@ public class ScriptBridge extends AbstractBridge implements IScriptingContext
 	public void bindObject(String name, Object object) {
 		context.bindObject(name, object);
 	}
+	
+	public Object getBoundObject(String name) {
+		return context.getBoundObject(name);
+	}
 
 	public boolean supportExecution(URL url) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	public void unBindObject(String name) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	public Object executeScript(Reader reader, String file) {

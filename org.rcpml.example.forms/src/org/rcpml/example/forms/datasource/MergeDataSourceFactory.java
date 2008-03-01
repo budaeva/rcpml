@@ -1,4 +1,5 @@
 package org.rcpml.example.forms.datasource;
+import org.rcpml.core.IController;
 import org.rcpml.core.datasource.DataSourceUtils;
 import org.rcpml.core.datasource.IDataSource;
 import org.rcpml.core.datasource.IDataSourceElementBinding;
@@ -20,7 +21,8 @@ public class MergeDataSourceFactory implements IDataSourceFactory {
 			return "org.rcpml.example.forms.datasource.merge";
 		}		
 	}
-	public IDataSource createDataSource(Node node) {
+	
+	public IDataSource createDataSource(IController controller, Node node) {
 		return new MergeDataSource();
 	}
 }
