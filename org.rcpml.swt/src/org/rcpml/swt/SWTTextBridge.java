@@ -42,7 +42,6 @@ public class SWTTextBridge extends AbstractSWTBridge {
 		this.fText = this.createText(parent);
 		update();
 
-		// todo add specs test here.
 		DataBindingContext dbc = this.getBindingContext();
 		
 		dbc.bindValue(SWTObservables.observeText(this.fText, SWT.Modify), new ElementTextObservable(
@@ -51,7 +50,8 @@ public class SWTTextBridge extends AbstractSWTBridge {
 		String path = getAttribute(PATH_ATTR);
 		if (path != null && !path.equals("")) {
 			getController().bind(new DataBinding(
-					new DataSourceElementContentBinding(getNode()), path));
+					new DataSourceElementContentBinding(
+							getNode(), String.class), path));
 		}
 	}
 

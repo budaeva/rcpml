@@ -6,6 +6,8 @@ import org.rcpml.core.datasource.IDataSourceElementBinding;
 import org.rcpml.core.datasource.IDataSourceFactory;
 import org.w3c.dom.Node;
 
+import com.xored.scripting.core.ScriptException;
+
 /**
  * @author Yuri Strot
  *
@@ -14,12 +16,14 @@ public class EMFDataSourceFactory implements IDataSourceFactory {
 	
 	public static class EMFDataSource implements IDataSource {
 		
-		public EMFDataSource( ) {
+		private EMFLoader loader;
+		
+		public EMFDataSource(EMFLoader loader) {
+			this.loader = loader;
 		}
 		
 		public void bind(IDataSourceElementBinding object, String path) {
 			try {
-				EMFLoader loader = EMFLoader.getCurrent();
 				if (loader != null) {
 					int index = path.indexOf(':');
 					if (index >= 0 && index + 1 < path.length()) {
@@ -34,6 +38,7 @@ public class EMFDataSourceFactory implements IDataSourceFactory {
 				}
 			}
 			catch (Exception e) {
+				e.printStackTrace();
 				//do not allow exception there
 			}
 		}
@@ -43,7 +48,14 @@ public class EMFDataSourceFactory implements IDataSourceFactory {
 		}		
 	}
 	
-	public IDataSource createDataSource(IController controller, Node node) {		
-		return new EMFDataSource(); 
+	public IDataSource createDataSource(IController controller, Node node) {
+		EMFLoader loader = new EMFLoader(controller);
+		try {
+			loader.readObject(controller.getScriptManager(
+					).getDefaultContext().getBoundObject("editorInput"));
+		} catch (ScriptException e) {
+			e.printStackTrace();
+		}
+		return new EMFDataSource(loader); 
 	}	
 }

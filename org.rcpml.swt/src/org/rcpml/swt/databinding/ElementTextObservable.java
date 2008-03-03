@@ -32,8 +32,10 @@ public class ElementTextObservable extends AbstractObservableValue implements Ev
 	
 	protected void doSetValue(Object value) {
 		if( value instanceof String ) {
-			DOMUtils.setChildrenText(this.fNode, (String)value );
-			this.fValue = (String)value;
+			if (!value.equals(fValue)) {
+				this.fValue = (String)value;
+				DOMUtils.setChildrenText(this.fNode, (String)value );
+			}
 		}
 	}
 	public void handleEvent(Event evt) {

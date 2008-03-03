@@ -20,7 +20,10 @@ public class EMFDataSourceElementBinding extends AbstractDataSourceElementBindin
 	private EStructuralFeature feature;
 	private Class type;
 	
-	public EMFDataSourceElementBinding(EObject obj, EStructuralFeature feature, Class type) {
+	public EMFDataSourceElementBinding() {
+	}
+	
+	public void setAll(EObject obj, EStructuralFeature feature, Class type) {
 		this.obj = obj;
 		this.feature = feature;
 		this.type = type;
@@ -35,18 +38,7 @@ public class EMFDataSourceElementBinding extends AbstractDataSourceElementBindin
 	}
 
 	public void setValue(Object value) {
-//		if (type == int.class || type == Integer.class) {
-//			if (!(value instanceof Integer) && value != null) {
-//				String s = value.toString();
-//				try {
-//					//value = new Integer(Integer.parseInt(s));
-//				}
-//				catch (Exception e) {
-//				}
-//			}
-//		}
-		obj.eSet(feature, value);
-		save();
+		changeValue(value);
 		notifyValueChanged();
 	}
 	
@@ -60,9 +52,18 @@ public class EMFDataSourceElementBinding extends AbstractDataSourceElementBindin
 			e.printStackTrace();
 		}
 	}
+	
+	public void update() {
+		notifyValueChanged();
+	}
 
 	public void handleValueChange(IDataSourceElementBinding source) {
-		setValue(source.getValue());
+		changeValue(source.getValue());
+	}
+	
+	private void changeValue(Object value) {
+		obj.eSet(feature, value);
+		save();
 	}
 
 }

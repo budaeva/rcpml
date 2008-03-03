@@ -1,11 +1,16 @@
 package org.ecpml.emf.example;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -19,6 +24,9 @@ import org.eclipse.ui.IFileEditorInput;
 import org.rcpml.core.IController;
 import org.rcpml.core.datasource.DataSourceUtils;
 import org.rcpml.core.datasource.IDataSourceElementBinding;
+import org.rcpml.emf.example.synch.FileListener;
+import org.rcpml.emf.example.synch.IFileChangeListener;
+import org.rcpml.swt.ICompositeHolder;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
@@ -29,7 +37,7 @@ import com.xored.scripting.core.ScriptException;
  * @author Yuri Strot
  *
  */
-public class EMFLoader {
+public class EMFLoader implements IFileChangeListener {
 	
 	private static EMFLoader current;
 	
@@ -42,6 +50,9 @@ public class EMFLoader {
 	private Resource resource;
 	
 	private List bindings = new ArrayList();
+	
+	private Map dsBindings = new HashMap();
+	private IFile file;
 	
 	private class Binding {
 		String eObject;
@@ -58,6 +69,42 @@ public class EMFLoader {
 		
 	}
 	
+	public File getFile() {
+		return file.getLocation().toFile();
+	}
+	
+	public void fileChanged() {
+		updateResource();
+		Set bindings = dsBindings.keySet();
+		Iterator ut = bindings.iterator();
+		while (ut.hasNext()) {
+			Binding binding = (Binding) ut.next();
+			EMFDataSourceElementBinding dsBinding = 
+				(EMFDataSourceElementBinding)dsBindings.get(binding);
+			addBinding(binding, dsBinding);
+		}
+		if (container.getPresentation() instanceof ICompositeHolder) {
+			ICompositeHolder holder = (ICompositeHolder)container.getPresentation();
+			holder.getComposite().getDisplay().asyncExec(new Runnable() {
+				
+				public void run() {
+					Collection bindings = dsBindings.values();
+					Iterator ut = bindings.iterator();
+					while (ut.hasNext()) {
+						EMFDataSourceElementBinding binding = 
+							(EMFDataSourceElementBinding) ut.next();
+						binding.update();
+					}
+				}
+				
+			});
+		}
+	}
+	
+	public void fileRemoved() {
+		dsBindings.clear();
+	}
+	
 	public EMFLoader(IController container) {
 		this.container = container;
 		current = this;
@@ -66,23 +113,30 @@ public class EMFLoader {
 	public void addBinding(String eObject, String eFeature, IDataSourceElementBinding object) {
 		Binding binding = new Binding(eObject, eFeature, object);
 		if (resource != null)
-			addBinding(binding);
+			createBinding(binding);
 		else
 			bindings.add(binding);
 	}
 	
-	private void addBinding(Binding binding) {
+	private void addBinding(Binding binding, EMFDataSourceElementBinding dsBinding) {
 		EObject obj = resource.getEObject(binding.eObject);
 		if (obj != null) {
 			Iterator attrs = obj.eClass().getEAllStructuralFeatures().iterator();
 			while (attrs.hasNext()) {
 				EStructuralFeature feature = (EStructuralFeature) attrs.next();
 				if (feature.getName().equals(binding.eFeature)) {
-					DataSourceUtils.bindDataSourceElement(new EMFDataSourceElementBinding(
-							obj, feature, feature.getEType().getInstanceClass()), binding.object);
-					break;
+					dsBinding.setAll(obj, feature, feature.getEType().getInstanceClass());
 				}
 			}
+		}
+	}
+	
+	private void createBinding(Binding binding) {
+		EMFDataSourceElementBinding dsBinding = new EMFDataSourceElementBinding();
+		addBinding(binding, dsBinding);
+		dsBindings.put(binding, dsBinding);
+		if (dsBinding != null) {
+			DataSourceUtils.bindDataSourceElement(dsBinding, binding.object);
 		}
 	}
 	
@@ -97,36 +151,43 @@ public class EMFLoader {
 		return new AdapterFactoryEditingDomain(adapterFactory, commandStack, new HashMap());
 	}
 	
-	public Resource getResource(IFileEditorInput modelFile) {
+	public void updateFile(IFileEditorInput modelFile) {
 		
+		file = modelFile.getFile();
+		
+		FileListener.getInstance().removeListener(this);
+		FileListener.getInstance().addListener(this);
+		
+		updateResource();
+	}
+	
+	private void updateResource() {
 		AdapterFactoryEditingDomain editingDomain = getEditDomain();
-		//
-		URI resourceURI = URI.createPlatformResourceURI(modelFile.getFile().getFullPath().toString(), true);
+		
+		URI resourceURI = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
 		Resource resource = null;
 		try {
-			// Load the resource through the editing domain.
-			//
 			resource = editingDomain.getResourceSet().getResource(resourceURI, true);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 			resource = editingDomain.getResourceSet().getResource(resourceURI, false);
 		}
-		return resource;
+		this.resource = resource;
 	}
 	
 	private void updateBindings() {
 		Iterator it = bindings.iterator();
 		while (it.hasNext()) {
 			Binding elem = (Binding) it.next();
-			addBinding(elem);
+			createBinding(elem);
 		}
 	}
 	
 	public void readObject(Object o) {
 		if (o instanceof IFileEditorInput) {
 			IFileEditorInput input = (IFileEditorInput)o;
-			resource = getResource(input);
+			updateFile(input);
 			updateBindings();
 			Iterator it = resource.getContents().iterator();
 			HashSet set = new HashSet();
@@ -142,14 +203,14 @@ public class EMFLoader {
 			return;
 		set.add(object);
 		String id = "group" + groupId++;
-		addGroup(id);
+		//addGroup(id);
 		Iterator attrs = object.eClass().getEAllStructuralFeatures().iterator();
-		addLabel("ID", getHumanReadableValue(object), id);
+		//addLabel("ID", getHumanReadableValue(object), id);
 		while (attrs.hasNext()) {
 			EStructuralFeature feature = (EStructuralFeature) attrs.next();
 			Object value = object.eGet(feature);
 			if (value instanceof List) {
-				addCombo(feature.getName(), ((List)value).toArray(), id);
+				//addCombo(feature.getName(), ((List)value).toArray(), id);
 				Iterator it = ((List)value).iterator();
 				while (it.hasNext()) {
 					Object elem = (Object) it.next();
@@ -163,11 +224,11 @@ public class EMFLoader {
 			}
 			else if (feature != null && value != null){
 				if (value instanceof Integer) {
-					addSpinner(feature.getName(), value.toString(), id);
+					//addSpinner(feature.getName(), value.toString(), id);
 				}
 				else {
 					String path = resource.getURIFragment(object) + "/" + feature.getName();
-					addText(feature.getName(), value.toString(), id, path);
+					//addText(feature.getName(), value.toString(), id, path);
 					System.out.println(path);
 				}
 			}

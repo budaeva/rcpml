@@ -1,4 +1,4 @@
-<ui:editor oninit="load()" xmlns="http://rcpml.org/forms" xmlns:ui="http://rcpml.org/ui/editors"
+<ui:editor xmlns="http://rcpml.org/forms" xmlns:ui="http://rcpml.org/ui/editors"
 	xmlns:core="http://rcpml.org/core" xmlns:emf="http://rcpml.org/emf">
 	<core:style type="text/css">
 		composite#topParent { rcpml-layout:grid;rcpml-layout-columns:2; }
@@ -6,63 +6,15 @@
 		text, combo, spinner { rcpml-fill:horizontal;rcpml-grab:horizontal; }
 		button { rcpml-colspan:2; }
 	</core:style>
-	
-	<emf:jloader/>
-	
-	<core:datasource name="emfds"
-		src="org.rcpml.emf.datasource" />
 		
 	<composite id="topParent">
 		<group>
-			<label>Test</label>
-			<text path="emfds://@ports.0/location"/>
+			<label>Location</label><text path="emfds://@ports.0/location"/>
+			<label>Name</label><text path="emfds://@ships.0/name"/>
+			<label>Quantity</label><spinner path="emfds://@ships.0/@cargo.0/quantity"/>
 		</group>
 	</composite>
-	<core:script language="javascript">
-		function load() {
-			emfLoader.readObject(editorInput);
-		}
-		
-		function addGroup(groupID) {
-			group = document.createElementNS("http://rcpml.org/forms", "group");
-			group.setAttribute("id", groupID);
-			parent = document.getElementById("topParent");
-			parent.appendChild(group);
-		}
-		
-		function addText(name, value, nodeID, path) {
-			text = document.createElementNS("http://rcpml.org/forms", "text");
-			text.setAttribute('path', 'emfds:' + path);
-			valueNode = document.createTextNode(value);
-			text.appendChild(valueNode);
-			add(name, text, nodeID);
-		}
-		
-		function addSpinner(name, value, nodeID) {
-			spinner = document.createElementNS("http://rcpml.org/forms", "spinner");
-			valueNode = document.createTextNode(value);
-			spinner.appendChild(valueNode);
-			add(name, spinner, nodeID);
-		}
-		
-		function addLabel(name, value, nodeID) {
-			label = document.createElementNS("http://rcpml.org/forms", "label");
-			valueNode = document.createTextNode(value);
-			label.appendChild(valueNode);
-			add(name, label, nodeID);
-		}
-		
-		function add(labelName, node, nodeID) {
-			label = document.createElementNS("http://rcpml.org/forms", "label");
-			valueNode = document.createTextNode(labelName);
-			label.appendChild(valueNode);
-			
-			parent = document.getElementById(nodeID);
-			parent.appendChild(label);
-			parent.appendChild(node);
-		}
-		
-		function init() {
-		}
-	</core:script>
+	
+	<core:datasource name="emfds"
+		src="org.rcpml.emf.datasource" />
 </ui:editor>

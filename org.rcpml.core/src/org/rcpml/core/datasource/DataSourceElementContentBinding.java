@@ -17,16 +17,18 @@ import org.w3c.dom.events.EventTarget;
  */
 public class DataSourceElementContentBinding extends AbstractDataSourceElementBinding implements EventListener {
 	private Node fNode;
-	private String fValue;
+	private Object fValue;
+	private Object type;
 	
 	/**
 	 * Do not allow infinite recursive binding
 	 */
 	private boolean ignoreEvents;
 
-	public DataSourceElementContentBinding(Node node) {		
+	public DataSourceElementContentBinding(Node node, Object type) {		
 		fNode = node;
 		fValue = DOMUtils.getChildrenAsText(node);
+		this.type = type;
 		initEventHandler();
 	}
 	
@@ -48,16 +50,36 @@ public class DataSourceElementContentBinding extends AbstractDataSourceElementBi
 	}
 
 	public Object getValueType() {
-		return String.class;
+		return type;
+	}
+	
+	private Object getValueFromString(String s) {
+		if (type == int.class) {
+			try {
+				return new Integer(Integer.parseInt(s));
+			}
+			catch (Exception e) {
+				return new Integer(0);
+			}
+		}
+		if (type == double.class) {
+			try {
+				return new Double(Double.parseDouble(s));
+			}
+			catch (Exception e) {
+				return new Double(0);
+			}
+		}
+		return s;
 	}
 
 	public void setValue(Object value) {
 		if (ignoreEvents) return;
-		if( fValue.equals((String)value)) {
+		if( fValue.equals(value)) {
 			return;
 		}
 		removeEventHandler();
-		fValue = (String)value;
+		fValue = value;
 		set();
 		initEventHandler();
 		notifyValueChanged();
@@ -65,18 +87,18 @@ public class DataSourceElementContentBinding extends AbstractDataSourceElementBi
 
 	public void handleValueChange(IDataSourceElementBinding source) {
 		if (ignoreEvents) return;
-		if( fValue.equals((String)source.getValue())) {
+		if( fValue.equals(source.getValue())) {
 			return;
 		}
 		removeEventHandler();
-		fValue = (String)source.getValue();
+		fValue = source.getValue();
 		set();
 		initEventHandler();
 		notifyValueChanged();
 	}
 	public void handleEvent(Event event) {
 		if (ignoreEvents) return;
-		String value = DOMUtils.getChildrenAsText(fNode);
+		Object value = getValueFromString(DOMUtils.getChildrenAsText(fNode));
 		if( fValue.equals(value)) {
 			return;
 		}
@@ -86,7 +108,7 @@ public class DataSourceElementContentBinding extends AbstractDataSourceElementBi
 	
 	private void set() {
 		ignoreEvents = true;
-		DOMUtils.setChildrenText(fNode, fValue);
+		DOMUtils.setChildrenText(fNode, fValue.toString());
 		ignoreEvents = false;
 	}
 }

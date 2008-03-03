@@ -1,6 +1,8 @@
 package org.rcpml.swt;
 
 import org.apache.batik.css.engine.value.Value;
+import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -8,8 +10,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Spinner;
 import org.rcpml.core.IController;
 import org.rcpml.core.css.RCPCSSConstants;
+import org.rcpml.core.datasource.DataBinding;
+import org.rcpml.core.datasource.DataSourceElementContentBinding;
 import org.rcpml.core.dom.DOMUtils;
 import org.rcpml.core.dom.RCPStylableElement;
+import org.rcpml.swt.databinding.ElementTextObservable;
 import org.w3c.dom.Node;
 
 /**
@@ -22,6 +27,8 @@ public class SWTSpinnerBridge extends AbstractSWTBridge {
 	private static final String TRUE_VALUE = RCPCSSConstants.TRUE_VALUE;
 
 	private static final String EDITABLE_ID = "editable";
+
+	private static final String PATH_ATTR = "path";
 	
 	private Spinner fSpinner;
 	
@@ -43,6 +50,17 @@ public class SWTSpinnerBridge extends AbstractSWTBridge {
 		});
 		
 		update();
+		
+		DataBindingContext dbc = this.getBindingContext();
+		
+		dbc.bindValue(SWTObservables.observeSelection(this.fSpinner), new ElementTextObservable(
+				getNode()), null, null );
+
+		String path = getAttribute(PATH_ATTR);
+		if (path != null && !path.equals("")) {
+			getController().bind(new DataBinding(
+					new DataSourceElementContentBinding(getNode(), int.class), path));
+		}
 	}
 	
 	protected int getStyle() {
