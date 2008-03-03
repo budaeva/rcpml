@@ -1,5 +1,6 @@
 package org.ecpml.emf.example;
 
+import org.eclipse.ui.IFileEditorInput;
 import org.rcpml.core.IController;
 import org.rcpml.core.datasource.IDataSource;
 import org.rcpml.core.datasource.IDataSourceElementBinding;
@@ -14,11 +15,13 @@ import com.xored.scripting.core.ScriptException;
  */
 public class EMFDataSourceFactory implements IDataSourceFactory {
 	
+	private static final String INPUT_VARIABLE = "editorInput";
+	
 	public static class EMFDataSource implements IDataSource {
 		
-		private EMFLoader loader;
+		private EMFBindingManager loader;
 		
-		public EMFDataSource(EMFLoader loader) {
+		public EMFDataSource(EMFBindingManager loader) {
 			this.loader = loader;
 		}
 		
@@ -38,7 +41,6 @@ public class EMFDataSourceFactory implements IDataSourceFactory {
 				}
 			}
 			catch (Exception e) {
-				e.printStackTrace();
 				//do not allow exception there
 			}
 		}
@@ -49,13 +51,20 @@ public class EMFDataSourceFactory implements IDataSourceFactory {
 	}
 	
 	public IDataSource createDataSource(IController controller, Node node) {
-		EMFLoader loader = new EMFLoader(controller);
+		EMFBindingManager loader = new EMFBindingManager(controller);
+		IFileEditorInput input = getInput(controller);
+		if (input != null)
+			loader.setInput(input);
+		return new EMFDataSource(loader); 
+	}
+	
+	private IFileEditorInput getInput(IController controller) {
 		try {
-			loader.readObject(controller.getScriptManager(
-					).getDefaultContext().getBoundObject("editorInput"));
+			return (IFileEditorInput)controller.getScriptManager().getDefaultContext(
+				).getBoundObject(INPUT_VARIABLE);
 		} catch (ScriptException e) {
 			e.printStackTrace();
 		}
-		return new EMFDataSource(loader); 
-	}	
+		return null;
+	}
 }

@@ -9,8 +9,8 @@
 		
 	<composite id="topParent">
 		<group>
-			<!--label>Location</label><text path="emfds://@ports.0/location"/-->
-			<!--label>Name</label><text path="emfds://@ships.0/name"/-->
+			<label>Location</label><text path="emfds://@ports.0/location"/>
+			<label>Name</label><text path="emfds://@ships.0/name"/>
 			<label>Quantity</label><spinner path="emfds://@ships.0/@cargo.0/quantity"/>
 		</group>
 	</composite>
