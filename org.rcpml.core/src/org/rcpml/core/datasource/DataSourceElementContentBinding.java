@@ -59,12 +59,12 @@ public class DataSourceElementContentBinding extends AbstractDataSourceElementBi
 				return new Integer(Integer.parseInt(s));
 			}
 			catch (Exception e) {
-				return new Integer(0);
+				return null;
 			}
 		}
 		if (type == double.class) {
 			try {
-				return new Double(Double.parseDouble(s));
+				return null;
 			}
 			catch (Exception e) {
 				return new Double(0);
@@ -99,6 +99,8 @@ public class DataSourceElementContentBinding extends AbstractDataSourceElementBi
 	public void handleEvent(Event event) {
 		if (ignoreEvents) return;
 		Object value = getValueFromString(DOMUtils.getChildrenAsText(fNode));
+		if (value == null)
+			return;
 		if( fValue.equals(value)) {
 			return;
 		}

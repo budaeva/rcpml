@@ -89,7 +89,8 @@ public class SWTSpinnerBridge extends AbstractSWTBridge {
 			}
 			catch (Exception e) {
 			}
-			this.fSpinner.setSelection(value);
+			if (this.fSpinner.getSelection() != value)
+				this.fSpinner.setSelection(value);
 		}
 	}
 	public void dispose() {

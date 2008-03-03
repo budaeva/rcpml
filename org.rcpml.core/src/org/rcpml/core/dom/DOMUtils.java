@@ -1,5 +1,9 @@
 package org.rcpml.core.dom;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -15,15 +19,25 @@ public class DOMUtils {
 	}
 
 	public static final void setChildrenText( Node node, String text ) {
-		Document doc = node.getOwnerDocument();		
+		Document doc = node.getOwnerDocument();
+		List nodes = new ArrayList();
 		for (Node n = node.getFirstChild(); n != null; n = n.getNextSibling()) {
 			if (n.getNodeType() == Node.TEXT_NODE) {
-				node.removeChild(n);
+				nodes.add(n);
 			}
 		}
-		
 		Node textNode = doc.createTextNode(text);
-		node.appendChild(textNode);		
+		if (nodes.size() == 1) {
+			node.replaceChild(textNode, (Node)nodes.get(0));
+		}
+		else {
+			Iterator it = nodes.iterator();
+			while (it.hasNext()) {
+				Node n = (Node) it.next();
+				node.removeChild(n);
+			}
+			node.appendChild(textNode);
+		}
 	}
 
 	public static void setAttribute(Node node, String attrName, String value ) {
