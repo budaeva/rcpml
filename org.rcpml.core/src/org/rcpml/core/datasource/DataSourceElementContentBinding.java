@@ -54,22 +54,6 @@ public class DataSourceElementContentBinding extends AbstractDataSourceElementBi
 	}
 	
 	private Object getValueFromString(String s) {
-		if (type == int.class) {
-			try {
-				return new Integer(Integer.parseInt(s));
-			}
-			catch (Exception e) {
-				return null;
-			}
-		}
-		if (type == double.class) {
-			try {
-				return null;
-			}
-			catch (Exception e) {
-				return new Double(0);
-			}
-		}
 		return s;
 	}
 

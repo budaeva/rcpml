@@ -62,8 +62,41 @@ public class EMFDataSourceElementBinding extends AbstractDataSourceElementBindin
 	}
 	
 	private void changeValue(Object value) {
-		obj.eSet(feature, value);
+		try {
+			obj.eSet(feature, convertValue(value));
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			//if value do not valid - ignore it
+		}
 		save();
+	}
+	
+	private Object convertValue(Object value) {
+		if (value == null)
+			return null;
+		if (value.getClass() == type) {
+			return value;
+		}
+		if (value instanceof String) {
+			String s = (String)value;
+			if (type == int.class) {
+				return new Integer(Integer.parseInt(s));
+			}
+			if (type == double.class) {
+				return new Double(Double.parseDouble(s));
+			}
+			if (type == boolean.class) {
+				return new Boolean(Boolean.parseBoolean(s));
+			}
+			if (type == long.class) {
+				return new Long(Long.parseLong(s));
+			}
+			if (type == short.class) {
+				return new Short(Short.parseShort(s));
+			}
+		}
+		return value;
 	}
 
 }

@@ -2,10 +2,12 @@ package org.rcpml.emf.example.synch;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
@@ -65,6 +67,11 @@ public abstract class EMFSynchronizator implements IFileChangeListener {
 	
 	public void setInput(IFileEditorInput input) {
 		updateFile(input);
+		Iterator it = resource.getContents().iterator();
+		while (it.hasNext()) {
+			EObject object = (EObject) it.next();
+			System.out.println(resource.getURIFragment(object));
+		}
 	}
 
 	public void fileChanged() {

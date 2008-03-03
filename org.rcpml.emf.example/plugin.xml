@@ -5,7 +5,7 @@
          point="org.eclipse.ui.editors">
       <editor
             class="org.rcpml.core.RCPMLExtension:/editors/callgraph.xml"
-            extensions="callgraph,callgraph_diagram,taipan,taipan_diagram"
+            extensions="callgraph,callgraph_diagram,taipan,taipan_diagram,model,model_diagram"
             icon="icons/sample.gif"
             id="org.rcpml.emf.editor.callgraph"
             name="RCPML Call Graph Editor">

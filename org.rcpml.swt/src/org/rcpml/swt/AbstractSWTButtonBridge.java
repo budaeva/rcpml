@@ -1,5 +1,7 @@
 package org.rcpml.swt;
 
+import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -9,6 +11,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.rcpml.core.IController;
 import org.rcpml.core.RCPMLTagConstants;
 import org.rcpml.core.css.RCPCSSConstants;
+import org.rcpml.core.datasource.DataBinding;
+import org.rcpml.core.datasource.DataSourceElementContentBinding;
+import org.rcpml.swt.databinding.ElementTextObservable;
 import org.w3c.dom.Node;
 
 import com.xored.scripting.core.IScriptContextManager;
@@ -20,6 +25,7 @@ public abstract class AbstractSWTButtonBridge extends AbstractSWTBridge {
 	
 	public static final String TITLE_ATTR = RCPMLTagConstants.TITLE_ATTR;	
 	private static final String ENABLED_ATTR = RCPMLTagConstants.ENABLED_ATTR;
+	private static final String PATH_ATTR = "path";
 	
 	protected abstract int getStyle();	
 	
@@ -45,7 +51,20 @@ public abstract class AbstractSWTButtonBridge extends AbstractSWTBridge {
 		
 		update();
 		
-		initHandlers();		
+		initHandlers();
+
+		DataBindingContext dbc = this.getBindingContext();
+		
+		dbc.bindValue(SWTObservables.observeSelection(this.fButton), new ElementTextObservable(
+				getNode()), null, null );
+
+		String path = getAttribute(PATH_ATTR);
+		if (path != null && !path.equals("")) {
+			getController().bind(new DataBinding(
+					new DataSourceElementContentBinding(
+							getNode(), Boolean.class), path));
+		}
+		
 	}
 		
 	protected void initHandlers() {
