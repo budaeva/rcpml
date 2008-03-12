@@ -15,6 +15,9 @@
          <tag
                class="org.rcpml.ui.internal.application.PerspectiveTagFactory"
                name="perspective"/>
+         <tag
+               class="org.rcpml.ui.internal.DialogTagFactory"
+               name="dialog"/>
       </namespace>
    </extension>
 
