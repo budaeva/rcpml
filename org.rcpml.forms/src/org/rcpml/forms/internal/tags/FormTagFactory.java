@@ -40,6 +40,7 @@ public class FormTagFactory extends AbstractBridgeFactory {
 			}
 			String text = this.getAttribute( TITLE_ATTR );
 			this.fForm.setText(text);
+			getFormToolkit().decorateFormHeading(fForm);
 						
 			this.fForm.getBody().setLayout( EclipseFormsUtil.constructLayout((RCPStylableElement)this.getNode()) );
 			this.fForm.setLayoutData(this.constructLayoutData(this.fForm.getParent()));
