@@ -1,8 +1,9 @@
 <?xml version="1.0"?>
 <ui:view xmlns="http://rcpml.org/forms" xmlns:ui="http://rcpml.org/ui" xmlns:core="http://rcpml.org/core">
 	<core:style type="text/css">
-		section { rcpml-layout:grid;rcpml-layout-columns:1; }
-		label.content { rcpml-layout-width:300;rcpml-wrap:true; }
+		form { rcpml-layout:wrap; }
+		section { rcpml-layout:wrap; }
+		label.content { rcpml-wrap:true; }
 		label.label { rcpml-align-vertical:left; }
 	</core:style>
 
