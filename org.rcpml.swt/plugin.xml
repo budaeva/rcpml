@@ -80,6 +80,10 @@ separator - If separator are horizontal then label is horizontal line.
 edtable - if false then text coul&apos;d not be deleted.
             </description>
          </tag>
+         <tag
+               class="org.rcpml.swt.internal.tags.SpinnerTagFactory"
+               name="spinner">
+         </tag>
       </namespace>
    </extension>
 

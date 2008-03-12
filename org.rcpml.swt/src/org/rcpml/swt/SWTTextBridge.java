@@ -63,6 +63,11 @@ public class SWTTextBridge extends AbstractSWTBridge {
 		if( multiline != null && multiline.equals(RCPCSSConstants.TRUE_VALUE)) {
 			style |= SWT.MULTI;
 		}
+		
+		Value wrapValue = ((RCPStylableElement)this.getNode()).getComputedValue( RCPCSSConstants.LAYOUT_WRAP_INDEX );
+		if( wrapValue.getStringValue().equals(RCPCSSConstants.TRUE_VALUE)) {
+			style |= SWT.WRAP;
+		}		
 
 		Value borderValue = stylable
 				.getComputedValue(RCPCSSConstants.LAYOUT_BORDER_INDEX);
