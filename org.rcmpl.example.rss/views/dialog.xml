@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<ui:dialog xmlns="http://rcpml.org/swt" xmlns:ui="http://rcpml.org/ui" xmlns:core="http://rcpml.org/core"
+		title="Dialog" width="200" height="110">
+		
+	<core:style type="text/css">
+		spinner {rcpml-fill:horizontal;rcpml-grab:horizontal;}
+	</core:style>
+	
+	<label>Count: </label>
+	<spinner>10</spinner>
+		
+</ui:dialog>

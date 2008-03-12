@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Rss Plug-in
+Bundle-SymbolicName: org.rcmpl.example.rss; singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: org.rcmpl.example.rss.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.rcpml.core,
+ org.eclipse.ui.browser,
+ org.eclipse.core.resources
+Eclipse-LazyStart: true

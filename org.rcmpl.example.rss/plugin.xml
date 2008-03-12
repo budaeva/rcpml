@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            id="org.rcpml.example"
+            name="RCPML Examples"/>
+      <view
+            category="org.rcpml.example"
+            class="org.rcpml.core.RCPMLExtension:/views/rss.xml"
+            icon="icons/sample.gif"
+            id="org.rcpml.example.rss.view"
+            name="RSS View"/>
+   </extension>
+
+</plugin>

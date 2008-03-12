@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<ui:view xmlns="http://rcpml.org/forms" xmlns:ui="http://rcpml.org/ui" xmlns:core="http://rcpml.org/core">
+	<core:style type="text/css">
+		section { rcpml-layout:grid;rcpml-layout-columns:1; }
+		label.content { rcpml-layout-width:300;rcpml-wrap:true; }
+		label.label { rcpml-align-vertical:left; }
+	</core:style>
+
+	<form title="Eclipse Corner Articles">
+		<section title="Defining Generics with UML Templates">
+			<label class="content" multiline="true" editable="false">
+				Generics in Java have been around for a while but support for mapping generically specified artifacts in UML to their Ecore representation is new to UML2 2.1. This article will walk the reader through the details of the mapping process with the end goal of producing generically specified code. This article assumes some level of familiarity with generics and is not intended as a tutorial in Java generics.
+			</label>
+			<hyperlink onclick="open('http://www.eclipse.org/resources/resource.php?id=406');">
+				http://www.eclipse.org/resources/resource.php?id=406
+		  	</hyperlink>
+		</section>
+		<section title="Eclipse Forms: New in 3.3">
+			<label class="content" multiline="true" editable="false">
+				Eclipse Forms is a layer on top of SWT that allows you to achieve a web-like feel inside your desktop applications without having to resort to an embedded browser. In this article, the new features added to Eclipse Forms in version 3.3 are discussed. Readers are expected to be familiar with Eclipse Forms and its concepts.
+			</label>
+			<hyperlink onclick="open('http://www.eclipse.org/resources/resource.php?id=404');">
+				http://www.eclipse.org/resources/resource.php?id=404
+		  	</hyperlink>
+		</section>
+	</form>
+	<core:script language="javascript">
+		function open(path) {
+			Packages.org.eclipse.ui.internal.browser.WebBrowserEditor.open(path);
+		}
+	</core:script>
+</ui:view>
