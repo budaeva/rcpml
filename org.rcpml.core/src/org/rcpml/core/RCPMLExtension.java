@@ -2,7 +2,6 @@ package org.rcpml.core;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.Map;
 
 import org.eclipse.core.runtime.CoreException;
