@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Dynamic Plug-in
+Bundle-SymbolicName: org.rcpml.ui.dynamic;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: org.rcpml.ui.dynamic.DynamicRCPMLPlugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.rcpml.core,
+ org.eclipse.core.resources,
+ org.rcpml.ui,
+ org.rcpml.ui.editors,
+ org.eclipse.ui.ide
+Eclipse-LazyStart: true
