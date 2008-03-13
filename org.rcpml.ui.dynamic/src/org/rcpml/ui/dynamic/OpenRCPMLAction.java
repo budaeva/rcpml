@@ -18,7 +18,7 @@ public class OpenRCPMLAction implements IActionDelegate {
 		Object sel = selection.getFirstElement();
 		if (sel instanceof IFile) {
 			IFile file = (IFile) sel;
-			DynamicRCPMLLoader.load(file);
+			DynamicRCPMLLoader.load(file.getLocation().toString(), true);
 		}
     }
 
