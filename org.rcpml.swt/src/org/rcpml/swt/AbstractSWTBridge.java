@@ -33,7 +33,7 @@ public abstract class AbstractSWTBridge extends AbstractBridge {
 					throw new RCPMLException("Composite can't be null");
 				}
 			} else {
-				throw new RCPMLException("Parent can't be null");
+				//throw new RCPMLException("Parent can't be null");
 			}
 		}
 	}

@@ -30,7 +30,9 @@ public class ViewTagFactory extends AbstractBridgeFactory {
 		public void createPartControl(Composite parent) {
 			fComposite = new Composite(parent, SWT.NONE);
 			this.fComposite.setLayout(new FillLayout());
-			this.bridge.build();
+			if (bridge != null) {
+				this.bridge.build();
+			}
 			fInitialized = true;
 		}
 
