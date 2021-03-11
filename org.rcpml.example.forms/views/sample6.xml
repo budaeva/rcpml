@@ -2,23 +2,25 @@
 <ui:view xmlns="http://rcpml.org/forms" xmlns:ui="http://rcpml.org/ui" xmlns:core="http://rcpml.org/core">
 
 	<core:style type="text/css">	
-		label {rcpml-wrap:true;}
-		form#myform {rcpml-layout:wrap;rcpml-layout-columns:2;}
-		form#myform > label.long {rcpml-colspan:2;}
-		form#myform > text {rcpml-fill:horizontal;rcpml-grab:horizontal;}
-		form#myform > checkbox { rcpml-colspan:2; }
-		form#myform > expandable { rcpml-colspan:2; rcpml-fill:horizontal;rcpml-grab:horizontal; rcpml-layout:grid; }
+		form#myform {rcpml-layout:wrap;}
+		form#myform > group {rcpml-grab:horizontal;rcpml-layout:wrap;rcpml-layout-columns:2;}
+		form#myform > group > label {rcpml-fill:horizontal;}
+		form#myform > group > combo {rcpml-fill:horizontal;rcpml-grab:horizontal;}
+		form#myform > group > checkbox {rcpml-colspan:2;}
 	</core:style>
-	
-	<form id="myform" title="This is RCPML Form" scroll="true">
-		<label class="long">This is an example of a form that is much longer and will need to wrap.</label>		
-		<label>Text field label:</label>
-		<text style="rcpml-layout-border:none;"/>
-		<checkbox title="An example of a checkbox in a form"/>		
-		<expandable title="Expandable Composite title" type="tree">
-			<label style="rcpml-fill:horizontal;rcpml-grab:horizontal;">
-				We will now create a somewhat long text so that we can use it as content for the expandable composite. Expandable composite is used to hide or show the text using the toggle control.
-			</label>
-		</expandable>
+
+	<form id="myform" title="Configure" scroll="true">
+		<group title="Calculation setting" type="tree">
+			<label>Generating polynomial</label>
+			<combo items="CRC_8,CRC_16,CRC_CCITT"/>
+
+			<label>Bit order</label>
+			<combo items="LSB,MSB"/>
+
+			<label>Initial value</label>
+			<combo items="0x00,0xFF"/>
+			
+			<checkbox title="Invert result of calculated value"/>	
+		</group>	
 	</form>
 </ui:view>

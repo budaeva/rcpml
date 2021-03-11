@@ -31,7 +31,7 @@ public class SWTComboBridge extends AbstractSWTBridge {
 	}
 
 	protected void construct(Composite parent) {
-		int style = SWT.BORDER | SWT.SINGLE | SWT.DROP_DOWN;
+		int style = SWT.BORDER | SWT.SINGLE | SWT.DROP_DOWN | SWT.READ_ONLY;
 
 		this.fCombo = constructCombo(parent, style);
 
