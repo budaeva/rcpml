@@ -23,6 +23,7 @@ import org.rcpml.core.internal.IRCPMLConstants;
 import org.w3c.dom.Attr;
 import org.w3c.dom.CDATASection;
 import org.w3c.dom.Comment;
+import org.w3c.dom.DOMConfiguration;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
@@ -33,6 +34,7 @@ import org.w3c.dom.EntityReference;
 import org.w3c.dom.Node;
 import org.w3c.dom.ProcessingInstruction;
 import org.w3c.dom.Text;
+import org.w3c.dom.UserDataHandler;
 
 public class RCPOMDocument extends AbstractStylableDocument implements
 		IRCPMLConstants {
@@ -267,6 +269,162 @@ public class RCPOMDocument extends AbstractStylableDocument implements
 	}
 	public void clearStylesMap() {
 		this.fStyleMapHash.clear();
+	}
+
+	@Override
+	public String getInputEncoding() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getXmlEncoding() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean getXmlStandalone() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setXmlStandalone(boolean xmlStandalone) throws DOMException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getXmlVersion() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setXmlVersion(String xmlVersion) throws DOMException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean getStrictErrorChecking() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setStrictErrorChecking(boolean strictErrorChecking) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getDocumentURI() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setDocumentURI(String documentURI) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Node adoptNode(Node source) throws DOMException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public DOMConfiguration getDomConfig() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void normalizeDocument() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Node renameNode(Node n, String namespaceURI, String qualifiedName) throws DOMException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getBaseURI() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public short compareDocumentPosition(Node other) throws DOMException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public String getTextContent() throws DOMException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setTextContent(String textContent) throws DOMException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isSameNode(Node other) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public String lookupPrefix(String namespaceURI) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isDefaultNamespace(String namespaceURI) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public String lookupNamespaceURI(String prefix) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isEqualNode(Node arg) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Object getFeature(String feature, String version) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object setUserData(String key, Object data, UserDataHandler handler) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object getUserData(String key) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

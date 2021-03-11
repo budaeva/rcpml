@@ -7,7 +7,7 @@ import org.apache.batik.css.engine.CSSEngine;
 import org.apache.batik.css.engine.CSSStyleSheetNode;
 import org.apache.batik.css.engine.StyleSheet;
 import org.apache.batik.dom.AbstractDocument;
-import org.apache.batik.util.XMLConstants;
+import org.apache.batik.constants.XMLConstants;
 import org.rcpml.core.IController;
 import org.w3c.dom.Node;
 import org.w3c.dom.events.Event;
@@ -16,7 +16,6 @@ import org.w3c.dom.stylesheets.LinkStyle;
 
 public class RCPOMStyleElement extends RCPOMElement implements
 		CSSStyleSheetNode, LinkStyle {
-	
 	private static final long serialVersionUID = -438785343621551661L;
 	
 	private static final String TYPE_ATTRIBUTE = "type";
@@ -100,6 +99,13 @@ public class RCPOMStyleElement extends RCPOMElement implements
 	            }
 	        }
 	        return fStyleSheet;
+	}
+
+
+	private void addEventListenerNS(String xmlEventsNamespaceUri, String string,
+			EventListener domCharacterDataModifiedListener2, boolean b, Object object) {
+		// TODO Auto-generated method stub
+		
 	}
 
 
