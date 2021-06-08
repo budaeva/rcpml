@@ -41,11 +41,7 @@ public class HyperLinkTagFactory extends AbstractBridgeFactory {
 					Node nde = getNode();
 					String script = getAttribute( ONCLICK_SCRIPT_ATTR );
 					if( script != null ) {
-						try {
 							getController().getScriptManager().executeScript(script);
-						} catch (ScriptException e1) {
-							e1.printStackTrace();
-						}
 					}
 				}
 			});

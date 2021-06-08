@@ -122,31 +122,31 @@ public class BridgeMultiEditPart extends MultiPageEditorPart implements
 	protected void createPages() {
 		fInitialized = true;
 		addPages();
-		try {
+//		try {
 			container.getScriptManager().getDefaultContext();
-		} catch (ScriptException e1) {
-			e1.printStackTrace();
-		}			
+//		} catch (ScriptException e1) {
+//			e1.printStackTrace();
+//		}			
 		executeInitScript();
 	}
 
 	public void executeInitScript() {
-		try {
+//		try {
 			container.getScriptManager().getDefaultContext().bindObject("editor", this );
-		} catch (ScriptException e) {
-			e.printStackTrace();
-		}
+//		} catch (ScriptException e) {
+//			e.printStackTrace();
+//		}
 		executeScript("oninit");
 	}
 
 	private void executeScript( String attrName ) {
 		String initScript = "";//getAttribute( attrName );
 		if( initScript.length() > 0 ) {
-			try {
+//			try {
 				container.getScriptManager().executeScript( initScript );
-			} catch (ScriptException e) {
-				e.printStackTrace();
-			}
+//			} catch (ScriptException e) {
+//				e.printStackTrace();
+//			}
 		}
 	}
 
@@ -178,11 +178,11 @@ public class BridgeMultiEditPart extends MultiPageEditorPart implements
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
 		setSite(site);
 		setInput(input);							
-		try {
+//		try {
 			this.bridge.getController().getScriptManager().getDefaultContext().bindObject("editorInput", input );
-		} catch (ScriptException e) {
-			e.printStackTrace();
-		}
+//		} catch (ScriptException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	public boolean isDirty() {

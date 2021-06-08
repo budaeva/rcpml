@@ -14,6 +14,7 @@ import org.rcpml.core.dom.DOMUtils;
 import org.rcpml.core.internal.contentprovider.ContentProviderManager;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.events.Event;
 
 import com.xored.scripting.core.IScriptContextManager;
 import com.xored.scripting.core.IScriptingContext;
@@ -37,11 +38,11 @@ public class ScriptBridge extends AbstractBridge implements IScriptingContext
 			langName = "javascript";
 		}
 		IScriptContextManager manager = this.getController().getScriptManager();
-		try {
+//		try {
 			context = manager.getContext(langName);
-		} catch (ScriptException e) {
-			e.printStackTrace();
-		}
+//		} catch (ScriptException e) {
+//			e.printStackTrace();
+//		}
 		
 		String script = DOMUtils.getChildrenAsText((Element) node);
 		
@@ -108,7 +109,7 @@ public class ScriptBridge extends AbstractBridge implements IScriptingContext
 	}
 	
 	public Object getBoundObject(String name) {
-		return context.getBoundObject(name);
+		throw new RuntimeException("Not impemented");//		return context.getBoundObject(name);
 	}
 
 	public boolean supportExecution(URL url) {
@@ -120,5 +121,11 @@ public class ScriptBridge extends AbstractBridge implements IScriptingContext
 
 	public Object executeScript(Reader reader, String file) {
 		throw new RuntimeException("not implemented");
+	}
+
+	@Override
+	public void setEvent(Event event) {
+		// TODO Auto-generated method stub
+		
 	}
 }

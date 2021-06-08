@@ -7,6 +7,7 @@ import org.apache.batik.css.engine.CSSEngine;
 import org.apache.batik.css.engine.CSSStyleSheetNode;
 import org.apache.batik.css.engine.StyleSheet;
 import org.apache.batik.dom.AbstractDocument;
+import org.apache.batik.util.ParsedURL;
 import org.apache.batik.constants.XMLConstants;
 import org.rcpml.core.IController;
 import org.w3c.dom.Node;
@@ -77,17 +78,17 @@ public class RCPOMStyleElement extends RCPOMElement implements
 	                    }
 	                    text = sb.toString();
 	                }
-	                URL burl = null;
-	                try {
+	                ParsedURL burl = null;
+//	                try {
 	                    String bu = getBaseURI();
 	                    if (bu != null) {
-	                        burl = new URL(bu);
+	                        burl = new ParsedURL(bu);
 	                    }
-	                } catch (MalformedURLException ex) {
-	                    // !!! TODO
-	                    ex.printStackTrace();
-	                    throw new InternalError();
-	                }
+//	                } catch (MalformedURLException ex) {
+//	                    // !!! TODO
+//	                    ex.printStackTrace();
+//	                    throw new InternalError();
+//	                }
 	                String  media = getAttributeNS(null, MEDIA_ATTRIBUTE);
 	                fStyleSheet = e.parseStyleSheet(text, burl, media);
 	                
@@ -102,7 +103,7 @@ public class RCPOMStyleElement extends RCPOMElement implements
 	}
 
 
-	private void addEventListenerNS(String xmlEventsNamespaceUri, String string,
+	public void addEventListenerNS(String xmlEventsNamespaceUri, String string,
 			EventListener domCharacterDataModifiedListener2, boolean b, Object object) {
 		// TODO Auto-generated method stub
 		

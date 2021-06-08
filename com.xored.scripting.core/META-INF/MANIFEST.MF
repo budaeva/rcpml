@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Scripting Core
+Bundle-SymbolicName: com.xored.scripting.core
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: XORED
+Automatic-Module-Name: com.xored.scripting.core
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: org.eclipse.core.runtime;bundle-version="3.17.0"
+Export-Package: com.xored.scripting.core

@@ -10,6 +10,7 @@ import org.apache.batik.dom.AbstractDocument;
 import org.apache.batik.dom.StyleSheetFactory;
 import org.apache.batik.dom.StyleSheetProcessingInstruction;
 import org.apache.batik.dom.util.HashTable;
+import org.apache.batik.util.ParsedURL;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Node;
 
@@ -48,10 +49,10 @@ public class RCPStyleSheetProcessingInstruction extends
                 String href      = (String)attrs.get("href");
                 String alternate = (String)attrs.get("alternate");
                 RCPOMDocument doc = (RCPOMDocument)getOwnerDocument();
-                URL durl = doc.getURLObject();
-                URL burl = durl;
+                ParsedURL durl = new ParsedURL(doc.getURLObject());
+                ParsedURL burl = durl;
                 try {
-                    burl = new URL(durl, href);
+                    burl = new ParsedURL(durl, href);
                 } catch (Exception ex) {
                 }
                 CSSEngine e = doc.getCSSEngine();

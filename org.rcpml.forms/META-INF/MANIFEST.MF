@@ -4,12 +4,13 @@ Bundle-Name: Forms Plug-in
 Bundle-SymbolicName: org.rcpml.forms; singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Localization: plugin
-Require-Bundle: org.apache.batik,
- org.eclipse.ui.forms,
+Require-Bundle: org.eclipse.ui.forms,
  org.rcpml.core,
  org.eclipse.ui,
  org.eclipse.core.runtime,
- org.rcpml.swt
+ org.rcpml.swt,
+ org.apache.batik.css;bundle-version="1.11.0",
+ com.xored.scripting.core;bundle-version="1.0.0"
 Bundle-Vendor: Xored software, Inc
 Export-Package: org.rcpml.forms.internal;x-internal:=true,
  org.rcpml.forms.internal.tags;x-internal:=true

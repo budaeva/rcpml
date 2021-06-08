@@ -46,8 +46,8 @@ public class RCPOMElement extends GenericElementNS implements
 		return getAttributeNS(null, "class");
 	}
 
-	public URL getCSSBase() {
-		try {
+	public ParsedURL getCSSBase() {
+//		try {
 			if (getXblBoundElement() != null) {
 				return null;
 			}
@@ -55,15 +55,15 @@ public class RCPOMElement extends GenericElementNS implements
 			if (bu == null) {
 				return null;
 			}
-			return new URL(bu);
-		} catch (MalformedURLException e) {
-			// !!! TODO
-			e.printStackTrace();
-			throw new InternalError();
-		}
+			return new ParsedURL(bu);
+//		} catch (MalformedURLException e) {
+//			// !!! TODO
+//			e.printStackTrace();
+//			throw new InternalError();
+//		}
 	}
 
-	private Object getXblBoundElement() {
+	public Element getXblBoundElement() {
 		// TODO Auto-generated method stub
 		return null;
 	}

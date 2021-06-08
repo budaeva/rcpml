@@ -29,24 +29,24 @@ class EditorBridge extends AbstractBridge {
 	}
 
 	public void executeInitScript( EditorPart part ) {
-		try {
+//		try {
 			this.getController().getScriptManager().getDefaultContext().bindObject("editor", part );
-		} catch (ScriptException e) {
+//		} catch (ScriptException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//			e.printStackTrace();
+//		}
 		executeScript("oninit");
 	}
 
 	private void executeScript( String attrName ) {
 		String initScript = getAttribute( attrName );
 		if( initScript.length() > 0 ) {
-			try {
+//			try {
 				this.getController().getScriptManager().executeScript( initScript );
-			} catch (ScriptException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+//			} catch (ScriptException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 		}
 	}
 

@@ -27,7 +27,8 @@ import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
 
 import com.xored.scripting.core.IScriptContextManager;
-import com.xored.scripting.core.ScriptingCore;
+import com.xored.scripting.core.ScriptContextManager;
+//import com.xored.scripting.core.ScriptingCore;
 
 /**
  * This is General Bridges Tree implementation.
@@ -71,8 +72,9 @@ public class Controller implements IController, IVisitor, EventListener,
 		this.fBridgeBuilder.setController(this);
 		this.fWithConstructor = withConstructor;
 
-		this.fScriptContextManager = ScriptingCore.createContextManager();
-		this.fScriptContextManager.addDefaultBinding("document", this.fDocument);
+//		this.fScriptContextManager = ScriptingCore.createContextManager();
+//		this.fScriptContextManager.addDefaultBinding("document", this.fDocument);
+		this.fScriptContextManager = new ScriptContextManager(this.fDocument);
 		this.fScriptContextManager.setDefaultLanguage("javascript");
 
 		// Initialize css

@@ -163,8 +163,7 @@ public class RCPMLBrowser extends Composite {
 		}
 		IRCPMLConstructor constructor = bridgeController.getRootBridge();
 		if (constructor != null) {
-			bridgeController.getScriptManager().addDefaultBinding("viewer",
-					support);
+//			bridgeController.getScriptManager().addDefaultBinding("viewer", support);
 			Object child = constructor
 					.createInstance(new Object[] { this.rcpmlPane });
 			if (child == null) {
@@ -178,8 +177,8 @@ public class RCPMLBrowser extends Composite {
 				status.setText("Could not create rcpml");
 				return;
 			}
-			bridgeController.getScriptManager().addDefaultBinding("viewer",
-					support);
+//			bridgeController.getScriptManager().addDefaultBinding("viewer",
+//					support);
 			Object child = bridgeController.getPresentation();
 			if (child instanceof ViewPart) {
 				((ViewPart) child).createPartControl(this.rcpmlPane);
