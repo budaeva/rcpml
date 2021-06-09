@@ -94,13 +94,13 @@ public class ShellTagBuilder extends AbstractBridgeFactory {
 
 			});
 			IScriptingContext context;
-//			try {
+			try {
 				context = getController().getScriptManager()
 						.getDefaultContext();
-//			} catch (ScriptException e1) {
-//				e1.printStackTrace();
-//				context = null;
-//			}
+			} catch (ScriptException e1) {
+				e1.printStackTrace();
+				context = null;
+			}
 			if (context != null) {
 				context.bindObject("Shell", new ShellControl(fShell));
 				this.visitAllChildrens(getController());

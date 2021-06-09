@@ -24,8 +24,13 @@ public class JLoaderTagFactory extends AbstractBridgeFactory {
 		}
 		
 		public void init(IController container) {
-				getController().getScriptManager().getDefaultContext(
-						).bindObject("emfLoader", new EMFBindingManager(container));
+				try {
+					getController().getScriptManager().getDefaultContext(
+							).bindObject("emfLoader", new EMFBindingManager(container));
+				} catch (ScriptException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			
 		}
 

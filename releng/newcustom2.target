@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde version="3.8"?>
-<target includeMode="feature" name="Running Platform">
+<target name="Running Platform">
 	<locations>
-		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<repository location="https://download.eclipse.org/releases/2019-12/"/>
-			<unit id="org.eclipse.emf.sdk.feature.group" version="2.20.0.v20191028-0905"/>
-			<unit id="org.eclipse.sdk.feature.group" version="4.14.0.v20191210-0610"/>
-		</location>
+		<location path="${eclipse_home}" type="Profile"/>
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<repository location="https://download.eclipse.org/tools/orbit/downloads/drops/R20190827152740/repository"/>
 			<unit id="org.apache.batik.constants" version="1.11.0.v20190515-0436"/>

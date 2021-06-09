@@ -11,6 +11,6 @@ Require-Bundle: org.rcpml.core,
  org.eclipse.jface.databinding,
  org.eclipse.jface,
  org.eclipse.core.databinding,
- org.apache.batik.css;bundle-version="1.11.0",
- com.xored.scripting.core;bundle-version="1.0.0"
+ com.xored.scripting.core;bundle-version="1.0.0",
+ org.apache.batik.css;bundle-version="1.9.1"
 Export-Package: org.rcpml.swt

@@ -52,7 +52,7 @@ public class RCPDOMImplementation extends ExtensibleDOMImplementation implements
 			CSSContext ctx, ExtendedParser ep, ValueManager[] vms,
 			ShorthandManager[] sms) {
 		URL durl = ((RCPOMDocument) doc).getURLObject();
-		return new RCPCSSEngine(doc, new ParsedURL(durl), ep, vms, sms, ctx);
+		return new RCPCSSEngine(doc, durl == null? null: new ParsedURL(durl), ep, vms, sms, ctx);
 	}
 
 	public ViewCSS createViewCSS(AbstractStylableDocument doc) {

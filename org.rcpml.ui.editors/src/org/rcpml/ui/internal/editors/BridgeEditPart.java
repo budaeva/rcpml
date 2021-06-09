@@ -35,12 +35,12 @@ class BridgeEditPart extends EditorPart implements ICompositeHolder,
 		this.bridge.build();
 		fInitialized = true;
 
-//		try {
+		try {
 			this.bridge.getController().getScriptManager().getDefaultContext();
-//		} catch (ScriptException e) {
-			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		} catch (ScriptException e) {
+//			 TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.bridge.executeInitScript(this);
 	}
 
@@ -74,13 +74,13 @@ class BridgeEditPart extends EditorPart implements ICompositeHolder,
 			throws PartInitException {
 		setSite(site);
 		setInput(input);
-//		try {
+		try {
 			this.bridge.getController().getScriptManager().getDefaultContext()
 					.bindObject("editorInput", input);
-//		} catch (ScriptException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		} catch (ScriptException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public boolean isDirty() {

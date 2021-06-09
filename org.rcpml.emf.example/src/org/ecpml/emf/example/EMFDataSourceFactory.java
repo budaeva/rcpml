@@ -59,13 +59,12 @@ public class EMFDataSourceFactory implements IDataSourceFactory {
 	}
 	
 	private IFileEditorInput getInput(IController controller) {
-		throw new RuntimeException("Not impemented");
-//		try {
-//			return (IFileEditorInput)controller.getScriptManager().getDefaultContext(
-//				).getBoundObject(INPUT_VARIABLE);
-//		} catch (ScriptException e) {
-//			e.printStackTrace();
-//		}
-//		return null;
+		try {
+			return (IFileEditorInput)controller.getScriptManager().getDefaultContext(
+				).getBoundObject(INPUT_VARIABLE);
+		} catch (ScriptException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

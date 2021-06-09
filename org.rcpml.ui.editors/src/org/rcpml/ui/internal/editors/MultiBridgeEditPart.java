@@ -46,12 +46,12 @@ class MultiBridgeEditPart extends MultiPageEditorPart implements
 		this.addPage(fComposite);
 		this.setPageText(0, "RCPML Editor");
 		
-//		try {
+		try {
 			this.bridge.getController().getScriptManager().getDefaultContext();
-//		} catch (ScriptException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}			
+		} catch (ScriptException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}			
 		this.bridge.executeInitScript( this );
 		
 		this.fTextComposite = new ScrolledComposite(this.getContainer(), SWT.H_SCROLL | SWT.V_SCROLL);
@@ -104,12 +104,12 @@ class MultiBridgeEditPart extends MultiPageEditorPart implements
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
 		setSite(site);
 		setInput(input);							
-//		try {
+		try {
 			this.bridge.getController().getScriptManager().getDefaultContext().bindObject("editorInput", input );
-//		} catch (ScriptException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		} catch (ScriptException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public boolean isDirty() {

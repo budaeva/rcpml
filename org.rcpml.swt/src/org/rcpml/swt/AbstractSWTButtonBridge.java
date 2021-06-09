@@ -75,12 +75,12 @@ public abstract class AbstractSWTButtonBridge extends AbstractSWTBridge {
 				if( onClickAction.length() > 0 ) {
 					IScriptContextManager manager = getController().getScriptManager();
 					IScriptingContext context;
-//					try {
+					try {
 						context = manager.getContextFrom( onClickAction );
-//					} catch (ScriptException e) {
-//						e.printStackTrace();
-//						context = null;
-//					}
+					} catch (ScriptException e) {
+						e.printStackTrace();
+						context = null;
+					}
 					if( context != null ) {
 						context.bindObject("node", getNode() );
 						context.executeScript( onClickAction );

@@ -38,11 +38,11 @@ public class ScriptBridge extends AbstractBridge implements IScriptingContext
 			langName = "javascript";
 		}
 		IScriptContextManager manager = this.getController().getScriptManager();
-//		try {
+		try {
 			context = manager.getContext(langName);
-//		} catch (ScriptException e) {
-//			e.printStackTrace();
-//		}
+		} catch (ScriptException e) {
+			e.printStackTrace();
+		}
 		
 		String script = DOMUtils.getChildrenAsText((Element) node);
 		
@@ -109,7 +109,7 @@ public class ScriptBridge extends AbstractBridge implements IScriptingContext
 	}
 	
 	public Object getBoundObject(String name) {
-		throw new RuntimeException("Not impemented");//		return context.getBoundObject(name);
+		return context.getBoundObject(name);
 	}
 
 	public boolean supportExecution(URL url) {
@@ -123,9 +123,4 @@ public class ScriptBridge extends AbstractBridge implements IScriptingContext
 		throw new RuntimeException("not implemented");
 	}
 
-	@Override
-	public void setEvent(Event event) {
-		// TODO Auto-generated method stub
-		
-	}
 }
