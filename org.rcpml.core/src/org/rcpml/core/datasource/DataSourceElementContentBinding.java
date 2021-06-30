@@ -7,6 +7,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
+import org.w3c.dom.Element;
 
 /**
  * This class are used to bind DOM Node content. 
@@ -16,14 +17,14 @@ import org.w3c.dom.events.EventTarget;
  * 
  */
 public class DataSourceElementContentBinding extends AbstractDataSourceElementBinding implements EventListener {
-	private Node fNode;
-	private Object fValue;
+	protected Node fNode;
+	protected Object fValue;
 	private Object type;
 	
 	/**
 	 * Do not allow infinite recursive binding
 	 */
-	private boolean ignoreEvents;
+	protected boolean ignoreEvents;
 
 	public DataSourceElementContentBinding(Node node, Object type) {		
 		fNode = node;
@@ -32,13 +33,13 @@ public class DataSourceElementContentBinding extends AbstractDataSourceElementBi
 		initEventHandler();
 	}
 	
-	private void initEventHandler() {
+	protected void initEventHandler() {
 		Document doc = fNode.getOwnerDocument();		
 		EventTarget et = (EventTarget) doc;
 
 		et.addEventListener( IController.DOMSUBTREE_MODIFIED, this, true);
 	}
-	private void removeEventHandler() {
+	protected void removeEventHandler() {
 		Document doc = fNode.getOwnerDocument();		
 		EventTarget et = (EventTarget) doc;
 
@@ -53,7 +54,7 @@ public class DataSourceElementContentBinding extends AbstractDataSourceElementBi
 		return type;
 	}
 	
-	private Object getValueFromString(String s) {
+	protected Object getValueFromString(String s) {
 		return s;
 	}
 
@@ -96,5 +97,9 @@ public class DataSourceElementContentBinding extends AbstractDataSourceElementBi
 		ignoreEvents = true;
 		DOMUtils.setChildrenText(fNode, fValue.toString());
 		ignoreEvents = false;
+	}
+
+	public Node getfNode() {
+		return fNode;
 	}
 }

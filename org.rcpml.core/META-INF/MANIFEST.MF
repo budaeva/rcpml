@@ -27,3 +27,5 @@ Export-Package: org.rcpml.core,
  org.rcpml.core.internal.contentprovider;x-friends:="org.rcpml.core.tests",
  org.rcpml.core.utils,
  org.rcpml.core.xml
+Import-Package: org.eclipse.swt.widgets,
+ org.eclipse.ui.part

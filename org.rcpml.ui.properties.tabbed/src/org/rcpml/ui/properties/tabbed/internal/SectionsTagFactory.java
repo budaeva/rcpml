@@ -10,8 +10,8 @@ import org.rcpml.core.RCPMLException;
 import org.rcpml.core.bridge.AbstractBridge;
 import org.rcpml.core.bridge.AbstractBridgeFactory;
 import org.rcpml.core.bridge.IBridge;
+import org.rcpml.core.bridge.ICompositeHolder;
 import org.rcpml.core.bridge.IVisitor;
-import org.rcpml.swt.ICompositeHolder;
 import org.w3c.dom.Node;
 
 public class SectionsTagFactory extends AbstractBridgeFactory {

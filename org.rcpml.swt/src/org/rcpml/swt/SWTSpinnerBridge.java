@@ -6,9 +6,13 @@ import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Spinner;
+import org.eclipse.swt.widgets.Text;
 import org.rcpml.core.IController;
+import org.rcpml.core.RCPMLTagConstants;
 import org.rcpml.core.css.RCPCSSConstants;
 import org.rcpml.core.datasource.DataBinding;
 import org.rcpml.core.datasource.DataSourceElementContentBinding;
@@ -16,6 +20,10 @@ import org.rcpml.core.dom.DOMUtils;
 import org.rcpml.core.dom.RCPStylableElement;
 import org.rcpml.swt.databinding.ElementTextObservable;
 import org.w3c.dom.Node;
+
+import com.xored.scripting.core.IScriptContextManager;
+import com.xored.scripting.core.IScriptingContext;
+import com.xored.scripting.core.ScriptException;
 
 /**
  * @author Yuri Strot
@@ -43,13 +51,10 @@ public class SWTSpinnerBridge extends AbstractSWTBridge {
 		fSpinner = constructSpinner( parent, getStyle() );
 		fSpinner.setMinimum(Integer.MIN_VALUE);
 		fSpinner.setMaximum(Integer.MAX_VALUE);
-		fSpinner.addDisposeListener( new DisposeListener() {
-			public void widgetDisposed(DisposeEvent e) {
-				disposeDataBinding();
-			}
-		});
 		
 		update();
+		
+		initHandlers();
 		
 		DataBindingContext dbc = this.getBindingContext();
 		
@@ -61,6 +66,38 @@ public class SWTSpinnerBridge extends AbstractSWTBridge {
 			getController().bind(new DataBinding(
 					new DataSourceElementContentBinding(getNode(), int.class), path));
 		}
+	}
+	
+	protected void initHandlers() {
+		Spinner spinner = this.fSpinner;
+		
+		spinner.addModifyListener(new ModifyListener() {
+			
+			public void modifyText(ModifyEvent event) {
+				String onChangeAction = getAttribute(RCPMLTagConstants.ONCHANGE_ATTR);
+				if (onChangeAction.length() > 0) {
+					IScriptContextManager manager = getController().getScriptManager();
+					IScriptingContext context;
+					try {
+						context = manager.getContextFrom(onChangeAction);
+					} catch (ScriptException e) {
+						e.printStackTrace();
+						context = null;
+					}
+					if (context != null) {
+						context.bindObject("node", getNode());
+						context.executeScript(onChangeAction);
+					}
+				}
+			}
+		});
+		
+		spinner.addDisposeListener( new DisposeListener() {
+			public void widgetDisposed(DisposeEvent e) {
+				disposeDataBinding();
+			}
+		});
+
 	}
 	
 	protected int getStyle() {
@@ -91,6 +128,16 @@ public class SWTSpinnerBridge extends AbstractSWTBridge {
 			}
 			if (this.fSpinner.getSelection() != value)
 				this.fSpinner.setSelection(value);
+			
+			String enabled = TRUE_VALUE;
+			enabled = getAttribute(RCPMLTagConstants.ENABLED_ATTR);
+			if (enabled != null) {
+				if (enabled.equals(FALSE_VALUE)) {
+					this.fSpinner.setEnabled(false);
+				} else {
+					this.fSpinner.setEnabled(true);
+				}
+			}
 		}
 	}
 	public void dispose() {

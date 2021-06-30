@@ -1,6 +1,9 @@
 package org.rcpml.core;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.part.ViewPart;
+import org.rcpml.core.bridge.ICompositeHolder;
 import org.rcpml.core.internal.Controller;
 import org.rcpml.core.internal.RCPMLImpl;
 import org.w3c.dom.Document;
@@ -33,4 +36,27 @@ public class RCPML {
 	public static IController createWithConstructor(Document document) {
 		return new Controller(document, true);
 	}
+	
+	public static Composite createComposite(Document doc, Composite parent) {
+		Object presentation = RCPML.renderDocument(doc);
+		Composite composite = getComposite(presentation, parent);
+		return composite;
+	}
+	
+	private static Composite getComposite(Object presentation, Composite parent) {
+		if (presentation instanceof ViewPart) {
+			ViewPart vp = (ViewPart) presentation;
+			vp.createPartControl(parent);
+		}
+		Composite composite = null;
+		if (presentation instanceof Composite) {
+			composite = (Composite) presentation;
+		} else if (presentation instanceof ICompositeHolder) {
+			composite = ((ICompositeHolder) presentation).getComposite();
+		}
+		
+		composite.setParent(parent);
+		return composite;
+	}
+
 }

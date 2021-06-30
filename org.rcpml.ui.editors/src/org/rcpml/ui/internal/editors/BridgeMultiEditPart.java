@@ -18,7 +18,7 @@ import org.rcpml.core.BridgeVisitor;
 import org.rcpml.core.IController;
 import org.rcpml.core.bridge.AbstractBridge;
 import org.rcpml.core.bridge.IBridge;
-import org.rcpml.swt.ICompositeHolder;
+import org.rcpml.core.bridge.ICompositeHolder;
 import org.w3c.dom.Node;
 
 import com.xored.scripting.core.ScriptException;

@@ -2,7 +2,11 @@
 <?pde version="3.8"?>
 <target includeMode="feature" name="Running Platform">
 	<locations>
-		<location path="${eclipse_home}" type="Profile"/>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<repository location="https://download.eclipse.org/releases/2019-12/"/>
+			<unit id="org.eclipse.emf.sdk.feature.group" version="2.20.0.v20191028-0905"/>
+			<unit id="org.eclipse.sdk.feature.group" version="4.14.0.v20191210-0610"/>
+		</location>
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<repository location="https://download.eclipse.org/tools/orbit/downloads/drops/R20190827152740/repository"/>
 			<unit id="org.apache.batik.constants" version="1.11.0.v20190515-0436"/>
@@ -13,16 +17,15 @@
 			<unit id="org.apache.batik.dom.source" version="1.9.1.v20190730-1743"/>
 			<unit id="org.apache.batik.i18n" version="1.11.0.v20190515-0436"/>
 			<unit id="org.apache.batik.i18n.source" version="1.11.0.v20190515-0436"/>
+			<unit id="org.apache.batik.util" version="1.11.0.v20190515-0436"/>
 			<unit id="org.apache.batik.util.gui" version="1.9.1.v20190730-1743"/>
 			<unit id="org.apache.batik.util.gui.source" version="1.9.1.v20190730-1743"/>
-			<unit id="org.apache.batik.util" version="1.11.0.v20190515-0436"/>
 			<unit id="org.apache.batik.util.source" version="1.11.0.v20190515-0436"/>
 		</location>
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<repository location="http://download.eclipse.org/releases/2019-12/201912181000"/>
 			<unit id="org.eclipse.wst.jsdt.chromium.debug.feature.feature.group" version="0.6.100.v201908270117"/>
 			<unit id="org.eclipse.wst.jsdt.feature.feature.group" version="2.1.4.v201912012351"/>
-			<unit id="org.eclipse.wst.web_ui.feature.feature.group" version="3.16.0.v201911262315"/>
 		</location>
 	</locations>
 	<environment>

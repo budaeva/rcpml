@@ -6,6 +6,7 @@ import org.rcpml.core.IController;
 import org.rcpml.core.RCPMLException;
 import org.rcpml.core.bridge.AbstractBridge;
 import org.rcpml.core.bridge.IBridge;
+import org.rcpml.core.bridge.ICompositeHolder;
 import org.rcpml.core.dom.RCPStylableElement;
 import org.w3c.dom.Node;
 

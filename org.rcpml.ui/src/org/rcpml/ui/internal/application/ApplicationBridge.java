@@ -1,6 +1,8 @@
 package org.rcpml.ui.internal.application;
 
-import org.eclipse.core.runtime.IPlatformRunnable;
+import org.eclipse.equinox.app.IApplication;
+import org.eclipse.equinox.app.IApplicationContext;
+//import org.eclipse.core.runtime.IPlatformRunnable;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
@@ -52,22 +54,30 @@ public class ApplicationBridge extends AbstractBridge {
 		return fRunnable;
 	}
 
-	private class ApplicationRunnable implements IPlatformRunnable {
-		public Object run(Object args) throws Exception {
+	private class ApplicationRunnable implements IApplication {
+
+		@Override
+		public Object start(IApplicationContext context) throws Exception {
 			Display display = PlatformUI.createDisplay();
 			try {
 
 				int returnCode = PlatformUI.createAndRunWorkbench(display,
 						new ApplicationWorkbenchAdvisor());
 				if (returnCode == PlatformUI.RETURN_RESTART) {
-					return IPlatformRunnable.EXIT_RESTART;
+					return IApplication.EXIT_RESTART;
 				}
 				getController().bridgeDisposed(ApplicationBridge.this);
-				return IPlatformRunnable.EXIT_OK;
+				return IApplication.EXIT_OK;
 			} finally {
 				
 				display.dispose();
 			}
+		}
+
+		@Override
+		public void stop() {
+			// TODO Auto-generated method stub
+			
 		}
 	}
 

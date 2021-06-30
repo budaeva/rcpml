@@ -18,6 +18,8 @@ public class DataSourceElementAttributeBinding extends AbstractDataSourceElement
 	private Node fNode;
 	private String fAttribute;
 	private String fValue;
+	
+	private boolean ignoreEvents;
 
 	public DataSourceElementAttributeBinding(Node node, String attribute) {		
 		this.fNode = node;
@@ -26,13 +28,13 @@ public class DataSourceElementAttributeBinding extends AbstractDataSourceElement
 		initEventHandler();
 	}
 	private void initEventHandler() {
-		Document doc = this.fNode.getOwnerDocument();		
+		Document doc = this.getfNode().getOwnerDocument();		
 		EventTarget et = (EventTarget) doc;
 
 		et.addEventListener( Controller.DOMATTR_MODIFIED, this, true);		
 	}
 	private void removeEventHandler() {
-		Document doc = this.fNode.getOwnerDocument();		
+		Document doc = this.getfNode().getOwnerDocument();		
 		EventTarget et = (EventTarget) doc;
 
 		et.removeEventListener( Controller.DOMATTR_MODIFIED, this, true);
@@ -52,7 +54,7 @@ public class DataSourceElementAttributeBinding extends AbstractDataSourceElement
 		}
 		this.removeEventHandler();
 		this.fValue = (String)value;
-		DOMUtils.setAttribute(this.fNode, this.fAttribute, this.fValue );
+		DOMUtils.setAttribute(this.getfNode(), this.fAttribute, this.fValue );
 		this.initEventHandler();
 		this.notifyValueChanged();
 	}
@@ -62,12 +64,15 @@ public class DataSourceElementAttributeBinding extends AbstractDataSourceElement
 	}
 	public void handleEvent(Event event) {
 		if( event.getType().equals(Controller.DOMATTR_MODIFIED)) {
-			String value = DOMUtils.getAttribute(this.fNode, this.fAttribute);
+			String value = DOMUtils.getAttribute(this.getfNode(), this.fAttribute);
 			if( this.fValue.equals(value)) {
 				return;
 			}
 			this.fValue = value;
 			this.notifyValueChanged();
 		}		
+	}
+	public Node getfNode() {
+		return fNode;
 	}
 }
