@@ -1,8 +1,6 @@
 package org.rcpml.core.internal.dom;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
+import org.apache.batik.constants.XMLConstants;
 import org.apache.batik.css.engine.CSSEngine;
 import org.apache.batik.css.engine.CSSStylableElement;
 import org.apache.batik.css.engine.StyleDeclarationProvider;
@@ -10,7 +8,10 @@ import org.apache.batik.css.engine.StyleMap;
 import org.apache.batik.css.engine.value.Value;
 import org.apache.batik.dom.AbstractDocument;
 import org.apache.batik.dom.GenericElementNS;
+import org.apache.batik.util.ParsedURL;
 import org.rcpml.core.dom.RCPStylableElement;
+import org.w3c.dom.Attr;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 public class RCPOMElement extends GenericElementNS implements
@@ -42,8 +43,7 @@ public class RCPOMElement extends GenericElementNS implements
 		return getAttributeNS(null, "class");
 	}
 
-	public URL getCSSBase() {
-		try {
+	public ParsedURL getCSSBase() {
 			if (getXblBoundElement() != null) {
 				return null;
 			}
@@ -51,13 +51,9 @@ public class RCPOMElement extends GenericElementNS implements
 			if (bu == null) {
 				return null;
 			}
-			return new URL(bu);
-		} catch (MalformedURLException e) {
-			// !!! TODO
-			e.printStackTrace();
-			throw new InternalError();
-		}
+			return new ParsedURL(bu);
 	}
+
 
 	public boolean isPseudoInstanceOf(String pseudoClass) {
 		if (pseudoClass.equals("first-child")) {
@@ -82,4 +78,7 @@ public class RCPOMElement extends GenericElementNS implements
 	public StyleDeclarationProvider getOverrideStyleDeclarationProvider() {
 		return null;
 	}
+	
+    
+    
 }

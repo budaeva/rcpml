@@ -1,18 +1,22 @@
 package org.rcpml.swt;
 
 import org.eclipse.core.databinding.DataBindingContext;
-import org.eclipse.jface.databinding.swt.SWTObservables;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.databinding.swt.typed.WidgetProperties;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Text;
 import org.rcpml.core.IController;
 import org.rcpml.core.RCPMLTagConstants;
 import org.rcpml.core.css.RCPCSSConstants;
 import org.rcpml.core.datasource.DataBinding;
 import org.rcpml.core.datasource.DataSourceElementContentBinding;
+import org.rcpml.core.internal.CorePlugin;
 import org.rcpml.swt.databinding.ElementTextObservable;
 import org.w3c.dom.Node;
 
@@ -24,7 +28,7 @@ public abstract class AbstractSWTButtonBridge extends AbstractSWTBridge {
 	private Button fButton;	
 	
 	public static final String TITLE_ATTR = RCPMLTagConstants.TITLE_ATTR;	
-	private static final String ENABLED_ATTR = RCPMLTagConstants.ENABLED_ATTR;
+	
 	private static final String PATH_ATTR = "path";
 	
 	protected abstract int getStyle();	
@@ -43,6 +47,7 @@ public abstract class AbstractSWTButtonBridge extends AbstractSWTBridge {
 		return button;
 	}
 	
+	@Override
 	protected void construct( Composite parent ) {
 		// check initial values.
 		int style = this.getStyle();
@@ -55,7 +60,7 @@ public abstract class AbstractSWTButtonBridge extends AbstractSWTBridge {
 
 		DataBindingContext dbc = this.getBindingContext();
 		
-		dbc.bindValue(SWTObservables.observeSelection(this.fButton), new ElementTextObservable(
+		dbc.bindValue(WidgetProperties.widgetSelection().observe(this.fButton), new ElementTextObservable(
 				getNode()), null, null );
 
 		String path = getAttribute(PATH_ATTR);
@@ -72,18 +77,19 @@ public abstract class AbstractSWTButtonBridge extends AbstractSWTBridge {
 		button.addSelectionListener( new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent arg0) {
 				String onClickAction = getAttribute(RCPMLTagConstants.ONCLICK_ATTR);
-				if( onClickAction.length() > 0 ) {
+				if( onClickAction != null && onClickAction.length() > 0 ) {
 					IScriptContextManager manager = getController().getScriptManager();
 					IScriptingContext context;
 					try {
 						context = manager.getContextFrom( onClickAction );
+						if( context != null ) {
+							context.bindObject("node", getNode() );
+							context.bindObject("newValue", Boolean.toString(((Button)(arg0.getSource())).getSelection()));
+							context.executeScript( onClickAction );
+						}
 					} catch (ScriptException e) {
-						e.printStackTrace();
-						context = null;
-					}
-					if( context != null ) {
-						context.bindObject("node", getNode() );
-						context.executeScript( onClickAction );
+						Status status = new Status(IStatus.ERROR, CorePlugin.PLUGIN_ID, e.getMessage(), e);
+						CorePlugin.getDefault().getLog().log(status);
 					}
 				}
 			}					
@@ -95,14 +101,7 @@ public abstract class AbstractSWTButtonBridge extends AbstractSWTBridge {
 		});
 	}
 		
-	protected boolean getEnabled() {
-		String enabled = this.getAttribute(ENABLED_ATTR);
-		if( enabled.equals(RCPCSSConstants.FALSE_VALUE) ) {
-			return false;
-		}
-		return true;
-	}
-
+	@Override
 	public Object getPresentation() {
 		return this.fButton;
 	}
@@ -110,6 +109,7 @@ public abstract class AbstractSWTButtonBridge extends AbstractSWTBridge {
 	protected Button getButton() {
 		return this.fButton;
 	}
+	@Override
 	public void update() {
 		if( this.fButton != null ) {
 			this.fButton.setLayoutData( this.constructLayoutData(this.fButton.getParent() ) );
@@ -124,6 +124,7 @@ public abstract class AbstractSWTButtonBridge extends AbstractSWTBridge {
 			this.fButton.update();
 		}
 	}
+	@Override
 	public void dispose() {
 		if( this.fButton != null ) {
 			this.fButton.dispose();

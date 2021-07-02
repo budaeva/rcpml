@@ -12,10 +12,10 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.ui.IFileEditorInput;
 import org.rcpml.core.IController;
+import org.rcpml.core.bridge.ICompositeHolder;
 import org.rcpml.core.datasource.DataSourceUtils;
 import org.rcpml.core.datasource.IDataSourceElementBinding;
 import org.rcpml.emf.example.synch.EMFSynchronizator;
-import org.rcpml.swt.ICompositeHolder;
 
 /**
  * @author Yuri Strot

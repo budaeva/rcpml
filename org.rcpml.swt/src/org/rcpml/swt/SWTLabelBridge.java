@@ -23,9 +23,11 @@ public class SWTLabelBridge extends AbstractSWTBridge {
 	public SWTLabelBridge(Node node, IController container) {
 		super( node, container, false );			
 	}
+	@Override
 	public Object getPresentation() {
 		return this.fLabel;
 	}
+	@Override
 	protected void construct( Composite parent ) {
 		int style = SWT.NULL;
 		
@@ -51,6 +53,7 @@ public class SWTLabelBridge extends AbstractSWTBridge {
 	protected Label constructLabel( Composite parent, int style ) {
 		return new Label(parent, style );
 	}
+	@Override
 	public void update() {		
 		if( this.fLabel != null ) {
 			this.fLabel.setLayoutData( constructLayoutData(fLabel.getParent() ));
@@ -62,6 +65,7 @@ public class SWTLabelBridge extends AbstractSWTBridge {
 			}
 		}
 	}	
+	@Override
 	public void dispose() {
 		if( this.fLabel != null ) {
 			this.fLabel.dispose();

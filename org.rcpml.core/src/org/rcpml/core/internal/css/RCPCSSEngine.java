@@ -7,6 +7,7 @@ import org.apache.batik.css.engine.CSSEngine;
 import org.apache.batik.css.engine.value.ShorthandManager;
 import org.apache.batik.css.engine.value.ValueManager;
 import org.apache.batik.css.parser.ExtendedParser;
+import org.apache.batik.util.ParsedURL;
 import org.rcpml.core.css.RCPCSSConstants;
 import org.rcpml.core.internal.css.managers.BorderValueManager;
 import org.rcpml.core.internal.css.managers.LayoutAlignValueManager;
@@ -80,7 +81,7 @@ public class RCPCSSEngine extends CSSEngine {
 	 * @param ctx
 	 *            The CSS context.
 	 */
-	public RCPCSSEngine(Document doc, URL uri, ExtendedParser p, CSSContext ctx) {
+	public RCPCSSEngine(Document doc, ParsedURL uri, ExtendedParser p, CSSContext ctx) {
 		super(doc, uri, p, RCP_VALUE_MANAGERS, RCP_SHORTHAND_MANAGERS, null,
 				null, "style", null, "class", true, null, ctx);
 	}
@@ -101,7 +102,7 @@ public class RCPCSSEngine extends CSSEngine {
 	 * @param ctx
 	 *            The CSS context.
 	 */
-	public RCPCSSEngine(Document doc, URL uri, ExtendedParser p,
+	public RCPCSSEngine(Document doc, ParsedURL uri, ExtendedParser p,
 			ValueManager[] vms, ShorthandManager[] sms, CSSContext ctx) {
 		super(doc, uri, p, mergeArrays(RCP_VALUE_MANAGERS, vms), mergeArrays(
 				RCP_SHORTHAND_MANAGERS, sms), null, null, "style", null,

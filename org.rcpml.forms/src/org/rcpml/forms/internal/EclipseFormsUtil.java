@@ -11,9 +11,9 @@ import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 import org.rcpml.core.RCPMLException;
 import org.rcpml.core.bridge.IBridge;
+import org.rcpml.core.bridge.ICompositeHolder;
 import org.rcpml.core.css.RCPCSSConstants;
 import org.rcpml.core.dom.RCPStylableElement;
-import org.rcpml.swt.ICompositeHolder;
 import org.rcpml.swt.SWTUtils;
 
 public class EclipseFormsUtil {

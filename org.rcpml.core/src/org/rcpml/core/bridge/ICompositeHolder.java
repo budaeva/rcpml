@@ -1,4 +1,4 @@
-package org.rcpml.swt;
+package org.rcpml.core.bridge;
 
 
 import org.eclipse.swt.widgets.Composite;

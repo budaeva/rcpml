@@ -14,6 +14,7 @@ import org.apache.batik.dom.GenericDocumentType;
 import org.apache.batik.dom.util.CSSStyleDeclarationFactory;
 import org.apache.batik.dom.util.DOMUtilities;
 import org.apache.batik.dom.util.HashTable;
+import org.apache.batik.util.ParsedURL;
 import org.rcpml.core.internal.css.RCPCSSEngine;
 import org.rcpml.core.internal.css.dom.CSSOMRCPViewCSS;
 import org.w3c.dom.DOMException;
@@ -51,7 +52,7 @@ public class RCPDOMImplementation extends ExtensibleDOMImplementation implements
 			CSSContext ctx, ExtendedParser ep, ValueManager[] vms,
 			ShorthandManager[] sms) {
 		URL durl = ((RCPOMDocument) doc).getURLObject();
-		return new RCPCSSEngine(doc, durl, ep, vms, sms, ctx);
+		return new RCPCSSEngine(doc, durl == null? null: new ParsedURL(durl), ep, vms, sms, ctx);
 	}
 
 	public ViewCSS createViewCSS(AbstractStylableDocument doc) {

@@ -1,5 +1,7 @@
 package org.ecpml.emf.example;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.rcpml.core.IController;
 import org.rcpml.core.RCPMLException;
 import org.rcpml.core.bridge.AbstractBridge;
@@ -24,12 +26,14 @@ public class JLoaderTagFactory extends AbstractBridgeFactory {
 		}
 		
 		public void init(IController container) {
-			try {
-				getController().getScriptManager().getDefaultContext(
-						).bindObject("emfLoader", new EMFBindingManager(container));
-			} catch (ScriptException e) {
-				e.printStackTrace();
-			}
+				try {
+					getController().getScriptManager().getDefaultContext(
+							).bindObject("emfLoader", new EMFBindingManager(container));
+				} catch (ScriptException e) {
+					Status status = new Status(IStatus.ERROR, EMFExamplePlugin.PLUGIN_ID, e.getMessage(), e);
+					EMFExamplePlugin.getDefault().getLog().log(status);
+				}
+			
 		}
 
 		public Object getPresentation() {

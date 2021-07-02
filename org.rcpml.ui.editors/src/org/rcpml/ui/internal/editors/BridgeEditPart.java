@@ -4,6 +4,8 @@
 package org.rcpml.ui.internal.editors;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -11,7 +13,7 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.EditorPart;
-import org.rcpml.swt.ICompositeHolder;
+import org.rcpml.core.bridge.ICompositeHolder;
 
 import com.xored.scripting.core.ScriptException;
 
@@ -38,8 +40,8 @@ class BridgeEditPart extends EditorPart implements ICompositeHolder,
 		try {
 			this.bridge.getController().getScriptManager().getDefaultContext();
 		} catch (ScriptException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Status status = new Status(IStatus.ERROR, EditorsPlugin.PLUGIN_ID, e.getMessage(), e);
+			EditorsPlugin.getDefault().getLog().log(status);
 		}
 		this.bridge.executeInitScript(this);
 	}

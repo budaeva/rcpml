@@ -17,6 +17,15 @@ public class DOMUtils {
 		}
 		return null;
 	}
+	
+	public static String getAttribute(Node node, String attrName, String defaultValue) {
+		if (node.getNodeType() == Node.ELEMENT_NODE) {
+			Element element = (Element) node;
+			String attrValue = element.getAttribute(attrName);
+			return attrValue.equals("") ? defaultValue : attrValue;
+		}
+		return null;
+	}
 
 	public static final void setChildrenText( Node node, String text ) {
 		Document doc = node.getOwnerDocument();

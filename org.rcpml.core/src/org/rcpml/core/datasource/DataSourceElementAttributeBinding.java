@@ -18,6 +18,8 @@ public class DataSourceElementAttributeBinding extends AbstractDataSourceElement
 	private Node fNode;
 	private String fAttribute;
 	private String fValue;
+	
+	private boolean ignoreEvents;
 
 	public DataSourceElementAttributeBinding(Node node, String attribute) {		
 		this.fNode = node;
@@ -70,4 +72,5 @@ public class DataSourceElementAttributeBinding extends AbstractDataSourceElement
 			this.notifyValueChanged();
 		}		
 	}
+	
 }

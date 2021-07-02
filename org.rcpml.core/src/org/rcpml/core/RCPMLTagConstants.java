@@ -8,6 +8,7 @@ public interface RCPMLTagConstants {
 	
 	//script events
 	static final String ONCLICK_ATTR = "onclick";
+	static final String ONCHANGE_ATTR = "onchange";
 	
 	//other
 	static final String NONE_VALUE = "none";

@@ -6,11 +6,18 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.rcpml.core.internal.CorePlugin
 Bundle-Vendor: Xored software, Inc
 Bundle-Localization: plugin
-Require-Bundle: org.apache.batik,
- org.eclipse.core.runtime,
- com.xored.scripting.core;visibility:=reexport,
+Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
- org.w3c.xml
+ org.eclipse.swt,
+ org.eclipse.ui,
+ org.w3c.css.sac;bundle-version="1.3.1",
+ org.apache.batik.dom,
+ com.xored.scripting.core;bundle-version="1.0.0",
+ org.apache.batik.constants;bundle-version="1.9.1",
+ org.apache.batik.css;bundle-version="1.9.1",
+ org.apache.batik.i18n;bundle-version="1.9.1",
+ org.apache.batik.util;bundle-version="1.9.1",
+ org.apache.batik.xml;bundle-version="1.9.1"
 Eclipse-AutoStart: true
 Export-Package: org.rcpml.core,
  org.rcpml.core.bridge,

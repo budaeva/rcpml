@@ -7,6 +7,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
+import org.w3c.dom.Element;
 
 /**
  * This class are used to bind DOM Node content. 
@@ -97,4 +98,5 @@ public class DataSourceElementContentBinding extends AbstractDataSourceElementBi
 		DOMUtils.setChildrenText(fNode, fValue.toString());
 		ignoreEvents = false;
 	}
+
 }

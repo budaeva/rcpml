@@ -7,7 +7,8 @@ import org.apache.batik.css.engine.CSSEngine;
 import org.apache.batik.css.engine.CSSStyleSheetNode;
 import org.apache.batik.css.engine.StyleSheet;
 import org.apache.batik.dom.AbstractDocument;
-import org.apache.batik.util.XMLConstants;
+import org.apache.batik.util.ParsedURL;
+import org.apache.batik.constants.XMLConstants;
 import org.rcpml.core.IController;
 import org.w3c.dom.Node;
 import org.w3c.dom.events.Event;
@@ -16,7 +17,6 @@ import org.w3c.dom.stylesheets.LinkStyle;
 
 public class RCPOMStyleElement extends RCPOMElement implements
 		CSSStyleSheetNode, LinkStyle {
-	
 	private static final long serialVersionUID = -438785343621551661L;
 	
 	private static final String TYPE_ATTRIBUTE = "type";
@@ -78,17 +78,11 @@ public class RCPOMStyleElement extends RCPOMElement implements
 	                    }
 	                    text = sb.toString();
 	                }
-	                URL burl = null;
-	                try {
+	                ParsedURL burl = null;
 	                    String bu = getBaseURI();
 	                    if (bu != null) {
-	                        burl = new URL(bu);
+	                        burl = new ParsedURL(bu);
 	                    }
-	                } catch (MalformedURLException ex) {
-	                    // !!! TODO
-	                    ex.printStackTrace();
-	                    throw new InternalError();
-	                }
 	                String  media = getAttributeNS(null, MEDIA_ATTRIBUTE);
 	                fStyleSheet = e.parseStyleSheet(text, burl, media);
 	                
@@ -109,4 +103,5 @@ public class RCPOMStyleElement extends RCPOMElement implements
 	private String getType() {		
 	       return getAttributeNS(null, TYPE_ATTRIBUTE );
 	}
+	
 }
