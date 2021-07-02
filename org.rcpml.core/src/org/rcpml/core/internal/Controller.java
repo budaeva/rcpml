@@ -27,7 +27,6 @@ import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
 
 import com.xored.scripting.core.IScriptContextManager;
-//import com.xored.scripting.core.ScriptContextManager;
 import com.xored.scripting.core.ScriptingCore;
 
 /**
@@ -74,7 +73,6 @@ public class Controller implements IController, IVisitor, EventListener,
 
 		this.fScriptContextManager = ScriptingCore.createContextManager();
 		this.fScriptContextManager.addDefaultBinding("document", this.fDocument);
-//		this.fScriptContextManager = new ScriptContextManager(this.fDocument);
 		this.fScriptContextManager.setDefaultLanguage("javascript");
 
 		// Initialize css

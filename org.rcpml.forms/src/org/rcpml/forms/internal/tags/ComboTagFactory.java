@@ -25,12 +25,6 @@ public class ComboTagFactory extends AbstractBridgeFactory {
 			String label = getAttribute("label");
 			combo.setToolTipText(label);
 			
-			String items = getAttribute("items");
-			if (items != null) {
-				for (String item : items.split(",")) {
-					combo.add(item);
-				}
-			}
 			combo.setBackground(this.getFormToolkit().getColors().getBackground());
 //			combo.setForeground(this.getFormToolkit().getColors().getBorderColor());
 			return combo;

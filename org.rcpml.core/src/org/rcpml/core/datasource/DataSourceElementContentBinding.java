@@ -17,14 +17,14 @@ import org.w3c.dom.Element;
  * 
  */
 public class DataSourceElementContentBinding extends AbstractDataSourceElementBinding implements EventListener {
-	protected Node fNode;
-	protected Object fValue;
+	private Node fNode;
+	private Object fValue;
 	private Object type;
 	
 	/**
 	 * Do not allow infinite recursive binding
 	 */
-	protected boolean ignoreEvents;
+	private boolean ignoreEvents;
 
 	public DataSourceElementContentBinding(Node node, Object type) {		
 		fNode = node;
@@ -33,13 +33,13 @@ public class DataSourceElementContentBinding extends AbstractDataSourceElementBi
 		initEventHandler();
 	}
 	
-	protected void initEventHandler() {
+	private void initEventHandler() {
 		Document doc = fNode.getOwnerDocument();		
 		EventTarget et = (EventTarget) doc;
 
 		et.addEventListener( IController.DOMSUBTREE_MODIFIED, this, true);
 	}
-	protected void removeEventHandler() {
+	private void removeEventHandler() {
 		Document doc = fNode.getOwnerDocument();		
 		EventTarget et = (EventTarget) doc;
 
@@ -54,7 +54,7 @@ public class DataSourceElementContentBinding extends AbstractDataSourceElementBi
 		return type;
 	}
 	
-	protected Object getValueFromString(String s) {
+	private Object getValueFromString(String s) {
 		return s;
 	}
 
@@ -99,7 +99,4 @@ public class DataSourceElementContentBinding extends AbstractDataSourceElementBi
 		ignoreEvents = false;
 	}
 
-	public Node getfNode() {
-		return fNode;
-	}
 }

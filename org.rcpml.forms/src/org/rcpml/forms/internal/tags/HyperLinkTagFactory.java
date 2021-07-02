@@ -1,5 +1,7 @@
 package org.rcpml.forms.internal.tags;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -13,6 +15,7 @@ import org.rcpml.core.RCPMLTagConstants;
 import org.rcpml.core.bridge.AbstractBridgeFactory;
 import org.rcpml.core.bridge.IBridge;
 import org.rcpml.core.dom.DOMUtils;
+import org.rcpml.core.internal.CorePlugin;
 import org.rcpml.forms.internal.AbstractEclipseFormsBridge;
 import org.w3c.dom.Node;
 
@@ -20,49 +23,51 @@ import com.xored.scripting.core.ScriptException;
 
 public class HyperLinkTagFactory extends AbstractBridgeFactory {
 	private static class HyperLinkBridge extends AbstractEclipseFormsBridge {
-		protected static final String ONCLICK_SCRIPT_ATTR = RCPMLTagConstants.ONCLICK_ATTR;		
-		
+		protected static final String ONCLICK_SCRIPT_ATTR = RCPMLTagConstants.ONCLICK_ATTR;
+
 		private Hyperlink fHyperLink;
+
 		protected HyperLinkBridge(Node node, IController controller) {
-			super(node, controller,false);			
+			super(node, controller, false);
 		}
 
 		protected void construct(Composite parent) {
 			String text = DOMUtils.getChildrenAsText(this.getNode());
-			fHyperLink = this.getFormToolkit().createHyperlink(parent, text, SWT.WRAP );			
-			
-			//GridData gd = new GridData();
-			//gd.horizontalSpan = 2;
-			//this.fHyperLink.setLayoutData( gd );
-			this.fHyperLink.setLayoutData( this.constructLayoutData(parent ) );
-			
+			fHyperLink = this.getFormToolkit().createHyperlink(parent, text, SWT.WRAP);
+
+			// GridData gd = new GridData();
+			// gd.horizontalSpan = 2;
+			// this.fHyperLink.setLayoutData( gd );
+			this.fHyperLink.setLayoutData(this.constructLayoutData(parent));
+
 			fHyperLink.addHyperlinkListener(new HyperlinkAdapter() {
 				public void linkActivated(HyperlinkEvent e) {
 					Node nde = getNode();
-					String script = getAttribute( ONCLICK_SCRIPT_ATTR );
-					if( script != null ) {
-							try {
-								getController().getScriptManager().executeScript(script);
-							} catch (ScriptException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
+					String script = getAttribute(ONCLICK_SCRIPT_ATTR);
+					if (script != null) {
+						try {
+							getController().getScriptManager().executeScript(script);
+						} catch (ScriptException e1) {
+							Status status = new Status(IStatus.ERROR, CorePlugin.PLUGIN_ID, e1.getMessage(), e1);
+							CorePlugin.getDefault().getLog().log(status);
+						}
 					}
 				}
 			});
-			
-			fHyperLink.addDisposeListener( new DisposeListener() {
+
+			fHyperLink.addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
 					disposeDataBinding();
-				}			
+				}
 			});
 		}
 
 		public Object getPresentation() {
 			return fHyperLink;
 		}
-		
+
 	}
+
 	public HyperLinkTagFactory() {
 		super();
 	}

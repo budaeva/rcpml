@@ -4,13 +4,19 @@ import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.swt.widgets.Composite;
 import org.rcpml.core.IController;
 import org.rcpml.core.RCPMLException;
+import org.rcpml.core.RCPMLTagConstants;
 import org.rcpml.core.bridge.AbstractBridge;
 import org.rcpml.core.bridge.IBridge;
 import org.rcpml.core.bridge.ICompositeHolder;
+import org.rcpml.core.css.RCPCSSConstants;
 import org.rcpml.core.dom.RCPStylableElement;
 import org.w3c.dom.Node;
 
 public abstract class AbstractSWTBridge extends AbstractBridge {
+	protected static final String TRUE_VALUE = RCPCSSConstants.TRUE_VALUE;
+	protected static final String FALSE_VALUE = RCPCSSConstants.FALSE_VALUE;
+
+	private static final String ENABLED_ATTR = RCPMLTagConstants.ENABLED_ATTR;
 	private DataBindingContext fDatabindingContext;
 	protected AbstractSWTBridge(Node node, IController controller,
 			boolean visitChilds) {
@@ -64,5 +70,14 @@ public abstract class AbstractSWTBridge extends AbstractBridge {
 		if( this.fDatabindingContext != null ) {
 			this.fDatabindingContext.dispose();
 		}
+	}
+	
+	protected boolean getEnabled() {
+		String enabled = TRUE_VALUE;
+		enabled = getAttribute(RCPMLTagConstants.ENABLED_ATTR, TRUE_VALUE);
+		if (enabled != null) {
+			return enabled.equals(TRUE_VALUE);
+		}
+		return true;
 	}
 }

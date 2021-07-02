@@ -3,6 +3,8 @@
  */
 package org.rcpml.ui.internal.editors;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.EditorPart;
 import org.rcpml.core.IController;
@@ -32,8 +34,8 @@ class EditorBridge extends AbstractBridge {
 		try {
 			this.getController().getScriptManager().getDefaultContext().bindObject("editor", part );
 		} catch (ScriptException e) {
-//			 TODO Auto-generated catch block
-			e.printStackTrace();
+			Status status = new Status(IStatus.ERROR, EditorsPlugin.PLUGIN_ID, e.getMessage(), e);
+			EditorsPlugin.getDefault().getLog().log(status);
 		}
 		executeScript("oninit");
 	}
@@ -44,8 +46,8 @@ class EditorBridge extends AbstractBridge {
 			try {
 				this.getController().getScriptManager().executeScript( initScript );
 			} catch (ScriptException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Status status = new Status(IStatus.ERROR, EditorsPlugin.PLUGIN_ID, e.getMessage(), e);
+				EditorsPlugin.getDefault().getLog().log(status);
 			}
 		}
 	}

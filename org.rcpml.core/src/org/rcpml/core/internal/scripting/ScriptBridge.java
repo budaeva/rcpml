@@ -14,7 +14,6 @@ import org.rcpml.core.dom.DOMUtils;
 import org.rcpml.core.internal.contentprovider.ContentProviderManager;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.dom.events.Event;
 
 import com.xored.scripting.core.IScriptContextManager;
 import com.xored.scripting.core.IScriptingContext;

@@ -2,7 +2,6 @@ package org.rcpml.ui.internal.application;
 
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
-//import org.eclipse.core.runtime.IPlatformRunnable;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;

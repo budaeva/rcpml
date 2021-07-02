@@ -40,6 +40,7 @@ public class RCPML {
 	public static Composite createComposite(Document doc, Composite parent) {
 		Object presentation = RCPML.renderDocument(doc);
 		Composite composite = getComposite(presentation, parent);
+		composite.setParent(parent);
 		return composite;
 	}
 	
@@ -55,7 +56,6 @@ public class RCPML {
 			composite = ((ICompositeHolder) presentation).getComposite();
 		}
 		
-		composite.setParent(parent);
 		return composite;
 	}
 

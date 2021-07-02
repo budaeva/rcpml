@@ -8,6 +8,8 @@ Bundle-Vendor: Xored software, Inc
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
+ org.eclipse.swt,
+ org.eclipse.ui,
  org.w3c.css.sac;bundle-version="1.3.1",
  org.apache.batik.dom,
  com.xored.scripting.core;bundle-version="1.0.0",
@@ -27,5 +29,3 @@ Export-Package: org.rcpml.core,
  org.rcpml.core.internal.contentprovider;x-friends:="org.rcpml.core.tests",
  org.rcpml.core.utils,
  org.rcpml.core.xml
-Import-Package: org.eclipse.swt.widgets,
- org.eclipse.ui.part

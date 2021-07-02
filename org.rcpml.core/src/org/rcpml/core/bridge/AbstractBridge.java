@@ -1,6 +1,7 @@
 package org.rcpml.core.bridge;
 
 import org.rcpml.core.IController;
+import org.rcpml.core.css.RCPCSSConstants;
 import org.rcpml.core.dom.DOMUtils;
 import org.w3c.dom.Node;
 
@@ -22,6 +23,11 @@ public abstract class AbstractBridge implements IBridge {
 	protected String getAttribute( String attrName ) {
 		return DOMUtils.getAttribute(this.getNode(),attrName );
 	}
+	
+	protected String getAttribute( String attrName, String defaultValue) {
+		return DOMUtils.getAttribute(this.getNode(),attrName, defaultValue);
+	}
+	
 	protected void setAttribute( String attrName, String value ) {
 		DOMUtils.setAttribute(this.getNode(), attrName, value );
 	}

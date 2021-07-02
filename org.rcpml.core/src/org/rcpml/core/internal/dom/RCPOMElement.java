@@ -1,8 +1,5 @@
 package org.rcpml.core.internal.dom;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import org.apache.batik.constants.XMLConstants;
 import org.apache.batik.css.engine.CSSEngine;
 import org.apache.batik.css.engine.CSSStylableElement;
@@ -47,7 +44,6 @@ public class RCPOMElement extends GenericElementNS implements
 	}
 
 	public ParsedURL getCSSBase() {
-//		try {
 			if (getXblBoundElement() != null) {
 				return null;
 			}
@@ -56,17 +52,8 @@ public class RCPOMElement extends GenericElementNS implements
 				return null;
 			}
 			return new ParsedURL(bu);
-//		} catch (MalformedURLException e) {
-//			// !!! TODO
-//			e.printStackTrace();
-//			throw new InternalError();
-//		}
 	}
 
-	public Element getXblBoundElement() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	public boolean isPseudoInstanceOf(String pseudoClass) {
 		if (pseudoClass.equals("first-child")) {
@@ -92,52 +79,6 @@ public class RCPOMElement extends GenericElementNS implements
 		return null;
 	}
 	
-    /**
-     * <b>DOM</b>: Implements {@link org.w3c.dom.Node#getBaseURI()}.
-     */
-    public String getBaseURI() {
-        return getCascadedXMLBase(this);
-    }
     
-    /**
-     * Returns the xml:base attribute value of the given element,
-     * resolving any dependency on parent bases if needed.
-     */
-    protected String getCascadedXMLBase(Node node) {
-        String base = null;
-        Node n = node.getParentNode();
-        while (n != null) {
-            if (n.getNodeType() == Node.ELEMENT_NODE) {
-                base = getCascadedXMLBase(n);
-                break;
-            }
-            n = n.getParentNode();
-        }
-        if (base == null) {
-            AbstractDocument doc;
-            if (node.getNodeType() == Node.DOCUMENT_NODE) {
-                doc = (AbstractDocument) node;
-            } else {
-                doc = (AbstractDocument) node.getOwnerDocument();
-            }
-            base = doc.getDocumentURI();
-        }
-        while (node != null && node.getNodeType() != Node.ELEMENT_NODE) {
-            node = node.getParentNode();
-        }
-        if (node == null) {
-            return base;
-        }
-        Element e = (Element) node;
-        Attr attr = e.getAttributeNodeNS(XMLConstants.XML_NAMESPACE_URI,
-                                         XMLConstants.XML_BASE_ATTRIBUTE);
-        if (attr != null) {
-            if (base == null) {
-                base = attr.getNodeValue();
-            } else {
-                base = new ParsedURL(base, attr.getNodeValue()).toString();
-            }
-        }
-        return base;
-    }
+    
 }

@@ -9,6 +9,9 @@ import org.osgi.framework.BundleContext;
  */
 public class EditorsPlugin extends AbstractUIPlugin {
 
+	// The plug-in ID
+	public static final String PLUGIN_ID = "org.rcpml.ui.editors";
+		
 	//The shared instance.
 	private static EditorsPlugin plugin;
 	

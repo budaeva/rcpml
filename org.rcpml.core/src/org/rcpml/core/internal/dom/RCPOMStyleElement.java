@@ -79,16 +79,10 @@ public class RCPOMStyleElement extends RCPOMElement implements
 	                    text = sb.toString();
 	                }
 	                ParsedURL burl = null;
-//	                try {
 	                    String bu = getBaseURI();
 	                    if (bu != null) {
 	                        burl = new ParsedURL(bu);
 	                    }
-//	                } catch (MalformedURLException ex) {
-//	                    // !!! TODO
-//	                    ex.printStackTrace();
-//	                    throw new InternalError();
-//	                }
 	                String  media = getAttributeNS(null, MEDIA_ATTRIBUTE);
 	                fStyleSheet = e.parseStyleSheet(text, burl, media);
 	                
@@ -103,17 +97,11 @@ public class RCPOMStyleElement extends RCPOMElement implements
 	}
 
 
-	public void addEventListenerNS(String xmlEventsNamespaceUri, String string,
-			EventListener domCharacterDataModifiedListener2, boolean b, Object object) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
 	public org.w3c.dom.stylesheets.StyleSheet getSheet() {
 		throw new RuntimeException(" !!! Not implemented.");
 	}
 	private String getType() {		
 	       return getAttributeNS(null, TYPE_ATTRIBUTE );
 	}
+	
 }

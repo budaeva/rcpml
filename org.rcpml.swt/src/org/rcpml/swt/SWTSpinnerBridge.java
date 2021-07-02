@@ -2,12 +2,12 @@ package org.rcpml.swt;
 
 import org.apache.batik.css.engine.value.Value;
 import org.eclipse.core.databinding.DataBindingContext;
-import org.eclipse.jface.databinding.swt.SWTObservables;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.databinding.swt.typed.WidgetProperties;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Text;
@@ -18,6 +18,7 @@ import org.rcpml.core.datasource.DataBinding;
 import org.rcpml.core.datasource.DataSourceElementContentBinding;
 import org.rcpml.core.dom.DOMUtils;
 import org.rcpml.core.dom.RCPStylableElement;
+import org.rcpml.core.internal.CorePlugin;
 import org.rcpml.swt.databinding.ElementTextObservable;
 import org.w3c.dom.Node;
 
@@ -31,9 +32,7 @@ import com.xored.scripting.core.ScriptException;
  */
 public class SWTSpinnerBridge extends AbstractSWTBridge {
 	
-	private static final String FALSE_VALUE = RCPCSSConstants.FALSE_VALUE;
-	private static final String TRUE_VALUE = RCPCSSConstants.TRUE_VALUE;
-
+	
 	private static final String EDITABLE_ID = "editable";
 
 	private static final String PATH_ATTR = "path";
@@ -44,9 +43,11 @@ public class SWTSpinnerBridge extends AbstractSWTBridge {
 		super( node, container, false );			
 	}
 	
+	@Override
 	public Object getPresentation() {
 		return this.fSpinner;
 	}
+	@Override
 	protected void construct( Composite parent ) {
 		fSpinner = constructSpinner( parent, getStyle() );
 		fSpinner.setMinimum(Integer.MIN_VALUE);
@@ -58,7 +59,7 @@ public class SWTSpinnerBridge extends AbstractSWTBridge {
 		
 		DataBindingContext dbc = this.getBindingContext();
 		
-		dbc.bindValue(SWTObservables.observeSelection(this.fSpinner), new ElementTextObservable(
+		dbc.bindValue(WidgetProperties.widgetSelection().observe(this.fSpinner), new ElementTextObservable(
 				getNode()), null, null );
 
 		String path = getAttribute(PATH_ATTR);
@@ -71,23 +72,21 @@ public class SWTSpinnerBridge extends AbstractSWTBridge {
 	protected void initHandlers() {
 		Spinner spinner = this.fSpinner;
 		
-		spinner.addModifyListener(new ModifyListener() {
-			
-			public void modifyText(ModifyEvent event) {
-				String onChangeAction = getAttribute(RCPMLTagConstants.ONCHANGE_ATTR);
-				if (onChangeAction.length() > 0) {
-					IScriptContextManager manager = getController().getScriptManager();
-					IScriptingContext context;
-					try {
-						context = manager.getContextFrom(onChangeAction);
-					} catch (ScriptException e) {
-						e.printStackTrace();
-						context = null;
-					}
+		spinner.addModifyListener(event -> {
+			String onChangeAction = getAttribute(RCPMLTagConstants.ONCHANGE_ATTR);
+			if (onChangeAction != null && onChangeAction.length() > 0) {
+				IScriptContextManager manager = getController().getScriptManager();
+				IScriptingContext context;
+				try {
+					context = manager.getContextFrom(onChangeAction);
 					if (context != null) {
 						context.bindObject("node", getNode());
+						context.bindObject("newValue", ((Spinner)(event.getSource())).getText());
 						context.executeScript(onChangeAction);
 					}
+				} catch (ScriptException e) {
+					Status status = new Status(IStatus.ERROR, CorePlugin.PLUGIN_ID, e.getMessage(), e);
+					CorePlugin.getDefault().getLog().log(status);
 				}
 			}
 		});
@@ -117,6 +116,7 @@ public class SWTSpinnerBridge extends AbstractSWTBridge {
 	protected Spinner constructSpinner( Composite parent, int style ) {
 		return new Spinner(parent, style );
 	}
+	@Override
 	public void update() {		
 		if( this.fSpinner != null ) {
 			this.fSpinner.setLayoutData( constructLayoutData(fSpinner.getParent() ));
@@ -129,17 +129,10 @@ public class SWTSpinnerBridge extends AbstractSWTBridge {
 			if (this.fSpinner.getSelection() != value)
 				this.fSpinner.setSelection(value);
 			
-			String enabled = TRUE_VALUE;
-			enabled = getAttribute(RCPMLTagConstants.ENABLED_ATTR);
-			if (enabled != null) {
-				if (enabled.equals(FALSE_VALUE)) {
-					this.fSpinner.setEnabled(false);
-				} else {
-					this.fSpinner.setEnabled(true);
-				}
-			}
+			this.fSpinner.setEnabled(this.getEnabled());
 		}
 	}
+	@Override
 	public void dispose() {
 		if( this.fSpinner != null ) {
 			this.fSpinner.dispose();
